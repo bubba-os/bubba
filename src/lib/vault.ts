@@ -20,7 +20,7 @@ export const addVaultDomain = async (domain: string) => {
     {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${env.VERCEL_API_TOKEN}`,
+        Authorization: `Bearer ${env.API_VERCEL}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -39,7 +39,7 @@ export const removeVaultDomain = async (domain: string) => {
     }`,
     {
       headers: {
-        Authorization: `Bearer ${env.VERCEL_API_TOKEN}`,
+        Authorization: `Bearer ${env.API_VERCEL}`,
       },
       method: "DELETE",
     },
@@ -53,7 +53,7 @@ export const removeVaultDomainFromVercelTeam = async (domain: string) => {
     }`,
     {
       headers: {
-        Authorization: `Bearer ${env.VERCEL_API_TOKEN}`,
+        Authorization: `Bearer ${env.API_VERCEL}`,
       },
       method: "DELETE",
     },
@@ -70,7 +70,7 @@ export const getVaultDomainResponse = async (domain: string) => {
     {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${env.VERCEL_API_TOKEN}`,
+        Authorization: `Bearer ${env.API_VERCEL}`,
         "Content-Type": "application/json",
       },
     },
@@ -89,7 +89,7 @@ export const getVaultConfigResponse = async (domain: string) => {
     {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${env.VERCEL_API_TOKEN}`,
+        Authorization: `Bearer ${env.API_VERCEL}`,
         "Content-Type": "application/json",
       },
     },
@@ -106,7 +106,7 @@ export const verifyVaultDomain = async (domain: string) => {
     {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${env.VERCEL_API_TOKEN}`,
+        Authorization: `Bearer ${env.API_VERCEL}`,
         "Content-Type": "application/json",
       },
     },
