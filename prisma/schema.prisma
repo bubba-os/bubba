@@ -4,8 +4,8 @@ generator client {
 
 datasource db {
   provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("POSTGRES_URL_NON_POOLING")
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
 enum PolicyType {
@@ -70,6 +70,7 @@ model Account {
   refresh_token_expires_in Int?
 
   @@unique([provider, providerAccountId])
+  @@index([provider, providerAccountId])
 }
 
 model Session {
@@ -91,6 +92,8 @@ model User {
   organizationMemberships OrganizationMembership[]
   Vendor                  Vendor[]
   Policy                  Policy[]
+
+  @@index([id])
 }
 
 model VerificationToken {
@@ -106,10 +109,15 @@ model Organization {
   name        String
   createdAt   DateTime                 @default(now())
   updatedAt   DateTime                 @updatedAt
+  subdomain   String?
+  published   Boolean                  @default(false)
   projects    Project[]
   memberships OrganizationMembership[]
   Vendor      Vendor[]
   Policy      Policy[]
+
+  @@unique([subdomain])
+  @@index([id])
 }
 
 model OrganizationMembership {
@@ -123,6 +131,7 @@ model OrganizationMembership {
   updatedAt      DateTime         @updatedAt
 
   @@unique([userId, organizationId])
+  @@index([organizationId, userId])
 }
 
 model Project {
@@ -146,8 +155,10 @@ model Policy {
   assignedToId   String
   organization   Organization     @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   organizationId String
+  initialContent Json?
 
   @@unique([organizationId, policyType])
+  @@index([organizationId, id])
 }
 
 model Vendor {

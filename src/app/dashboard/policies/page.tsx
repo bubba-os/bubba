@@ -28,7 +28,7 @@ export default async function PoliciesPage() {
             actions={[
               {
                 label: "New Policy",
-                href: "/dashboard/policies/create",
+                href: "/dashboard/policies/new",
                 icon: PlusIcon,
               },
             ]}

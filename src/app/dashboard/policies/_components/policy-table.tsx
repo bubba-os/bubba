@@ -165,7 +165,13 @@ export function DataTable({ data }: { data: Policy[] }) {
               <TableRow
                 key={row.id}
                 onClick={() =>
-                  router.push(`/dashboard/policies/policy/${row.original.id}`)
+                  row.original.status === "DRAFT"
+                    ? router.push(
+                        `/dashboard/policies/draft/${row.original.id}`,
+                      )
+                    : router.push(
+                        `/dashboard/policies/policy/${row.original.id}`,
+                      )
                 }
                 className="cursor-pointer hover:bg-muted/50"
                 data-state={row.getIsSelected() && "selected"}

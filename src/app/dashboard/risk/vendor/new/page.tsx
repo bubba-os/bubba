@@ -6,8 +6,6 @@ import { type Metadata } from "next";
 import { getServerAuthSession } from "@/server/auth";
 import { loadUsers } from "@/lib/loadUsers";
 
-export const revalidate = 0;
-
 export const metadata: Metadata = {
   title: "Create Vendor | Bubba",
 };

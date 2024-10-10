@@ -1,12 +1,15 @@
+// create-organization-action.ts
+
 "use server";
 
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { authActionClient } from "@/lib/safe-actions";
 import { createOrganizationSchema } from "./organization-schema";
-import { track } from "@vercel/analytics/server";
+
 import { type PolicyType, PolicyStatus } from "@prisma/client";
 import { db } from "@/server/db";
+import { createPolicyContent } from "@/policies/defaultPolicyContent";
 
 const policies: PolicyType[] = [
   "SECURITY_POLICY",
@@ -23,53 +26,53 @@ export const createOrganizationAction = authActionClient
       channel: "web",
     },
   })
-  .action(
-    async ({ parsedInput: { name: name, redirectTo: redirectTo }, ctx }) => {
-      const user = ctx.user.user.id;
+  .action(async ({ parsedInput: { name, redirectTo }, ctx }) => {
+    const userId = ctx.user.user.id;
+    const userName = ctx.user.user.name ?? "User";
 
-      if (!user) {
-        return {
-          error: "Unauthorized",
-        };
-      }
+    if (!userId) {
+      return {
+        error: "Unauthorized",
+      };
+    }
 
-      const organization = await db.organization.create({
-        data: {
-          name,
-          memberships: {
-            create: {
-              userId: user,
-              role: "OWNER",
-            },
+    const organization = await db.organization.create({
+      data: {
+        name,
+        memberships: {
+          create: {
+            userId: userId,
+            role: "OWNER",
           },
         },
-      });
+      },
+    });
 
-      await track("organization_created", {
+    await db.policy.createMany({
+      data: policies.map((policyType) => ({
         organizationId: organization.id,
-      });
+        title: formatPolicyTitle(policyType),
+        policyType: policyType,
+        status: PolicyStatus.DRAFT,
+        assignedToId: userId,
+        initialContent: createPolicyContent(policyType, {
+          version: "1.0",
+          effectiveDate: new Date().toISOString(),
+          approvedBy: userName ?? "",
+        }),
+      })),
+    });
 
-      await db.policy.createMany({
-        data: policies.map((policyType) => ({
-          organizationId: organization.id,
-          title: formatPolicyTitle(policyType),
-          policyType: policyType,
-          status: PolicyStatus.DRAFT,
-          assignedToId: user,
-        })),
-      });
+    revalidateTag("dashboard");
 
-      revalidateTag("dashboard");
+    if (redirectTo) {
+      redirect(redirectTo);
+    }
 
-      if (redirectTo) {
-        redirect(redirectTo);
-      }
-
-      return {
-        organizationId: organization.id,
-      };
-    },
-  );
+    return {
+      organizationId: organization.id,
+    };
+  });
 
 function formatPolicyTitle(policyType: string): string {
   return policyType

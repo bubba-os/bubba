@@ -45,6 +45,7 @@ export function CreateVendorForm({ users }: { users: User[] }) {
   const createVendor = useAction(createVendorAction, {
     onError: () => {
       toast.error("There was an error creating the vendor");
+      form.reset();
     },
     onSuccess: () => {
       toast.success("Vendor created successfully");
@@ -65,7 +66,6 @@ export function CreateVendorForm({ users }: { users: User[] }) {
       redirectTo: "/dashboard/risk/vendor",
       contacts: undefined,
     },
-    mode: "onChange",
   });
 
   function onSubmit(values: z.infer<typeof createVendorSchema>) {

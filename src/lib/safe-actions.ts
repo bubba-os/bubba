@@ -7,6 +7,7 @@ import {
 import { headers } from "next/headers";
 import { z } from "zod";
 import { unstable_checkRateLimit as checkRateLimit } from "@vercel/firewall";
+import { track } from "@vercel/analytics/server";
 
 export const actionClient = createSafeActionClient({
   handleServerError(e) {
@@ -74,6 +75,14 @@ export const authActionClient = actionClientWithMeta
 
     if (!user) {
       throw new Error("Unauthorized");
+    }
+
+    if (metadata.track) {
+      await track(metadata.name, {
+        channel: metadata.track?.channel ?? "web",
+        event: metadata.track?.event ?? "action_executed",
+        userId: user.user.id,
+      });
     }
 
     return next({

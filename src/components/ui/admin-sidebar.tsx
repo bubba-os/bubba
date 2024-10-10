@@ -7,6 +7,8 @@ import {
   PlusIcon,
   Boxes,
   FileSearch2,
+  Lock,
+  Settings2,
 } from "lucide-react";
 import { type Session } from "next-auth";
 import { usePathname, useSelectedLayoutSegment } from "next/navigation";
@@ -64,6 +66,20 @@ export default function AdminSidenav({ session }: { session: Session }) {
           label: "Vendors",
           href: `${basePath}/risk/vendor`,
           icon: <Boxes size={15} />,
+        },
+      ],
+    },
+    {
+      segment: "vault",
+      label: "Trust Vault",
+      href: `${basePath}/vault`,
+      icon: <Lock size={15} />,
+      subOptions: [
+        {
+          segment: "settings",
+          label: "Settings",
+          href: `${basePath}/vault/settings`,
+          icon: <Settings2 size={15} />,
         },
       ],
     },

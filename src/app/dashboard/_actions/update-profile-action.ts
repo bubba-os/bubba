@@ -5,12 +5,15 @@ import { redirect } from "next/navigation";
 import { authActionClient } from "@/lib/safe-actions";
 import { createProfileSchema } from "./profile-schema";
 import { db } from "@/server/db";
-import { track } from "@vercel/analytics/server";
 
 export const updateProfileAction = authActionClient
   .schema(createProfileSchema)
   .metadata({
     name: "update-profile",
+    track: {
+      event: "update_profile",
+      channel: "web",
+    },
   })
   .action(
     async ({ parsedInput: { name: name, redirectTo: redirectTo }, ctx }) => {
@@ -37,10 +40,6 @@ export const updateProfileAction = authActionClient
           error: "Failed to update profile",
         };
       }
-
-      await track("profile_updated", {
-        userId: user,
-      });
 
       revalidateTag("dashboard");
 

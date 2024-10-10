@@ -86,13 +86,7 @@ export default function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <Button
-              type="submit"
-              loading={isLoginWithEmail}
-              className={`${
-                isLoginWithEmail ? "bg-black" : "bg-gray-800 hover:bg-gray-900"
-              } focus:shadow-outline transform rounded px-4 py-2 text-white transition-colors duration-300 ease-in-out focus:outline-none`}
-            >
+            <Button type="submit" loading={isLoginWithEmail}>
               {emailButtonText}
             </Button>
           </form>
@@ -123,11 +117,11 @@ export default function Login() {
           <p className="mt-10 w-full max-w-md px-4 text-xs text-muted-foreground sm:px-16">
             By clicking continue, you acknowledge that you have read and agree
             to Bubba&apos;s{" "}
-            <Link href="/terms" className="underline">
+            <Link href="/" className="underline">
               Terms of Service
             </Link>{" "}
             and{" "}
-            <Link href="/privacy" className="underline">
+            <Link href="/" className="underline">
               Privacy Policy
             </Link>
             .
