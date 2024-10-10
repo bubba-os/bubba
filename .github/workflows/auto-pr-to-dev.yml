@@ -1,0 +1,36 @@
+name: Create Feature Branch -> Dev Pull Request
+on:
+  push:
+    branches:
+      - feature/*
+      - bug/*
+      - task/*
+      - story/*
+      - lewis/*
+
+jobs:
+  create-pull-request:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    permissions:
+      pull-requests: write
+      contents: write
+    steps:
+      - name: Add permissions
+        run: git config --global --add safe.directory /github/workspace
+      - name: Check out epository code
+        uses: actions/checkout@v3
+      - name: Create pull request
+        if: ${{ success() }}
+        uses: repo-sync/pull-request@v2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          destination_branch: "dev"
+          pr_title: "[dev] [${{ github.actor }}] ${{ github.ref_name }}"
+          pr_label: "automated-pr"
+          pr_body: |
+            This is an automated pull request to merge ${{ github.ref_name }} into dev.
+            It was created by the [Auto Pull Request] action.
+            Note: This should only be merged after the following checklist is complete:
+            - [ ] Tested in local environment
+            - [ ] Created relevant migrations (if any)

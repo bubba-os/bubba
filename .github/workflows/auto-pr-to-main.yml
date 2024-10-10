@@ -1,0 +1,50 @@
+name: Create Candidate to Production Pull Request
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  create-pull-request:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: write
+    steps:
+      - name: Add permissions
+        run: git config --global --add safe.directory /github/workspace
+        continue-on-error: true
+
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        continue-on-error: true
+
+      - name: Get package version
+        id: package-version
+        run: echo "::set-output name=PACKAGE_VERSION::$(cat package.json | jq -r .version)"
+
+      # The pull-request action will now only run if the checkout action was successful.
+      - name: Create pull request
+        if: ${{ success() }} # This step runs only if all previous steps succeeded
+        uses: repo-sync/pull-request@v2
+        continue-on-error: true
+        with:
+          destination_branch: "main"
+          github_token: ${{ secrets.GH_SECRET }}
+          pr_label: "prod-deploy,automated-pr"
+          pr_title: "[${{ github.event.repository.name }}] Production Deploy"
+          pr_body: |
+            This is an automated pull request to release the candidate branch into production, which will trigger a deployment.
+            It was created by the [Production PR] action.
+            Note: This should only be merged after the following checklist is complete:
+            - [ ] Is the PR ready to be merged?
+            - [ ] Passed all tests?
+            - [ ] Manually tested in candidate?
+
+      # Optionally, you can add a step here to notify you if the previous steps failed,
+      # so that you can take appropriate actions.
+      - name: Notify Failure
+        if: ${{ failure() }} # This step runs only if any of the previous steps failed
+        run: echo "A step in the job failed. Please check the GitHub Actions logs for details."
+        # You could also trigger other types of notifications, such as sending an email, an alert to Slack, etc.
