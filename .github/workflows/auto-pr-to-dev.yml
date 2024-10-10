@@ -1,4 +1,4 @@
-name: Create Feature Branch -> Dev Pull Request
+name: Create Feature Branch > Dev Pull Request
 on:
   push:
     branches:

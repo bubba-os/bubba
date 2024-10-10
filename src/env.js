@@ -27,7 +27,7 @@ export const env = createEnv({
     UPLOADTHING_SECRET_KEY: z.string(),
     PROJECT_ID_VERCEL: z.string(),
     TEAM_ID_VERCEL: z.string(),
-    API_TOKEN_VERCEL: z.string(),
+    API_VERCEL: z.string(),
     TRUST_VAULT_ROOT_URL: z.string(),
   },
 
@@ -57,7 +57,7 @@ export const env = createEnv({
     UPLOADTHING_SECRET_KEY: process.env.UPLOADTHING_SECRET_KEY,
     PROJECT_ID_VERCEL: process.env.PROJECT_ID_VERCEL,
     TEAM_ID_VERCEL: process.env.TEAM_ID_VERCEL,
-    API_TOKEN_VERCEL: process.env.VERCEL_API_TOKEN,
+    API_VERCEL: process.env.API_VERCEL,
     TRUST_VAULT_ROOT_URL: process.env.TRUST_VAULT_ROOT_URL,
   },
   /**
