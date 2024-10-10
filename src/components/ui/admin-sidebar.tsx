@@ -69,20 +69,6 @@ export default function AdminSidenav({ session }: { session: Session }) {
         },
       ],
     },
-    {
-      segment: "vault",
-      label: "Trust Vault",
-      href: `${basePath}/vault`,
-      icon: <Lock size={15} />,
-      subOptions: [
-        {
-          segment: "settings",
-          label: "Settings",
-          href: `${basePath}/vault/settings`,
-          icon: <Settings2 size={15} />,
-        },
-      ],
-    },
   ];
 
   const normalizePath = (path: string) => path.replace(/\/$/, ""); // Remove trailing slash
