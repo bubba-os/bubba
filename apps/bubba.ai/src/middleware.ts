@@ -1,17 +1,9 @@
 import { auth as authMiddleware } from "@bubba-beta/auth";
-import { createI18nMiddleware } from "next-international/middleware";
 import { type NextRequest, NextResponse } from "next/server";
-
-const I18nMiddleware = createI18nMiddleware({
-  locales: [""],
-  defaultLocale: "",
-  urlMappingStrategy: "rewrite",
-});
 
 export async function middleware(request: NextRequest) {
   const session = await authMiddleware();
   const url = new URL(request.url);
-  const response = request.url;
 
   if (session && url.pathname === "/auth") {
     return NextResponse.redirect(request.url);
