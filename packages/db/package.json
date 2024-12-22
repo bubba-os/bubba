@@ -1,0 +1,32 @@
+{
+  "name": "@bubba-beta/db",
+  "version": "1.0.0",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "db:generate": "bunx prisma generate",
+    "db:push": "bunx prisma db push --skip-generate",
+    "db:studio": "bunx prisma studio",
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "lint": "eslint src/",
+    "clean": "rm -rf .turbo node_modules dist"
+  },
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "dependencies": {
+    "@auth/prisma-adapter": "^2.7.2",
+    "@neondatabase/serverless": "^0.10.4",
+    "@prisma/adapter-neon": "^6.1.0",
+    "@prisma/client": "6.1.0",
+    "prisma": "^6.1.0"
+  },
+  "devDependencies": {
+    "@bubba-beta/tsconfig": "workspace:*",
+    "typescript": "^5.0.0"
+  }
+}
