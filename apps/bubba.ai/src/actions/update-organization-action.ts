@@ -49,8 +49,8 @@ export const updateOrganizationAction = authActionClient
     }
 
     try {
-      await db.$transaction(async (prisma) => {
-        await prisma.organization.upsert({
+      await db.$transaction(async () => {
+        await db.organization.upsert({
           where: {
             id: organization.id,
           },
@@ -63,7 +63,7 @@ export const updateOrganizationAction = authActionClient
             website,
           },
         });
-        await prisma.user.update({
+        await db.user.update({
           where: {
             id: userId,
           },

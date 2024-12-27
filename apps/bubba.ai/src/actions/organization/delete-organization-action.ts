@@ -33,8 +33,8 @@ export const deleteOrganizationAction = authActionClient
     }
 
     try {
-      await db.$transaction(async (prisma) => {
-        await prisma.organization.delete({
+      await db.$transaction(async () => {
+        await db.organization.delete({
           where: { id: user.organizationId },
         });
       });

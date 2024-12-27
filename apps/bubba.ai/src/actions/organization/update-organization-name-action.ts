@@ -29,8 +29,8 @@ export const updateOrganizationNameAction = authActionClient
     }
 
     try {
-      await db.$transaction(async (prisma) => {
-        await prisma.organization.update({
+      await db.$transaction(async () => {
+        await db.organization.update({
           where: { id: organizationId },
           data: { name },
         });
