@@ -23,7 +23,7 @@ interface Props {
 const baseAppUrl = getAppUrl();
 
 export const WaitlistEmail = ({ email }: Props) => {
-  const confirmationUrl = `${baseAppUrl}/api/waitlist?email=${encodeURIComponent(email || "")}`;
+  const confirmationUrl = `https://bubba.ai/api/waitlist?email=${encodeURIComponent(email || "")}`;
 
   return (
     <Html>
