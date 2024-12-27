@@ -1,8 +1,8 @@
 "use client";
 
-import type { Assessment } from "@bubba-beta/db";
-import { Button } from "@bubba-beta/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@bubba-beta/ui/card";
+import type { Assessment } from "@bubba/db";
+import { Button } from "@bubba/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@bubba/ui/card";
 import { format } from "date-fns";
 import Link from "next/link";
 

@@ -1,8 +1,8 @@
 "use client";
 
-import { Button } from "@bubba-beta/ui/button";
-import { Icons } from "@bubba-beta/ui/icons";
-import { Sheet, SheetContent } from "@bubba-beta/ui/sheet";
+import { Button } from "@bubba/ui/button";
+import { Icons } from "@bubba/ui/icons";
+import { Sheet, SheetContent } from "@bubba/ui/sheet";
 import { useState } from "react";
 import { MainMenu } from "./main-menu";
 

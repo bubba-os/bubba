@@ -1,19 +1,19 @@
 "use client";
 
-import type { RiskImpact, RiskProbability } from "@bubba-beta/db";
+import type { RiskImpact, RiskProbability } from "@bubba/db";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@bubba-beta/ui/card";
+} from "@bubba/ui/card";
 import {
   ChartContainer,
   ChartLegend,
   ChartLegendContent,
-} from "@bubba-beta/ui/chart";
-import { cn } from "@bubba-beta/ui/cn";
+} from "@bubba/ui/chart";
+import { cn } from "@bubba/ui/cn";
 import {
   Cell,
   Label,

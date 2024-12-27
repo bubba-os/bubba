@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 import { Onboarding } from "@/components/forms/create-organization-form";
-import { Icons } from "@bubba-beta/ui/icons";
+import { Icons } from "@bubba/ui/icons";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";

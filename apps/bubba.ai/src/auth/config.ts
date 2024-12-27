@@ -1,6 +1,6 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { db } from "@bubba-beta/db";
-import { sendMagicLinkEmail } from "@bubba-beta/email";
+import { db } from "@bubba/db";
+import { sendMagicLinkEmail } from "@bubba/email";
 import type { DefaultSession, NextAuthConfig } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import Resend from "next-auth/providers/resend";

@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
-import { cn } from "@bubba-beta/ui/cn";
-import "@bubba-beta/ui/globals.css";
+import { cn } from "@bubba/ui/cn";
+import "@bubba/ui/globals.css";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";

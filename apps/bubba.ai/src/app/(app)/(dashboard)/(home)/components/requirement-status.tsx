@@ -5,8 +5,8 @@ import type {
   Framework,
   OrganizationFramework,
   OrganizationRequirement,
-} from "@bubba-beta/db";
-import { Card, CardContent, CardHeader, CardTitle } from "@bubba-beta/ui/card";
+} from "@bubba/db";
+import { Card, CardContent, CardHeader, CardTitle } from "@bubba/ui/card";
 
 interface Props {
   frameworks: (OrganizationFramework & {

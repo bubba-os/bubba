@@ -1,5 +1,5 @@
 {
-  "name": "@bubba-beta/kv",
+  "name": "@bubba/kv",
   "version": "1.0.0",
   "private": true,
   "main": "src/index.ts",

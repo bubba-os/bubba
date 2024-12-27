@@ -10,7 +10,7 @@ import {
 } from "@/components/tables/risk-register/empty-states";
 import { FilterToolbar } from "@/components/tables/risk-register/filter-toolbar";
 import { Loading } from "@/components/tables/risk-register/loading";
-import { type Departments, type RiskStatus, db } from "@bubba-beta/db";
+import { type Departments, type RiskStatus, db } from "@bubba/db";
 import { redirect } from "next/navigation";
 
 interface PageProps {

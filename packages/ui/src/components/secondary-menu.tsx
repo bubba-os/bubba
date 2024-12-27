@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@bubba-beta/ui/cn";
+import { cn } from "@bubba/ui/cn";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 

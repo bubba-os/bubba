@@ -1,12 +1,12 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@bubba-beta/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@bubba/ui/card";
 import {
   type ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@bubba-beta/ui/chart";
+} from "@bubba/ui/chart";
 
 import { Bar, BarChart, Cell, LabelList, XAxis, YAxis } from "recharts";
 

@@ -2,15 +2,15 @@
 
 import { updateMenuAction } from "@/actions/update-menu-action";
 import { useMenuStore } from "@/store/menu";
-import { Button } from "@bubba-beta/ui/button";
-import { cn } from "@bubba-beta/ui/cn";
-import { Icons } from "@bubba-beta/ui/icons";
+import { Button } from "@bubba/ui/button";
+import { cn } from "@bubba/ui/cn";
+import { Icons } from "@bubba/ui/icons";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@bubba-beta/ui/tooltip";
+} from "@bubba/ui/tooltip";
 import { useClickAway } from "@uidotdev/usehooks";
 import { Reorder, motion, useMotionValue } from "framer-motion";
 import { useAction } from "next-safe-action/hooks";

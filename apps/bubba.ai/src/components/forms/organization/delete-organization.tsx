@@ -11,17 +11,17 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@bubba-beta/ui/alert-dialog";
-import { Button } from "@bubba-beta/ui/button";
+} from "@bubba/ui/alert-dialog";
+import { Button } from "@bubba/ui/button";
 import {
   Card,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@bubba-beta/ui/card";
-import { Input } from "@bubba-beta/ui/input";
-import { Label } from "@bubba-beta/ui/label";
+} from "@bubba/ui/card";
+import { Input } from "@bubba/ui/input";
+import { Label } from "@bubba/ui/label";
 import { Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { redirect } from "next/navigation";

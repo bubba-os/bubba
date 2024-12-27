@@ -4,7 +4,7 @@ import {
   RiskImpact,
   RiskProbability,
   RiskStatus,
-} from "@bubba-beta/db";
+} from "@bubba/db";
 import { z } from "zod";
 
 export const organizationSchema = z.object({

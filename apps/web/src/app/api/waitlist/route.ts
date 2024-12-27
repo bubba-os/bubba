@@ -1,6 +1,6 @@
 "use server";
 
-import { resend } from "@bubba-beta/email/lib/resend";
+import { resend } from "@bubba/email/lib/resend";
 import { redirect } from "next/navigation";
 import { NextResponse } from "next/server";
 

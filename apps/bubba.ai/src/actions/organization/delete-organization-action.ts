@@ -2,7 +2,7 @@
 
 "use server";
 
-import { db } from "@bubba-beta/db";
+import { db } from "@bubba/db";
 import { authActionClient } from "../safe-action";
 import { deleteOrganizationSchema } from "../schema";
 

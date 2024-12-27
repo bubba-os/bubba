@@ -1,4 +1,4 @@
-import { Button } from "@bubba-beta/ui/button";
+import { Button } from "@bubba/ui/button";
 import Link from "next/link";
 
 export default function SuccessPage() {

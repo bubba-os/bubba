@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 import { RiskMatrix } from "@/components/charts/risk-matrix";
-import { db } from "@bubba-beta/db";
+import { db } from "@bubba/db";
 import { redirect } from "next/navigation";
 
 interface Props {

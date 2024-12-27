@@ -1,6 +1,6 @@
 "use server";
 
-import { sendWaitlistEmail } from "@bubba-beta/email/lib/waitlist";
+import { sendWaitlistEmail } from "@bubba/email/lib/waitlist";
 import { createSafeActionClient } from "next-safe-action";
 import { waitlistSchema } from "./schema";
 

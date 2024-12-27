@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { Avatar, AvatarFallback, AvatarImageNext } from "@bubba-beta/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImageNext } from "@bubba/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from "@bubba-beta/ui/dropdown-menu";
+} from "@bubba/ui/dropdown-menu";
 import Link from "next/link";
 import { SignOut } from "./sign-out";
 import { ThemeSwitch } from "./theme-switch";

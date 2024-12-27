@@ -1,4 +1,4 @@
-import { getEmailUrl } from "@bubba-beta/utils/envs";
+import { getEmailUrl } from "@bubba/utils/envs";
 import { Img, Section } from "@react-email/components";
 
 const baseUrl = getEmailUrl();

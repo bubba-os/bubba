@@ -2,7 +2,7 @@
 
 import { updateOrganizationNameAction } from "@/actions/organization/update-organization-name-action";
 import { organizationNameSchema } from "@/actions/schema";
-import { Button } from "@bubba-beta/ui/button";
+import { Button } from "@bubba/ui/button";
 import {
   Card,
   CardContent,
@@ -10,15 +10,15 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@bubba-beta/ui/card";
+} from "@bubba/ui/card";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from "@bubba-beta/ui/form";
-import { Input } from "@bubba-beta/ui/input";
+} from "@bubba/ui/form";
+import { Input } from "@bubba/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";

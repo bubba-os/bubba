@@ -2,7 +2,7 @@
 
 import { organizationSchema } from "@/actions/schema";
 import { updateOrganizationAction } from "@/actions/update-organization-action";
-import { Button } from "@bubba-beta/ui/button";
+import { Button } from "@bubba/ui/button";
 import {
   Form,
   FormControl,
@@ -10,8 +10,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@bubba-beta/ui/form";
-import { Input } from "@bubba-beta/ui/input";
+} from "@bubba/ui/form";
+import { Input } from "@bubba/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRightIcon } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";

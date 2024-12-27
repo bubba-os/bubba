@@ -1,5 +1,5 @@
-import { db } from "@bubba-beta/db";
-import { ChartContainer } from "@bubba-beta/ui/chart";
+import { db } from "@bubba/db";
+import { ChartContainer } from "@bubba/ui/chart";
 import { DepartmentChart } from "./department-chart";
 
 interface Props {

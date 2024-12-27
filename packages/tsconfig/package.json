@@ -1,5 +1,5 @@
 {
-  "name": "@bubba-beta/tsconfig",
+  "name": "@bubba/tsconfig",
   "private": true,
   "version": "1.0.0",
   "files": ["base.json"]

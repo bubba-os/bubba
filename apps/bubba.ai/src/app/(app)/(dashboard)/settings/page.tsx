@@ -3,7 +3,7 @@ import { DeleteOrganization } from "@/components/forms/organization/delete-organ
 import { UpdateOrganizationName } from "@/components/forms/organization/update-organization-name";
 import { UpdateOrganizationWebsite } from "@/components/forms/organization/update-organization-website";
 import { SeedDataForm } from "@/components/forms/seed-data-form";
-import { db } from "@bubba-beta/db";
+import { db } from "@bubba/db";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 

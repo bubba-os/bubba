@@ -3,7 +3,7 @@
 "use server";
 
 import { createOrganizationAndConnectUser } from "@/auth/org";
-import { db } from "@bubba-beta/db";
+import { db } from "@bubba/db";
 import { revalidateTag } from "next/cache";
 import { authActionClient } from "./safe-action";
 import { organizationSchema } from "./schema";

@@ -1,4 +1,4 @@
-import { getAppUrl } from "@bubba-beta/utils/envs";
+import { getAppUrl } from "@bubba/utils/envs";
 import {
   Body,
   Button,

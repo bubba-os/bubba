@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@bubba-beta/ui/button";
+import { Button } from "@bubba/ui/button";
 import { useRouter } from "next/navigation";
 
 export function ErrorFallback() {

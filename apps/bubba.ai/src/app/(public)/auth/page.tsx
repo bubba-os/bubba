@@ -7,7 +7,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@bubba-beta/ui/accordion";
+} from "@bubba/ui/accordion";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";

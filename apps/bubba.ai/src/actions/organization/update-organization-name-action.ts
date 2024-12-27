@@ -2,7 +2,7 @@
 
 "use server";
 
-import { db } from "@bubba-beta/db";
+import { db } from "@bubba/db";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { authActionClient } from "../safe-action";
 import { organizationNameSchema } from "../schema";

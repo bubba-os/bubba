@@ -1,5 +1,5 @@
 import { Cookies } from "@/utils/constants";
-import { Icons } from "@bubba-beta/ui/icons";
+import { Icons } from "@bubba/ui/icons";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import { MainMenu } from "./main-menu";

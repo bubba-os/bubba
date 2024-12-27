@@ -1,15 +1,10 @@
 "use client";
 
-import { Button } from "@bubba-beta/ui/button";
-import { Drawer, DrawerContent, DrawerTitle } from "@bubba-beta/ui/drawer";
-import { useMediaQuery } from "@bubba-beta/ui/hooks";
-import { ScrollArea } from "@bubba-beta/ui/scroll-area";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from "@bubba-beta/ui/sheet";
+import { Button } from "@bubba/ui/button";
+import { Drawer, DrawerContent, DrawerTitle } from "@bubba/ui/drawer";
+import { useMediaQuery } from "@bubba/ui/hooks";
+import { ScrollArea } from "@bubba/ui/scroll-area";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@bubba/ui/sheet";
 import { X } from "lucide-react";
 import { useQueryState } from "nuqs";
 import { CreateRisk } from "../forms/risks/create-risk-form";

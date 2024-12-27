@@ -1,5 +1,5 @@
-import { MagicLinkEmail } from "@bubba-beta/email/emails/magic-link";
-import { sendEmail } from "@bubba-beta/email/lib/resend";
+import { MagicLinkEmail } from "@bubba/email/emails/magic-link";
+import { sendEmail } from "@bubba/email/lib/resend";
 
 export const sendMagicLinkEmail = async (params: {
   url: string;

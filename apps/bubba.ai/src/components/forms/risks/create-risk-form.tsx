@@ -4,14 +4,14 @@ import { getOrganizationUsersAction } from "@/actions/organization/get-organizat
 import { createRiskAction } from "@/actions/risk/create-risk-action";
 import { createRiskSchema } from "@/actions/schema";
 import { SelectUser } from "@/components/select-user";
-import { Departments, RiskCategory } from "@bubba-beta/db";
+import { Departments, RiskCategory } from "@bubba/db";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@bubba-beta/ui/accordion";
-import { Button } from "@bubba-beta/ui/button";
+} from "@bubba/ui/accordion";
+import { Button } from "@bubba/ui/button";
 import {
   Form,
   FormControl,
@@ -19,16 +19,16 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@bubba-beta/ui/form";
-import { Input } from "@bubba-beta/ui/input";
+} from "@bubba/ui/form";
+import { Input } from "@bubba/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@bubba-beta/ui/select";
-import { Textarea } from "@bubba-beta/ui/textarea";
+} from "@bubba/ui/select";
+import { Textarea } from "@bubba/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRightIcon } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";

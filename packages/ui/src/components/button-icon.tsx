@@ -1,4 +1,4 @@
-import { cn } from "@bubba-beta/lib/utils";
+import { cn } from "@bubba/lib/utils";
 import { motion } from "framer-motion";
 
 export const ButtonIcon = ({

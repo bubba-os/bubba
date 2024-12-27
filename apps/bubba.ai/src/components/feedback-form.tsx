@@ -1,13 +1,9 @@
 "use client";
 
 import { sendFeebackAction } from "@/actions/send-feedback-action";
-import { Button } from "@bubba-beta/ui/button";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@bubba-beta/ui/popover";
-import { Textarea } from "@bubba-beta/ui/textarea";
+import { Button } from "@bubba/ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@bubba/ui/popover";
+import { Textarea } from "@bubba/ui/textarea";
 import { Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";

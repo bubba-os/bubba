@@ -1,10 +1,10 @@
 "use client";
 import { AssignedUser } from "@/components/assigned-user";
 import { RISK_COLORS } from "@/constants/colors";
-import type { Departments, RiskCategory, RiskStatus } from "@bubba-beta/db";
-import { Badge } from "@bubba-beta/ui/badge";
-import { Button } from "@bubba-beta/ui/button";
-import { cn } from "@bubba-beta/ui/cn";
+import type { Departments, RiskCategory, RiskStatus } from "@bubba/db";
+import { Badge } from "@bubba/ui/badge";
+import { Button } from "@bubba/ui/button";
+import { cn } from "@bubba/ui/cn";
 import type { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
 

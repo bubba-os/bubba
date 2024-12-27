@@ -1,9 +1,9 @@
 "use client";
 
-import { Button } from "@bubba-beta/ui/button";
-import { cn } from "@bubba-beta/ui/cn";
-import { Form, FormControl, FormField, FormItem } from "@bubba-beta/ui/form";
-import { Input } from "@bubba-beta/ui/input";
+import { Button } from "@bubba/ui/button";
+import { cn } from "@bubba/ui/cn";
+import { Form, FormControl, FormField, FormItem } from "@bubba/ui/form";
+import { Input } from "@bubba/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, Mail } from "lucide-react";
 import { signIn } from "next-auth/react";

@@ -1,12 +1,12 @@
 "use server";
 
-import { db } from "@bubba-beta/db";
+import { db } from "@bubba/db";
 import {
   ArtifactType,
   AssessmentStatus,
   FrameworkAdoptionStatus,
   RequirementStatus,
-} from "@bubba-beta/db";
+} from "@bubba/db";
 import {
   availabilityCriteriaData,
   commonCriteriaData,

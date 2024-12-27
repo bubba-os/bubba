@@ -1,8 +1,8 @@
 "use client";
 
-import { cn } from "@bubba-beta/ui/cn";
-import { Skeleton } from "@bubba-beta/ui/skeleton";
-import { Table, TableBody, TableCell, TableRow } from "@bubba-beta/ui/table";
+import { cn } from "@bubba/ui/cn";
+import { Skeleton } from "@bubba/ui/skeleton";
+import { Table, TableBody, TableCell, TableRow } from "@bubba/ui/table";
 import { Suspense } from "react";
 import { DataTableHeader } from "./data-table-header";
 

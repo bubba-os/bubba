@@ -1,6 +1,6 @@
 <!-- PROJECT LOGO -->
 <p align="center">
-  <a href="https://github.com/bubba-os/bubba-beta">
+  <a href="https://github.com/bubba-os/bubba">
    <img src="https://avatars.githubusercontent.com/u/184552964?s=200&v=4" alt="Logo">
   </a>
 
@@ -12,11 +12,11 @@
     <a href="https://bubba.ai"><strong>Learn more »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/bubba-os/bubba-beta/discussions">Discussions</a>
+    <a href="https://github.com/bubba-os/bubba/discussions">Discussions</a>
     ·
     <a href="https://bubba.ai">Website</a>
     ·
-    <a href="https://github.com/bubba-os/bubba-beta/issues">Issues</a>
+    <a href="https://github.com/bubba-os/bubba/issues">Issues</a>
     ·
     <a href="#">Roadmap (coming soon)</a>
   </p>
@@ -63,16 +63,16 @@ Here is what you need to be able to run Bubba AI.
 
 ### Setup
 
-1. Clone the repo into a public GitHub repository (or fork https://github.com/bubba-os/bubba-beta/fork). If you plan to distribute the code, keep the source code public to comply with [AGPLv3](https://github.com/bubba-os/bubba-beta/blob/main/LICENSE). To clone in a private repository, [acquire a commercial license](https://bubba.ai)
+1. Clone the repo into a public GitHub repository (or fork https://github.com/bubba-os/bubba/fork). If you plan to distribute the code, keep the source code public to comply with [AGPLv3](https://github.com/bubba-os/bubba/blob/main/LICENSE). To clone in a private repository, [acquire a commercial license](https://bubba.ai)
 
    ```sh
-   git clone https://github.com/bubba-os/bubba-beta.git
+   git clone https://github.com/bubba-os/bubba.git
    ```
 
 2. Go to the project folder
 
    ```sh
-   cd bubba-beta
+   cd bubba
    ```
 
 3. Install packages with bun
@@ -123,17 +123,17 @@ Steps to deploy Bubba AI on Vercel are coming soon.
 Bubba AI, Inc. is a commercial open source company, which means some parts of this open source repository require a commercial license. The concept is called "Open Core" where the core technology (99%) is fully open source, licensed under [AGPLv3](https://opensource.org/license/agpl-v3) and the last 1% is covered under a commercial license (["/ee" Enterprise Edition"]).
 
 > [!TIP]
-> We work closely with the community and always invite feedback about what should be open and what is fine to be commercial. This list is not set and stone and we have moved things from commercial to open in the past. Please open a [discussion](https://github.com/bubba-os/bubba-beta/discussions) if you feel like something is wrong.
+> We work closely with the community and always invite feedback about what should be open and what is fine to be commercial. This list is not set and stone and we have moved things from commercial to open in the past. Please open a [discussion](https://github.com/bubba-os/bubba/discussions) if you feel like something is wrong.
 
 
 ### Contributors
 
-<a href="https://github.com/bubba-os/bubba-beta/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=bubba-os/bubba-beta" />
+<a href="https://github.com/bubba-os/bubba/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=bubba-os/bubba" />
 </a>
 
 <!-- LICENSE -->
 
 ## License
 
-Distributed under the [AGPLv3 License](https://github.com/bubba-os/bubba-beta/blob/main/LICENSE). See `LICENSE` for more information.
+Distributed under the [AGPLv3 License](https://github.com/bubba-os/bubba/blob/main/LICENSE). See `LICENSE` for more information.

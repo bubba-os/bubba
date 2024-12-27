@@ -1,6 +1,6 @@
 "use client";
 
-import { ChartContainer } from "@bubba-beta/ui/chart";
+import { ChartContainer } from "@bubba/ui/chart";
 import { Cell, Pie, PieChart, ResponsiveContainer } from "recharts";
 
 interface MitigationTasksChartProps {

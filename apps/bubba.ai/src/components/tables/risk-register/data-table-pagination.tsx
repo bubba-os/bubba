@@ -1,13 +1,13 @@
 "use client";
 
-import { Button } from "@bubba-beta/ui/button";
+import { Button } from "@bubba/ui/button";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@bubba-beta/ui/select";
+} from "@bubba/ui/select";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";

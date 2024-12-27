@@ -1,7 +1,7 @@
 "use client";
 
-import { SelectItem } from "@bubba-beta/ui/select";
-import { Spinner } from "@bubba-beta/ui/spinner";
+import { SelectItem } from "@bubba/ui/select";
+import { Spinner } from "@bubba/ui/spinner";
 import { AssignedUser } from "./assigned-user";
 
 interface User {

@@ -1,4 +1,4 @@
-import { db } from "@bubba-beta/db";
+import { db } from "@bubba/db";
 import { StatusChart } from "./status-chart";
 
 interface Props {

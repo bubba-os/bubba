@@ -1,8 +1,8 @@
 import { getInitials } from "@/lib/utils";
-import { db } from "@bubba-beta/db";
-import { Avatar, AvatarFallback, AvatarImage } from "@bubba-beta/ui/avatar";
-import { Card, CardContent, CardHeader, CardTitle } from "@bubba-beta/ui/card";
-import { ScrollArea } from "@bubba-beta/ui/scroll-area";
+import { db } from "@bubba/db";
+import { Avatar, AvatarFallback, AvatarImage } from "@bubba/ui/avatar";
+import { Card, CardContent, CardHeader, CardTitle } from "@bubba/ui/card";
+import { ScrollArea } from "@bubba/ui/scroll-area";
 
 interface Props {
   organizationId: string;

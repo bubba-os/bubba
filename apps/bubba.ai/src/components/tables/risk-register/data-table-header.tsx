@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "@bubba-beta/ui/button";
-import { TableHead, TableHeader, TableRow } from "@bubba-beta/ui/table";
+import { Button } from "@bubba/ui/button";
+import { TableHead, TableHeader, TableRow } from "@bubba/ui/table";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";

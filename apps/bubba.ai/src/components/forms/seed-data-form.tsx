@@ -1,8 +1,8 @@
 "use client";
 
 import { seedDataAction } from "@/actions/seed-action";
-import { Button } from "@bubba-beta/ui/button";
-import { useToast } from "@bubba-beta/ui/use-toast";
+import { Button } from "@bubba/ui/button";
+import { useToast } from "@bubba/ui/use-toast";
 import { useAction } from "next-safe-action/hooks";
 
 interface SeedDataFormProps {

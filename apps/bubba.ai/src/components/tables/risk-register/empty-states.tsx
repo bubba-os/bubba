@@ -1,8 +1,8 @@
 "use client";
 
 import { CreateRiskSheet } from "@/components/sheets/create-risk-sheet";
-import { Button } from "@bubba-beta/ui/button";
-import { Icons } from "@bubba-beta/ui/icons";
+import { Button } from "@bubba/ui/button";
+import { Icons } from "@bubba/ui/icons";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";

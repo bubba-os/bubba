@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { db } from "@bubba-beta/db";
+import { db } from "@bubba/db";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { FrameworkProgress } from "./components/framework-progress";

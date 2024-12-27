@@ -1,8 +1,8 @@
 "use client";
 
 import { ButtonIcon } from "@/components/ui/button-icon";
-import { Button } from "@bubba-beta/ui/button";
-import { Icons } from "@bubba-beta/ui/icons";
+import { Button } from "@bubba/ui/button";
+import { Icons } from "@bubba/ui/icons";
 import { Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { useState } from "react";

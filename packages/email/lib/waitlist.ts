@@ -1,5 +1,5 @@
-import { WaitlistEmail } from "@bubba-beta/email/emails/waitlist";
-import { sendEmail } from "@bubba-beta/email/lib/resend";
+import { WaitlistEmail } from "@bubba/email/emails/waitlist";
+import { sendEmail } from "@bubba/email/lib/resend";
 
 export const sendWaitlistEmail = async (params: { email: string }) => {
   const { email } = params;

@@ -1,6 +1,6 @@
 "use client";
 
-import { DropdownMenuItem } from "@bubba-beta/ui/dropdown-menu";
+import { DropdownMenuItem } from "@bubba/ui/dropdown-menu";
 import { signOut } from "next-auth/react";
 import { useState } from "react";
 

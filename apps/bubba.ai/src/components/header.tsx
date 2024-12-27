@@ -1,5 +1,5 @@
 import { UserMenu } from "@/components/user-menu";
-import { Skeleton } from "@bubba-beta/ui/skeleton";
+import { Skeleton } from "@bubba/ui/skeleton";
 import { Suspense } from "react";
 import { FeedbackForm } from "./feedback-form";
 import { MobileMenu } from "./mobile-menu";

@@ -1,17 +1,17 @@
 "use client";
 
 import { CreateRiskSheet } from "@/components/sheets/create-risk-sheet";
-import { Departments, RiskCategory, RiskStatus } from "@bubba-beta/db";
-import { Button } from "@bubba-beta/ui/button";
-import { Input } from "@bubba-beta/ui/input";
+import { Departments, RiskCategory, RiskStatus } from "@bubba/db";
+import { Button } from "@bubba/ui/button";
+import { Input } from "@bubba/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@bubba-beta/ui/select";
-import { Skeleton } from "@bubba-beta/ui/skeleton";
+} from "@bubba/ui/select";
+import { Skeleton } from "@bubba/ui/skeleton";
 import { Search, X } from "lucide-react";
 import { Plus } from "lucide-react";
 import { useQueryState } from "nuqs";

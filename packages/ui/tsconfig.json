@@ -1,5 +1,5 @@
 {
-  "extends": "@bubba-beta/tsconfig/react-library.json",
+  "extends": "@bubba/tsconfig/react-library.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {

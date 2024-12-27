@@ -1,4 +1,4 @@
-import baseConfig from "@bubba-beta/ui/tailwind.config";
+import baseConfig from "@bubba/ui/tailwind.config";
 import type { Config } from "tailwindcss";
 
 export default {

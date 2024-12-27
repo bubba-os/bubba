@@ -1,4 +1,4 @@
-import { cn } from "@bubba-beta/ui/cn";
+import { cn } from "@bubba/ui/cn";
 
 type Props = {
   className?: string;

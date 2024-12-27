@@ -8,8 +8,8 @@ import {
 } from "@tanstack/react-table";
 import { Suspense } from "react";
 
-import { cn } from "@bubba-beta/ui/cn";
-import { Table, TableBody, TableCell, TableRow } from "@bubba-beta/ui/table";
+import { cn } from "@bubba/ui/cn";
+import { Table, TableBody, TableCell, TableRow } from "@bubba/ui/table";
 import { DataTableHeader } from "./data-table-header";
 import { DataTablePagination } from "./data-table-pagination";
 import { Loading } from "./loading";

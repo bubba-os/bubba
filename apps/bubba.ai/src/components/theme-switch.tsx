@@ -10,7 +10,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@bubba-beta/ui/select";
+} from "@bubba/ui/select";
 
 type Theme = "dark" | "system" | "light";
 

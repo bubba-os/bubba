@@ -1,4 +1,4 @@
-import { SecondaryMenu } from "@bubba-beta/ui/secondary-menu";
+import { SecondaryMenu } from "@bubba/ui/secondary-menu";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

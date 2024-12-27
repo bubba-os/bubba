@@ -2,15 +2,15 @@
 
 import { waitlistSchema } from "@/app/actions/schema";
 import { joinWaitlist } from "@/app/actions/waitlist";
-import { Button } from "@bubba-beta/ui/button";
+import { Button } from "@bubba/ui/button";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from "@bubba-beta/ui/form";
-import { Input } from "@bubba-beta/ui/input";
+} from "@bubba/ui/form";
+import { Input } from "@bubba/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
