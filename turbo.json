@@ -22,7 +22,8 @@
         "STRIPE_WEBHOOK_SECRET",
         "RESEND_API_KEY",
         "TURNSTILE_SECRET_KEY",
-        "NEXT_PUBLIC_TURNSTILE_SITE_KEY"
+        "NEXT_PUBLIC_TURNSTILE_SITE_KEY",
+        "RESEND_AUDIENCE_ID"
       ],
       "inputs": ["$TURBO_DEFAULT$", ".env"],
       "dependsOn": ["^build", "clean-react"],
