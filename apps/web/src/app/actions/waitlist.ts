@@ -1,21 +1,22 @@
 "use server";
 
-import { env } from "@/env.mjs";
 import { createSafeActionClient } from "next-safe-action";
 import { validateTurnstileToken } from "next-turnstile";
 import { Resend } from "resend";
 import { v4 } from "uuid";
 import { waitlistSchema } from "./schema";
 
-const resend = new Resend(env.RESEND_API_KEY!);
+const resend = new Resend(process.env.RESEND_API_KEY!);
 
 export const joinWaitlist = createSafeActionClient()
   .schema(waitlistSchema)
   .action(async ({ parsedInput }) => {
     try {
+      console.log("Joining waitlist", parsedInput);
+
       const validationResponse = await validateTurnstileToken({
         token: parsedInput.cfToken,
-        secretKey: env.TURNSTILE_SECRET_KEY!,
+        secretKey: process.env.TURNSTILE_SECRET_KEY!,
         idempotencyKey: v4(),
       });
 

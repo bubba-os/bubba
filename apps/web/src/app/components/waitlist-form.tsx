@@ -12,7 +12,6 @@ import {
 } from "@bubba-beta/ui/form";
 import { Input } from "@bubba-beta/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowRightIcon } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { Turnstile } from "next-turnstile";
 import { useRef, useState } from "react";
@@ -21,11 +20,9 @@ import { toast } from "sonner";
 import type { z } from "zod";
 
 export function WaitlistForm() {
-  const formRef = useRef<HTMLFormElement>(null);
   const [turnstileStatus, setTurnstileStatus] = useState<
     "success" | "error" | "expired" | "required"
   >("required");
-  const [error, setError] = useState<string | null>(null);
 
   const waitlistAction = useAction(joinWaitlist, {
     onSuccess: () => {
@@ -47,7 +44,7 @@ export function WaitlistForm() {
 
   const onSubmit = (data: z.infer<typeof waitlistSchema>) => {
     if (turnstileStatus !== "success") {
-      setError("Please verify you are not a robot");
+      toast.error("Please complete the turnstile verification.");
       return;
     }
 
@@ -72,6 +69,7 @@ export function WaitlistForm() {
                 <Input
                   {...field}
                   autoFocus
+                  type="email"
                   placeholder="Enter your email"
                   autoCorrect="off"
                 />
@@ -82,7 +80,14 @@ export function WaitlistForm() {
         />
 
         <div className="flex">
-          <Button type="submit" disabled={waitlistAction.isExecuting}>
+          <Button
+            type="submit"
+            disabled={
+              waitlistAction.isExecuting ||
+              turnstileStatus !== "success" ||
+              !form.formState.isValid
+            }
+          >
             <div className="flex items-center justify-center">
               Join Waitlist
             </div>
@@ -97,26 +102,24 @@ export function WaitlistForm() {
               <FormControl>
                 <Turnstile
                   {...field}
-                  siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                  siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? ""}
                   retry="auto"
                   refreshExpired="auto"
                   sandbox={process.env.NODE_ENV === "development"}
                   onError={() => {
                     setTurnstileStatus("error");
-                    setError("Security check failed. Please try again.");
+                    toast.error("Turnstile verification failed");
                   }}
                   onExpire={() => {
                     setTurnstileStatus("expired");
-                    setError("Security check expired. Please verify again.");
+                    toast.error("Turnstile verification expired");
                   }}
                   onLoad={() => {
                     setTurnstileStatus("required");
-                    setError(null);
                   }}
                   onVerify={(token) => {
                     onChange(token);
                     setTurnstileStatus("success");
-                    setError(null);
                   }}
                 />
               </FormControl>
