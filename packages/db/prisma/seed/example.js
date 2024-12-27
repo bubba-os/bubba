@@ -1,7 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const client_1 = require("@prisma/client");
-const prisma = new client_1.PrismaClient();
+import { ArtifactType, AssessmentStatus, FrameworkAdoptionStatus, PrismaClient, RequirementStatus, } from "@prisma/client";
+const prisma = new PrismaClient();
 async function main() {
     const org_id = "cm4ywt4x7000hql4cfhqowx08";
     const user_id = "cm4ywl6b50006ql4cdzdtur81";
@@ -84,7 +82,7 @@ async function main() {
         data: {
             organizationId: org_id,
             frameworkId: soc2.id,
-            status: client_1.FrameworkAdoptionStatus.in_progress,
+            status: FrameworkAdoptionStatus.in_progress,
         },
     });
     const allSoc2Reqs = await prisma.requirement.findMany({
@@ -96,7 +94,7 @@ async function main() {
             data: {
                 organizationFrameworkId: orgFrameworkSoc2.id,
                 requirementId: req.id,
-                status: client_1.RequirementStatus.not_started,
+                status: RequirementStatus.not_started,
             },
         });
     }
@@ -140,14 +138,14 @@ async function main() {
         data: {
             name: "Acme_Infosec_Policy_v1.pdf",
             fileUrl: "s3://my-bucket/acme-infosec-policy.pdf",
-            type: client_1.ArtifactType.file,
+            type: ArtifactType.file,
         },
     });
     const artifactBoard = await prisma.artifact.create({
         data: {
             name: "Board_Minutes_Jan2024.pdf",
             fileUrl: "s3://my-bucket/board-minutes-jan2024.pdf",
-            type: client_1.ArtifactType.file,
+            type: ArtifactType.file,
         },
     });
     // 9.1 Find the OrganizationRequirements we just created
@@ -200,7 +198,7 @@ async function main() {
             frameworkId: soc2.id,
             startDate: new Date("2024-01-01"),
             endDate: new Date("2024-12-31"),
-            status: client_1.AssessmentStatus.draft,
+            status: AssessmentStatus.draft,
             assignedOwnerId: user_id,
         },
     });

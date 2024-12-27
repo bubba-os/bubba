@@ -1,6 +1,6 @@
+import { auth } from "@/auth";
 import { GoogleSignIn } from "@/components/google-sign-in";
 import { MagicLinkSignIn } from "@/components/magic-link";
-import { auth } from "@bubba-beta/auth";
 
 import {
   Accordion,

@@ -11,12 +11,6 @@ export function UserProvider({ children, data }: UserProviderProps) {
   useEffect(() => {
     if (data) {
       store.setState({ data });
-    } else {
-      store.setState({
-        data: {
-          locale: window.navigator.language || "en-US",
-        },
-      });
     }
   }, [data, store]);
 

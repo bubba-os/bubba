@@ -4,10 +4,10 @@ import "@bubba-beta/ui/globals.css";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import type { ReactElement } from "react";
 import { Toaster } from "sonner";
 import { Providers } from "./providers";
-import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://app.bubba.ai"),
@@ -67,13 +67,11 @@ export const maxDuration = 60;
 
 export default function Layout({
   children,
-  params: { locale },
 }: {
   children: ReactElement;
-  params: { locale: string };
 }) {
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
           `${GeistSans.variable} ${GeistMono.variable}`,

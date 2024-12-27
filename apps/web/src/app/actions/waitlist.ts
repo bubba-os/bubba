@@ -1,44 +1,28 @@
 "use server";
 
+import { env } from "@/env.mjs";
 import { createSafeActionClient } from "next-safe-action";
-import { headers } from "next/headers";
+import { validateTurnstileToken } from "next-turnstile";
 import { Resend } from "resend";
-import { z } from "zod";
+import { v4 } from "uuid";
+import { waitlistSchema } from "./schema";
 
-const schema = z.object({
-  email: z.string().email("Please enter a valid email address"),
-  cfToken: z.string().min(1, "Turnstile verification failed"),
-});
-
-const resend = new Resend(process.env.RESEND_API_KEY!);
+const resend = new Resend(env.RESEND_API_KEY!);
 
 export const joinWaitlist = createSafeActionClient()
-  .schema(schema)
+  .schema(waitlistSchema)
   .action(async ({ parsedInput }) => {
     try {
-      const headersList = await headers();
+      const validationResponse = await validateTurnstileToken({
+        token: parsedInput.cfToken,
+        secretKey: env.TURNSTILE_SECRET_KEY!,
+        idempotencyKey: v4(),
+      });
 
-      const ip =
-        headersList.get("x-real-ip") || headersList.get("x-forwarded-for");
-      const verifyFormData = new FormData();
-      verifyFormData.append("secret", process.env.TURNSTILE_SECRET_KEY!);
-      verifyFormData.append("response", parsedInput.cfToken);
-      if (ip) verifyFormData.append("remoteip", ip);
-
-      const result = await fetch(
-        "https://challenges.cloudflare.com/turnstile/v0/siteverify",
-        {
-          method: "POST",
-          body: verifyFormData,
-        },
-      );
-
-      const outcome = await result.json();
-
-      if (!outcome.success) {
+      if (!validationResponse.success) {
         return {
           success: false,
-          error: "Captcha verification failed",
+          error: "Turnstile verification failed",
         };
       }
 

@@ -1,5 +1,5 @@
+import { auth } from "@/auth";
 import { Onboarding } from "@/components/forms/create-organization-form";
-import { auth } from "@bubba-beta/auth";
 import { Icons } from "@bubba-beta/ui/icons";
 import type { Metadata } from "next";
 import Link from "next/link";

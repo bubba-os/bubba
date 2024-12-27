@@ -1,4 +1,3 @@
-
 {
   "extends": "@bubba-beta/tsconfig/react-library.json",
   "compilerOptions": {

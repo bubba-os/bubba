@@ -1,5 +1,4 @@
-import { WaitlistForm } from "@/components/waitlist-form";
-import Image from "next/image";
+import { WaitlistForm } from "@/app/components/waitlist-form";
 
 export default function Home() {
   return (

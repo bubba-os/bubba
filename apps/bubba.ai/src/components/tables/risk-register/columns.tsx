@@ -51,7 +51,7 @@ export const columns: ColumnDef<RiskRegisterType>[] = [
               "size-2.5 rounded-full ring-1",
               status === "open"
                 ? "bg-[#ffc107]"
-                : status === "in_progress"
+                : status === "pending"
                   ? "bg-[#0ea5e9]"
                   : status === "closed"
                     ? "bg-[#22c55e]"

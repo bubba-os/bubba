@@ -1,8 +1,6 @@
 {
-    "name": "@bubba-beta/tsconfig",
-    "private": true,
-    "version": "1.0.0",
-    "files": [
-        "base.json"
-    ]
+  "name": "@bubba-beta/tsconfig",
+  "private": true,
+  "version": "1.0.0",
+  "files": ["base.json"]
 }

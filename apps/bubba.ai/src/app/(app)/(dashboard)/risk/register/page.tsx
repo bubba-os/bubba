@@ -1,3 +1,4 @@
+import { auth } from "@/auth";
 import {
   type RiskRegisterType,
   columns,
@@ -9,11 +10,8 @@ import {
 } from "@/components/tables/risk-register/empty-states";
 import { FilterToolbar } from "@/components/tables/risk-register/filter-toolbar";
 import { Loading } from "@/components/tables/risk-register/loading";
-import { auth } from "@bubba-beta/auth";
 import { type Departments, type RiskStatus, db } from "@bubba-beta/db";
 import { redirect } from "next/navigation";
-import { useQueryState } from "nuqs";
-import { Suspense } from "react";
 
 interface PageProps {
   searchParams: Promise<{
@@ -43,6 +41,7 @@ export default async function RiskRegisterPage({ searchParams }: PageProps) {
     page = "1",
     per_page = "10",
   } = await searchParams;
+
   const [column, order] = sort?.split(":") ?? [];
 
   const hasFilters = !!(search || status || department);
@@ -85,7 +84,7 @@ export default async function RiskRegisterPage({ searchParams }: PageProps) {
   );
 }
 
-export async function risks({
+async function risks({
   organizationId,
   search,
   status,

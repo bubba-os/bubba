@@ -1,13 +1,9 @@
-import { auth } from "@bubba-beta/auth";
+import { auth } from "@/auth";
 import { db } from "@bubba-beta/db";
-import { Card, CardContent, CardHeader, CardTitle } from "@bubba-beta/ui/card";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
-import { MitigationTasksOverview } from "./components/mitigation-tasks-overview";
 import { RiskOverview } from "./components/risk-overview";
 import { RisksByAssignee } from "./components/risks-by-assignee";
-import { RisksByDepartment } from "./components/risks-by-department";
-import { RisksByStatus } from "./components/risks-by-status";
 
 export default async function RiskManagement() {
   const session = await auth();

@@ -1,4 +1,4 @@
-import { auth as authMiddleware } from "@bubba-beta/auth";
+import { auth as authMiddleware } from "@/auth";
 import { type NextRequest, NextResponse } from "next/server";
 
 export async function middleware(request: NextRequest) {

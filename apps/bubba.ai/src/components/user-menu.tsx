@@ -1,4 +1,4 @@
-import { auth } from "@bubba-beta/auth";
+import { auth } from "@/auth";
 import { Avatar, AvatarFallback, AvatarImageNext } from "@bubba-beta/ui/avatar";
 import {
   DropdownMenu,

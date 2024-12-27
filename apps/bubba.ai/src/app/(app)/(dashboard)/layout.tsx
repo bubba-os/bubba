@@ -1,6 +1,6 @@
+import { auth } from "@/auth";
 import { Header } from "@/components/header";
 import { Sidebar } from "@/components/sidebar";
-import { auth } from "@bubba-beta/auth";
 
 import dynamic from "next/dynamic";
 import { redirect } from "next/navigation";

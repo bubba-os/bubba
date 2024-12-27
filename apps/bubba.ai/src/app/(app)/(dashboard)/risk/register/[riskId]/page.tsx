@@ -1,5 +1,5 @@
+import { auth } from "@/auth";
 import { RiskMatrix } from "@/components/charts/risk-matrix";
-import { auth } from "@bubba-beta/auth";
 import { db } from "@bubba-beta/db";
 import { redirect } from "next/navigation";
 
