@@ -1,84 +1,139 @@
-# Turborepo starter
+<!-- PROJECT LOGO -->
+<p align="center">
+  <a href="https://github.com/bubba-os/bubba-beta">
+   <img src="https://avatars.githubusercontent.com/u/184552964?s=200&v=4" alt="Logo">
+  </a>
 
-This is an official starter Turborepo.
+  <h3 align="center">Bubba AI</h3>
 
-## Using this example
+  <p align="center">
+    The open-source compliance platform.
+    <br />
+    <a href="https://bubba.ai"><strong>Learn more »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/bubba-os/bubba-beta/discussions">Discussions</a>
+    ·
+    <a href="https://bubba.ai">Website</a>
+    ·
+    <a href="https://github.com/bubba-os/bubba-beta/issues">Issues</a>
+    ·
+    <a href="#">Roadmap (coming soon)</a>
+  </p>
+</p>
 
-Run the following command:
+## About
 
-```sh
-npx create-turbo@latest
-```
+# Security and compliance, open.
 
-## What's inside?
+We're building the first open source compliance automation platform that helps companies of any size work towards, manage and achieve compliance with common standards like SOC 2, ISO 27001 and GDPR.
 
-This Turborepo includes the following packages/apps:
+We transform compliance from a vendor checkbox into an engineering problem solved through code. Our platform automates evidence collection, policy management, and control implementation while keeping you in control of your data and infrastructure.
 
-### Apps and Packages
+### Built With
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+- [Next.js](https://nextjs.org/?ref=bubba.ai)
+- [Prisma.io](https://prisma.io/?ref=bubba.ai)
+- [Tailwind CSS](https://tailwindcss.com/?ref=bubba.ai)
+- [Neon](https://neon.tech/?ref=bubba.ai)
+- [Upstash](https://upstash.com/?ref=bubba.ai)
+- [Vercel](https://vercel.com/?ref=bubba.ai)
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+## Contact us
 
-### Utilities
+Contact our founders at hello@bubba.ai to learn more about how we can help you achieve compliance.
 
-This Turborepo has some additional tools already setup for you:
+## Stay Up-to-Date
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+Join our [waitlist](https://bubba.ai) to get early access to the cloud hosted version of Bubba AI.
 
-### Build
+## Getting Started
 
-To build all apps and packages, run the following command:
+To get a local copy up and running, please follow these simple steps.
 
-```
-cd my-turborepo
-pnpm build
-```
+### Prerequisites
 
-### Develop
+Here is what you need to be able to run Bubba AI.
 
-To develop all apps and packages, run the following command:
+- Node.js (Version: >=20.x)
+- Bun (Version: >=1.1.36)
+- Postgres (Version: >=15.x)
 
-```
-cd my-turborepo
-pnpm dev
-```
+## Development
 
-### Remote Caching
+### Setup
+
+1. Clone the repo into a public GitHub repository (or fork https://github.com/bubba-os/bubba-beta/fork). If you plan to distribute the code, keep the source code public to comply with [AGPLv3](https://github.com/bubba-os/bubba-beta/blob/main/LICENSE). To clone in a private repository, [acquire a commercial license](https://bubba.ai)
+
+   ```sh
+   git clone https://github.com/bubba-os/bubba-beta.git
+   ```
+
+2. Go to the project folder
+
+   ```sh
+   cd bubba-beta
+   ```
+
+3. Install packages with bun
+
+   ```sh
+   bun i
+   ```
+
+4. Set up your `.env` file
+
+   - Duplicate `.env.example` to `.env`
+   - Use `openssl rand -base64 32` to generate a key and add it under `NEXTAUTH_SECRET` in the `.env` file.
+
+5. Setup Node
+   If your Node version does not meet the project's requirements as instructed by the docs, "nvm" (Node Version Manager) allows using Node at the version required by the project:
+
+   ```sh
+   nvm use
+   ```
+
+   You first might need to install the specific version and then use it:
+
+   ```sh
+   nvm install && nvm use
+   ```
+
+   You can install nvm from [here](https://github.com/nvm-sh/nvm).
+
+6. Run the turbo dev command to start the development server
+
+   ```sh
+   turbo dev
+   ```
+
+## Deployment
+
+### Docker
+
+Steps to deploy Bubba AI on Docker are coming soon.
+
+### Vercel
+
+Steps to deploy Bubba AI on Vercel are coming soon.
+
+
+## License
+
+Bubba AI, Inc. is a commercial open source company, which means some parts of this open source repository require a commercial license. The concept is called "Open Core" where the core technology (99%) is fully open source, licensed under [AGPLv3](https://opensource.org/license/agpl-v3) and the last 1% is covered under a commercial license (["/ee" Enterprise Edition"]).
 
 > [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+> We work closely with the community and always invite feedback about what should be open and what is fine to be commercial. This list is not set and stone and we have moved things from commercial to open in the past. Please open a [discussion](https://github.com/bubba-os/bubba-beta/discussions) if you feel like something is wrong.
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
+### Contributors
 
-```
-cd my-turborepo
-npx turbo login
-```
+<a href="https://github.com/bubba-os/bubba-beta/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=bubba-os/bubba-beta" />
+</a>
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+<!-- LICENSE -->
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+## License
 
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+Distributed under the [AGPLv3 License](https://github.com/bubba-os/bubba-beta/blob/main/LICENSE). See `LICENSE` for more information.

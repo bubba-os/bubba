@@ -36,7 +36,7 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-12">
-      <div className="grid gap-4 md:grid-cols-2 mt-12">
+      <div className="grid gap-4 md:grid-cols-2">
         <Suspense fallback={<div>Loading...</div>}>
           {frameworks && <FrameworkProgress frameworks={frameworks} />}
           {frameworks && <RequirementStatus frameworks={frameworks} />}
