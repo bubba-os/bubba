@@ -7,7 +7,6 @@
     "db:generate": "bunx prisma generate",
     "db:push": "bunx prisma db push --skip-generate",
     "db:studio": "bunx prisma studio",
-    "build": "tsc",
     "dev": "tsc --watch",
     "lint": "eslint src/",
     "clean": "rm -rf .turbo node_modules dist"
