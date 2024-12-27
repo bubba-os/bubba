@@ -1,14 +1,13 @@
 "use server";
 
 import { db } from "@bubba-beta/db";
-import { z } from "zod";
 import { authActionClient } from "../safe-action";
 
-type User = {
+interface User {
   id: string;
-  name: string;
-  image: string;
-};
+  name: string | null;
+  image: string | null;
+}
 
 export const getOrganizationUsersAction = authActionClient
   .metadata({
@@ -43,7 +42,7 @@ export const getOrganizationUsersAction = authActionClient
 
         return {
           success: true,
-          data: users.map((user) => ({
+          data: users.map((user: User) => ({
             id: user.id,
             name: user.name || "",
             image: user.image || "",
