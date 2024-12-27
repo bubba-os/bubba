@@ -103,8 +103,6 @@ async function risks({
   page?: number;
   per_page?: number;
 }) {
-  "use cache";
-
   const skip = (page - 1) * per_page;
 
   const [risks, total] = await Promise.all([

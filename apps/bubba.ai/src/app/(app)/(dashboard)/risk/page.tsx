@@ -35,8 +35,6 @@ export default async function RiskManagement() {
 }
 
 async function getRiskOverview(organizationId: string) {
-  "use cache";
-
   return await db.$transaction(async (tx) => {
     const [
       risks,

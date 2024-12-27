@@ -7,8 +7,6 @@ import { RequirementStatus } from "./components/requirement-status";
 import { UpcomingAssessments } from "./components/upcoming-assessments";
 
 async function getComplianceOverview(organizationId: string) {
-  "use cache";
-
   return await db.$transaction(async (tx) => {
     const frameworks = await tx.organizationFramework.findMany({
       where: { organizationId },
