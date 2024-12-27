@@ -1,8 +1,14 @@
-import type { NextConfig } from "next";
 import "./src/env.mjs";
 
-const nextConfig: NextConfig = {
-  /* config options here */
+const config = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
+  },
 };
 
-export default nextConfig;
+export default config;
