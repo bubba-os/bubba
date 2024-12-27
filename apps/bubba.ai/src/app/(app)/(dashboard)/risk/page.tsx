@@ -17,24 +17,22 @@ export default async function RiskManagement() {
   return (
     <div className="space-y-4 sm:space-y-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Suspense fallback={<div>Loading...</div>}>
-          <RiskOverview
-            data={overview}
-            organizationId={session.user.organizationId}
-          />
-        </Suspense>
+        <RiskOverview
+          data={overview}
+          organizationId={session.user.organizationId}
+        />
       </div>
 
       <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
-        <Suspense fallback={<div>Loading...</div>}>
-          <RisksByAssignee organizationId={session.user.organizationId} />
-        </Suspense>
+        <RisksByAssignee organizationId={session.user.organizationId} />
       </div>
     </div>
   );
 }
 
 async function getRiskOverview(organizationId: string) {
+  "use cache";
+
   return await db.$transaction(async (tx) => {
     const [
       risks,

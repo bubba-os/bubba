@@ -29,7 +29,7 @@ export default async function Layout({
 
       <div className="mx-4 md:ml-[95px] md:mr-10 pb-8">
         <Header />
-        {children}
+        <main>{children}</main>
       </div>
 
       <HotKeys />

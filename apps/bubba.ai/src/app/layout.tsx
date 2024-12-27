@@ -68,7 +68,7 @@ export const maxDuration = 60;
 export default function Layout({
   children,
 }: {
-  children: ReactElement;
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -79,7 +79,9 @@ export default function Layout({
         )}
       >
         <NuqsAdapter>
-          <Providers>{children}</Providers>
+          <Providers>
+            <main>{children}</main>
+          </Providers>
         </NuqsAdapter>
         <Toaster richColors />
       </body>

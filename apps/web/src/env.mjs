@@ -4,6 +4,7 @@ import { z } from "zod";
 export const env = createEnv({
   server: {
     RESEND_API_KEY: z.string(),
+    RESEND_AUDIENCE_ID: z.string(),
     TURNSTILE_SECRET_KEY: z.string(),
   },
 
@@ -13,6 +14,7 @@ export const env = createEnv({
 
   runtimeEnv: {
     RESEND_API_KEY: process.env.RESEND_API_KEY,
+    RESEND_AUDIENCE_ID: process.env.RESEND_AUDIENCE_ID,
     NEXT_PUBLIC_TURNSTILE_SITE_KEY: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
     TURNSTILE_SECRET_KEY: process.env.TURNSTILE_SECRET_KEY,
   },

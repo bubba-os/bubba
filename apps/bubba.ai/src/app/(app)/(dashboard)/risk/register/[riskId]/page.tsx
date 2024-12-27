@@ -18,12 +18,7 @@ export default async function RiskRegisterPage({ params }: Props) {
     return redirect("/");
   }
 
-  const riskData = await db.risk.findFirst({
-    where: {
-      id: risk.riskId,
-      organizationId,
-    },
-  });
+  const riskData = await getRisk(risk.riskId);
 
   if (!riskData) {
     return redirect("/risk/register");
@@ -45,4 +40,12 @@ export default async function RiskRegisterPage({ params }: Props) {
       />
     </div>
   );
+}
+
+async function getRisk(riskId: string) {
+  "use cache";
+
+  return await db.risk.findFirst({
+    where: { id: riskId },
+  });
 }

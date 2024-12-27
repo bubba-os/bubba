@@ -4,36 +4,23 @@ import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { FrameworkProgress } from "./components/framework-progress";
 import { RequirementStatus } from "./components/requirement-status";
-import { UpcomingAssessments } from "./components/upcoming-assessments";
 
 async function getComplianceOverview(organizationId: string) {
-  return await db.$transaction(async (tx) => {
-    const frameworks = await tx.organizationFramework.findMany({
-      where: { organizationId },
-      include: {
-        framework: true,
-        organizationRequirements: {
-          include: {
-            requirement: true,
-          },
+  "use cache";
+
+  const frameworks = await db.organizationFramework.findMany({
+    where: { organizationId },
+    include: {
+      framework: true,
+      organizationRequirements: {
+        include: {
+          requirement: true,
         },
       },
-    });
-
-    const assessments = await tx.assessment.findMany({
-      where: {
-        organizationId,
-        endDate: { gte: new Date() },
-      },
-      include: {
-        framework: true,
-      },
-      orderBy: { endDate: "asc" },
-      take: 3,
-    });
-
-    return { frameworks, assessments };
+    },
   });
+
+  return { frameworks };
 }
 
 export default async function DashboardPage() {
@@ -43,17 +30,16 @@ export default async function DashboardPage() {
     redirect("/onboarding");
   }
 
-  const { frameworks, assessments } = await getComplianceOverview(
+  const { frameworks } = await getComplianceOverview(
     session.user.organizationId,
   );
 
   return (
     <div className="space-y-12">
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mt-12">
+      <div className="grid gap-4 md:grid-cols-2 mt-12">
         <Suspense fallback={<div>Loading...</div>}>
-          <FrameworkProgress frameworks={frameworks} />
-          <RequirementStatus frameworks={frameworks} />
-          <UpcomingAssessments assessments={assessments} />
+          {frameworks && <FrameworkProgress frameworks={frameworks} />}
+          {frameworks && <RequirementStatus frameworks={frameworks} />}
         </Suspense>
       </div>
     </div>

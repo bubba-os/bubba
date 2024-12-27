@@ -24,54 +24,6 @@ export function Footer() {
       <br />
 
       <Row>
-        <Column className="align-middle w-[40px]">
-          <Link href="https://go.midday.ai/lS72Toq">
-            <Img
-              src={`${baseUrl}/email/x.png`}
-              width="22"
-              height="22"
-              alt="Midday on X"
-            />
-          </Link>
-        </Column>
-        <Column className="align-middle w-[40px]">
-          <Link href="https://go.midday.ai/7rhA3rz">
-            <Img
-              src={`${baseUrl}/email/producthunt.png`}
-              width="22"
-              height="22"
-              alt="Midday on Producthunt"
-            />
-          </Link>
-        </Column>
-
-        <Column className="align-middle w-[40px]">
-          <Link href="https://go.midday.ai/anPiuRx">
-            <Img
-              src={`${baseUrl}/email/discord.png`}
-              width="22"
-              height="22"
-              alt="Midday on Discord"
-            />
-          </Link>
-        </Column>
-
-        <Column className="align-middle">
-          <Link href="https://go.midday.ai/Ct3xybK">
-            <Img
-              src={`${baseUrl}/email/linkedin.png`}
-              width="22"
-              height="22"
-              alt="Midday on LinkedIn"
-            />
-          </Link>
-        </Column>
-      </Row>
-
-      <br />
-      <br />
-
-      <Row>
         <Text className="text-[#B8B8B8] text-xs">
           Bubba AI, Inc. - 2261 Market Street, San Francisco, CA 94114
         </Text>
@@ -80,7 +32,7 @@ export function Footer() {
       <Row>
         <Link
           className="text-[#707070] text-[12px]"
-          href="https://app.midday.ai/settings/notifications"
+          href="https://app.bubba.ai/settings/notifications"
           title="Unsubscribe"
         >
           Notification preferences
@@ -91,11 +43,12 @@ export function Footer() {
       <br />
 
       <Row>
-        <Link href="https://go.midday.ai/FZwOHud">
+        <Link href="https://app.bubba.ai">
           <Img
-            src={`${baseUrl}/email/logo-footer.png`}
-            width="100"
-            alt="Midday"
+            src={`${baseUrl}/favicon-32x32.png`}
+            width="32"
+            height="32"
+            alt="Bubba AI"
             className="block"
           />
         </Link>
