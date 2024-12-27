@@ -13,6 +13,7 @@ const createPrismaClient = () => {
     });
 };
 const globalForPrisma = globalThis;
+// This exports everything from @prisma/client including all types, enums, and the Prisma namespace
 export * from "@prisma/client";
 export const db = globalForPrisma.prisma ?? createPrismaClient();
 if (process.env.NODE_ENV !== "production")
