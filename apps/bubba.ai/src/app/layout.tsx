@@ -7,6 +7,7 @@ import type { Metadata } from "next";
 import type { ReactElement } from "react";
 import { Toaster } from "sonner";
 import { Providers } from "./providers";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://app.bubba.ai"),
@@ -79,7 +80,9 @@ export default function Layout({
           "whitespace-pre-line overscroll-none antialiased",
         )}
       >
-        <Providers>{children}</Providers>
+        <NuqsAdapter>
+          <Providers>{children}</Providers>
+        </NuqsAdapter>
         <Toaster richColors />
       </body>
     </html>

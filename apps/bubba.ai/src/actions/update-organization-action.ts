@@ -63,6 +63,14 @@ export const updateOrganizationAction = authActionClient
             website,
           },
         });
+        await prisma.user.update({
+          where: {
+            id: userId,
+          },
+          data: {
+            onboarded: true,
+          },
+        });
       });
 
       revalidateTag(`user_${userId}`);

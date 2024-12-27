@@ -32,7 +32,7 @@ export async function createOrganizationAndConnectUser(input: {
     db.organization.create({
       data: {
         name: initialName,
-        tier: "FREE",
+        tier: "free",
         website: "",
         users: {
           connect: {
@@ -46,7 +46,7 @@ export async function createOrganizationAndConnectUser(input: {
     }),
     db.user.update({
       where: { id: input.userId },
-      data: { role: "ADMIN" },
+      data: { role: "admin" },
       select: {
         id: true,
       },

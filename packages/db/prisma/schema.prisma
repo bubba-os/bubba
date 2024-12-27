@@ -8,31 +8,68 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// -------------------------------------------------------
+// Enums
+// -------------------------------------------------------
 enum Tier {
-  FREE @map("free")
-  PRO  @map("pro")
+  free
+  pro
 }
 
 enum Role {
-  MEMBER @map("member")
-  ADMIN  @map("admin")
+  member
+  admin
 }
 
+enum FrameworkAdoptionStatus {
+  in_progress
+  completed
+}
+
+enum RequirementStatus {
+  not_started
+  in_progress
+  compliant
+}
+
+enum RiskLevel {
+  low
+  medium
+  high
+}
+
+enum AssessmentStatus {
+  draft
+  in_review
+  final
+}
+
+// Example if you want an artifact "type" enum (optional):
+enum ArtifactType {
+  file
+  integration
+  other
+}
+
+// -------------------------------------------------------
+// AUTH / USER / ORGANIZATION MODELS
+// -------------------------------------------------------
 model Account {
   id                       String  @id @default(cuid())
   userId                   String
   type                     String
   provider                 String
   providerAccountId        String
-  refresh_token            String? // @db.Text
-  access_token             String? // @db.Text
+  refresh_token            String?
+  access_token             String?
   expires_at               Int?
   token_type               String?
   scope                    String?
-  id_token                 String? // @db.Text
+  id_token                 String?
   session_state            String?
-  user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   refresh_token_expires_in Int?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
   @@index([userId])
@@ -43,7 +80,8 @@ model Session {
   sessionToken String   @unique
   userId       String
   expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
@@ -53,27 +91,43 @@ model User {
   name          String?
   full_name     String?
   email         String?   @unique
-  role          Role      @default(MEMBER)
+  role          Role      @default(member)
   onboarded     Boolean   @default(false)
   emailVerified DateTime?
   image         String?
   lastLogin     DateTime?
-  accounts      Account[]
-  sessions      Session[]
 
+  // Organization membership
   organizationId String?
-  organization   Organization?  @relation(fields: [organizationId], references: [id])
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+
+  // assignedRequirements OrganizationRequirement[]  // if you want to track who "owns" each requirement
+  // assignedAssessments  Assessment[]              // if a user is assigned to manage an assessment
+
+  // Auth relations
+  accounts                Account[]
+  sessions                Session[]
+  OrganizationRequirement OrganizationRequirement[]
+  Assessment              Assessment[]
+  Risk                    Risk[]
+  RiskMitigationTask      RiskMitigationTask[]
+  RiskComment             RiskComment[]
 
   @@index([organizationId])
 }
 
 model Organization {
-  id                    String                  @id @default(cuid())
-  stripeCustomerId      String?
-  name                  String
-  website               String
-  tier                  Tier                    @default(FREE)
+  id               String  @id @default(cuid())
+  stripeCustomerId String?
+  name             String
+  website          String
+  tier             Tier    @default(free)
+
+  // Organization can have many users
   users                 User[]
+  OrganizationFramework OrganizationFramework[]
+  Assessment            Assessment[]
+  Risk                  Risk[]
 
   @@index([stripeCustomerId])
 }
@@ -84,4 +138,350 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+// -------------------------------------------------------
+// COMPLIANCE MODELS
+// -------------------------------------------------------
+
+// 1) Categories for requirements (e.g. "Security", "Availability" in SOC 2)
+model RequirementCategory {
+  id          String  @id @default(cuid())
+  name        String
+  description String?
+
+  // One category can have many requirements
+  requirements Requirement[]
+
+  // Index for quick lookups if needed
+  @@index([name])
+}
+
+// 2) Master list of frameworks (e.g. SOC 2, ISO 27001)
+model Framework {
+  id          String  @id @default(cuid())
+  name        String
+  description String?
+
+  // Each framework has many requirements
+  requirements          Requirement[]
+  OrganizationFramework OrganizationFramework[]
+  Assessment            Assessment[]
+
+  @@unique([name]) // Usually framework names are unique
+  @@index([name])
+}
+
+// 3) Requirements within a framework (e.g. "CC1.1 - Control Environment")
+model Requirement {
+  id          String  @id @default(cuid())
+  name        String
+  description String?
+
+  frameworkId String
+  framework   Framework @relation(fields: [frameworkId], references: [id], onDelete: Cascade)
+
+  // Optional link to a category
+  categoryId String?
+  category   RequirementCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
+  // Many orgs can adopt this requirement
+  organizationRequirements OrganizationRequirement[]
+
+  // 1-N EvidenceDefinition (what evidence is needed?)
+  evidenceDefinitions EvidenceDefinition[]
+  sourceMappings      CrossFrameworkMapping[] @relation("source")
+  targetMappings      CrossFrameworkMapping[] @relation("target")
+
+  @@index([frameworkId])
+  @@index([categoryId])
+}
+
+// 4) Let an organization adopt a framework
+model OrganizationFramework {
+  id String @id @default(cuid())
+
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  frameworkId String
+  framework   Framework @relation(fields: [frameworkId], references: [id], onDelete: Cascade)
+
+  status FrameworkAdoptionStatus @default(in_progress)
+
+  // Link to the organization-specific requirements
+  organizationRequirements OrganizationRequirement[]
+
+  // If we want to ensure an org can't adopt the same framework twice:
+  @@unique([organizationId, frameworkId])
+  @@index([organizationId])
+  @@index([frameworkId])
+}
+
+// 5) Organization-specific pivot for a requirement
+model OrganizationRequirement {
+  id String @id @default(cuid())
+
+  organizationFrameworkId String
+  organizationFramework   OrganizationFramework @relation(fields: [organizationFrameworkId], references: [id], onDelete: Cascade)
+
+  requirementId String
+  requirement   Requirement @relation(fields: [requirementId], references: [id], onDelete: Cascade)
+
+  status    RequirementStatus @default(not_started)
+  riskLevel RiskLevel?
+  dueDate   DateTime?
+
+  // Who's responsible for this requirement
+  assignedOwnerId String?
+  assignedOwner   User?   @relation(fields: [assignedOwnerId], references: [id], onDelete: SetNull)
+
+  // Many-to-many pivot with artifacts
+  artifactRequirements              ArtifactRequirementPivot[]
+  OrganizationRequirementAssessment OrganizationRequirementAssessment[]
+
+  // If you want to speed up queries like "find OrgReq by orgFrameworkId & requirementId"
+  @@unique([organizationFrameworkId, requirementId])
+  @@index([assignedOwnerId])
+}
+
+// 6) Evidence Definition (what type of evidence is required for a given requirement?)
+model EvidenceDefinition {
+  id          String  @id @default(cuid())
+  name        String // e.g. "Information Security Policy"
+  description String?
+
+  requirementId String
+  requirement   Requirement @relation(fields: [requirementId], references: [id], onDelete: Cascade)
+
+  // If you want to specify whether it's mandatory, or an artifact type:
+  isRequired               Boolean                    @default(true)
+  // evidenceType   ArtifactType?  // If you want to tie it to a specific artifact type
+  ArtifactRequirementPivot ArtifactRequirementPivot[]
+
+  @@index([requirementId])
+}
+
+// 7) Actual artifacts (files or integration data)
+model Artifact {
+  id         String       @id @default(cuid())
+  name       String
+  fileUrl    String? // If it's a file
+  type       ArtifactType @default(file)
+  uploadedAt DateTime     @default(now())
+
+  // If it's an integration-based evidence, you might store extra data:
+  // integrationData  Json?
+
+  // Many-to-many pivot to link to OrganizationRequirement (and optionally EvidenceDefinition)
+  artifactRequirements ArtifactRequirementPivot[]
+
+  // Indexes
+  @@index([name])
+  @@index([type])
+}
+
+// 7.1) Pivot table for many-to-many
+model ArtifactRequirementPivot {
+  artifactId String
+  artifact   Artifact @relation(fields: [artifactId], references: [id], onDelete: Cascade)
+
+  organizationRequirementId String
+  organizationRequirement   OrganizationRequirement @relation(fields: [organizationRequirementId], references: [id], onDelete: Cascade)
+
+  evidenceDefinitionId String?
+  evidenceDefinition   EvidenceDefinition? @relation(fields: [evidenceDefinitionId], references: [id], onDelete: SetNull)
+
+  @@id([artifactId, organizationRequirementId])
+  @@index([organizationRequirementId])
+  @@index([evidenceDefinitionId])
+}
+
+// 8) Assessments (track a snapshot for an audit period)
+model Assessment {
+  id String @id @default(cuid())
+
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  frameworkId String
+  framework   Framework @relation(fields: [frameworkId], references: [id], onDelete: Cascade)
+
+  startDate DateTime
+  endDate   DateTime
+  status    AssessmentStatus @default(draft)
+
+  assignedOwnerId String?
+  assignedOwner   User?   @relation(fields: [assignedOwnerId], references: [id], onDelete: SetNull)
+
+  // Many-to-many pivot with OrganizationRequirements
+  organizationRequirementAssessments OrganizationRequirementAssessment[]
+
+  @@index([organizationId])
+  @@index([frameworkId])
+}
+
+// 8.1) Pivot: storing the state of each OrganizationRequirement in a given Assessment
+model OrganizationRequirementAssessment {
+  id String @id @default(cuid())
+
+  organizationRequirementId String
+  organizationRequirement   OrganizationRequirement @relation(fields: [organizationRequirementId], references: [id], onDelete: Cascade)
+
+  assessmentId String
+  assessment   Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+
+  // Snapshot of status at the time of this assessment
+  status    RequirementStatus?
+  riskLevel RiskLevel?
+  dueDate   DateTime?
+  notes     String?
+
+  // Optionally, if you want uniqueness:
+  @@unique([organizationRequirementId, assessmentId])
+  @@index([organizationRequirementId])
+  @@index([assessmentId])
+}
+
+// 9) Cross-framework mapping (e.g. SOC 2 CC1.1 <-> ISO 27001 A.5.1)
+model CrossFrameworkMapping {
+  id String @id @default(cuid())
+
+  sourceRequirementId String
+  sourceRequirement   Requirement @relation("source", fields: [sourceRequirementId], references: [id], onDelete: Cascade)
+
+  targetRequirementId String
+  targetRequirement   Requirement @relation("target", fields: [targetRequirementId], references: [id], onDelete: Cascade)
+
+  notes String?
+
+  @@unique([sourceRequirementId, targetRequirementId])
+  @@index([sourceRequirementId])
+  @@index([targetRequirementId])
+}
+
+enum RiskCategory {
+  customer
+  governance
+  operations
+  other
+  people
+  regulatory
+  reporting
+  resilience
+  technology
+  vendor_management
+}
+
+enum Departments {
+  none
+  admin
+  gov
+  hr
+  it
+  itsm
+  qms
+}
+
+enum TreatmentType {
+  accept
+  avoid
+  mitigate
+  transfer
+}
+
+enum RiskStatus {
+  open
+  pending
+  closed
+  archived
+}
+
+enum RiskProbability {
+  very_low
+  low
+  medium
+  high
+  very_high
+}
+
+enum RiskImpact {
+  very_low
+  low
+  medium
+  high
+  very_high
+}
+
+model Risk {
+  id          String          @id @default(cuid())
+  title       String
+  description String
+  category    RiskCategory
+  department  Departments?
+  status      RiskStatus      @default(open)
+  probability RiskProbability
+  impact      RiskImpact
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  ownerId        String?
+  owner          User?        @relation(fields: [ownerId], references: [id], onDelete: SetNull)
+
+  mitigationTasks   RiskMitigationTask[]
+  comments          RiskComment[]
+  treatmentStrategy RiskTreatmentStrategy?
+
+  @@index([organizationId])
+  @@index([ownerId])
+  @@index([category])
+  @@index([status])
+}
+
+model RiskMitigationTask {
+  id          String    @id @default(cuid())
+  title       String
+  description String
+  dueDate     DateTime?
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  riskId     String
+  risk       Risk    @relation(fields: [riskId], references: [id], onDelete: Cascade)
+  assigneeId String?
+  assignee   User?   @relation(fields: [assigneeId], references: [id], onDelete: SetNull)
+
+  @@index([riskId])
+  @@index([assigneeId])
+}
+
+model RiskComment {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  riskId   String
+  risk     Risk   @relation(fields: [riskId], references: [id], onDelete: Cascade)
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@index([riskId])
+  @@index([authorId])
+}
+
+model RiskTreatmentStrategy {
+  id          String        @id @default(cuid())
+  type        TreatmentType
+  description String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  riskId String @unique
+  risk   Risk   @relation(fields: [riskId], references: [id], onDelete: Cascade)
+
+  @@index([riskId])
 }

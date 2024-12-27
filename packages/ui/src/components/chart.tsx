@@ -355,6 +355,34 @@ function getPayloadConfigFromPayload(
     : config[key as keyof typeof config];
 }
 
+const renderShape = (key: string, isVertical = false) => {
+  const Shape = ({
+    height,
+    width,
+    x,
+    y,
+  }: {
+    height: number;
+    width: number;
+    x: number;
+    y: number;
+  }) => {
+    return (
+      <svg x={x} y={y} fill="none" xmlns="http://www.w3.org/2000/svg">
+        <title>Bar chart column</title>
+        <defs>
+          <linearGradient id={key} x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#fff" />
+          </linearGradient>
+        </defs>
+        <rect fill={`url(#${key})`} width={width} height={height} rx={4} />
+      </svg>
+    );
+  };
+  Shape.displayName = `Shape${key}`;
+  return Shape;
+};
+
 export {
   ChartContainer,
   ChartTooltip,
@@ -362,4 +390,5 @@ export {
   ChartLegend,
   ChartLegendContent,
   ChartStyle,
+  renderShape,
 };

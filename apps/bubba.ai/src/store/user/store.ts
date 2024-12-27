@@ -3,8 +3,9 @@ import { createStore } from "zustand";
 
 type User = {
   id: string;
-  team_id: string;
-  full_name: string;
+  organization_id: string;
+  name: string;
+  image: string;
   locale: string;
   date_format: string;
   timezone: string;

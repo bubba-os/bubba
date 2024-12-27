@@ -1,19 +1,63 @@
-import { Cookies } from "@/utils/constants";
-import { cn } from "@bubba-beta/ui/cn";
-import { startOfMonth, startOfYear, subMonths } from "date-fns";
-import type { Metadata } from "next";
-import { cookies } from "next/headers";
+import { auth } from "@bubba-beta/auth";
+import { db } from "@bubba-beta/db";
+import { redirect } from "next/navigation";
+import { Suspense } from "react";
+import { FrameworkProgress } from "./components/framework-progress";
+import { RequirementStatus } from "./components/requirement-status";
+import { UpcomingAssessments } from "./components/upcoming-assessments";
 
-export const metadata: Metadata = {
-  title: "Overview | Bubba",
-};
+async function getComplianceOverview(organizationId: string) {
+  "use cache";
 
-export default async function Overview() {
+  return await db.$transaction(async (tx) => {
+    const frameworks = await tx.organizationFramework.findMany({
+      where: { organizationId },
+      include: {
+        framework: true,
+        organizationRequirements: {
+          include: {
+            requirement: true,
+          },
+        },
+      },
+    });
+
+    const assessments = await tx.assessment.findMany({
+      where: {
+        organizationId,
+        endDate: { gte: new Date() },
+      },
+      include: {
+        framework: true,
+      },
+      orderBy: { endDate: "asc" },
+      take: 3,
+    });
+
+    return { frameworks, assessments };
+  });
+}
+
+export default async function DashboardPage() {
+  const session = await auth();
+
+  if (!session?.user?.organizationId) {
+    redirect("/onboarding");
+  }
+
+  const { frameworks, assessments } = await getComplianceOverview(
+    session.user.organizationId,
+  );
+
   return (
-    <>
-      <div>
-        <div className="h-[530px] mb-4">Hey!</div>
+    <div className="space-y-12">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mt-12">
+        <Suspense fallback={<div>Loading...</div>}>
+          <FrameworkProgress frameworks={frameworks} />
+          <RequirementStatus frameworks={frameworks} />
+          <UpcomingAssessments assessments={assessments} />
+        </Suspense>
       </div>
-    </>
+    </div>
   );
 }
