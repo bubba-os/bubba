@@ -3,6 +3,9 @@
   "globalDependencies": ["**/.env"],
   "ui": "stream",
   "tasks": {
+    "clean-react": {
+      "cache": false
+    },
     "build": {
       "env": [
         "AUTH_GOOGLE_ID",
@@ -22,7 +25,7 @@
         "NEXT_PUBLIC_TURNSTILE_SITE_KEY"
       ],
       "inputs": ["$TURBO_DEFAULT$", ".env"],
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "clean-react"],
       "outputs": [".next/**", "!.next/cache/**", "next-env.d.ts"]
     },
     "db:generate": {
