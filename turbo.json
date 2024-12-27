@@ -3,6 +3,23 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
+      "env": [
+        "AUTH_GOOGLE_ID",
+        "AUTH_GOOGLE_SECRET",
+        "AUTH_SECRET",
+        "DATABASE_URL",
+        "OPENAI_API_KEY",
+        "RESEND_API_KEY",
+        "OPENPANEL_SECRET_KEY",
+        "UPSTASH_REDIS_REST_URL",
+        "UPSTASH_REDIS_REST_TOKEN",
+        "NEXT_PUBLIC_OPENPANEL_CLIENT_ID",
+        "STRIPE_SECRET_KEY",
+        "STRIPE_WEBHOOK_SECRET",
+        "RESEND_API_KEY",
+        "TURNSTILE_SECRET_KEY",
+        "NEXT_PUBLIC_TURNSTILE_SITE_KEY"
+      ],
       "outputs": ["dist/**"]
     },
     "db:generate": {
