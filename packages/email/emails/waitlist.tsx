@@ -1,4 +1,4 @@
-import { getAppUrl } from "@bubba-beta/utils/envs";
+import { getAppUrl, getEmailUrl } from "@bubba-beta/utils/envs";
 import {
   Body,
   Button,
@@ -20,7 +20,7 @@ interface Props {
   email?: string;
 }
 
-const baseAppUrl = getAppUrl();
+const baseAppUrl = getEmailUrl();
 
 export const WaitlistEmail = ({ email }: Props) => {
   const confirmationUrl = `https://bubba.ai/api/waitlist?email=${encodeURIComponent(email || "")}`;
