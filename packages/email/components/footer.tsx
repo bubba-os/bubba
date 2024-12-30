@@ -42,7 +42,7 @@ export function Footer() {
       <Row>
         <Link href="https://app.bubba.ai">
           <Img
-            src={"https://app.bubba.ai/favicon-32x32.png"}
+            src={"https://bubba.ai/logo.png"}
             width="32"
             height="32"
             alt="Bubba AI"
