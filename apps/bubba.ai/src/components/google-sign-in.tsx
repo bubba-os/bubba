@@ -1,6 +1,7 @@
 "use client";
 
 import { ButtonIcon } from "@/components/ui/button-icon";
+import { useI18n } from "@/locales/client";
 import { Button } from "@bubba/ui/button";
 import { Icons } from "@bubba/ui/icons";
 import { Loader2 } from "lucide-react";
@@ -8,6 +9,8 @@ import { signIn } from "next-auth/react";
 import { useState } from "react";
 
 export function GoogleSignIn() {
+  const t = useI18n();
+
   const [isLoading, setLoading] = useState(false);
 
   const handleSignIn = async () => {
@@ -30,7 +33,7 @@ export function GoogleSignIn() {
           <ButtonIcon className="mr-2" isLoading={isLoading}>
             <Icons.Google />
           </ButtonIcon>
-          <span>Continue with Google</span>
+          <span>{t("auth.google")}</span>
         </>
       )}
     </Button>

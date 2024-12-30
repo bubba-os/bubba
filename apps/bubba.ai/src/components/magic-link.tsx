@@ -1,5 +1,6 @@
 "use client";
 
+import { useI18n } from "@/locales/client";
 import { Button } from "@bubba/ui/button";
 import { cn } from "@bubba/ui/cn";
 import { Form, FormControl, FormField, FormItem } from "@bubba/ui/form";
@@ -21,6 +22,7 @@ type Props = {
 };
 
 export function MagicLinkSignIn({ className }: Props) {
+  const t = useI18n();
   const [isLoading, setLoading] = useState(false);
   const [isSent, setSent] = useState(false);
   const [_email, setEmail] = useState<string>();
@@ -45,14 +47,14 @@ export function MagicLinkSignIn({ className }: Props) {
         setSent(true);
 
         if (res?.ok && !res?.error) {
-          toast.success("Email sent - check your inbox!");
+          toast.success(t("auth.email.success"));
         } else {
-          toast.error("Error sending email - try again?");
+          toast.error(t("auth.email.error"));
         }
       })
       .catch((error) => {
         console.log(error);
-        toast.error("Error sending email - try again?");
+        toast.error(t("auth.email.error"));
       })
       .finally(() => {
         setLoading(false);
@@ -62,18 +64,20 @@ export function MagicLinkSignIn({ className }: Props) {
   if (isSent) {
     return (
       <div className={cn("flex flex-col items-center space-y-4", className)}>
-        <h1 className="text-2xl font-medium">Magic link sent</h1>
+        <h1 className="text-2xl font-medium">
+          {t("auth.email.magic_link_sent")}
+        </h1>
 
         <div className="flex flex-col">
           <span className="text-sm text-muted-foreground">
-            Check your inbox for a magic link.
+            {t("auth.email.magic_link_description")}
           </span>
           <button
             onClick={() => setSent(false)}
             type="button"
             className="text-sm font-medium text-primary underline"
           >
-            Try again.
+            {t("auth.email.magic_link_try_again")}
           </button>
         </div>
       </div>
@@ -91,7 +95,7 @@ export function MagicLinkSignIn({ className }: Props) {
               <FormItem>
                 <FormControl>
                   <Input
-                    placeholder="Enter email address"
+                    placeholder={t("auth.email.placeholder")}
                     {...field}
                     autoFocus
                     className="h-[40px]"
@@ -113,7 +117,7 @@ export function MagicLinkSignIn({ className }: Props) {
             ) : (
               <>
                 <Mail className="h-4 w-4" />
-                <span>Continue with email</span>
+                <span>{t("auth.email.button")}</span>
               </>
             )}
           </Button>

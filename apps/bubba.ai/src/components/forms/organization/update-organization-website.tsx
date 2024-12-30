@@ -2,6 +2,7 @@
 
 import { updateOrganizationWebsiteAction } from "@/actions/organization/update-organization-website-action";
 import { organizationWebsiteSchema } from "@/actions/schema";
+import { useI18n } from "@/locales/client";
 import { Button } from "@bubba/ui/button";
 import {
   Card,
@@ -33,12 +34,13 @@ interface UpdateOrganizationWebsiteProps {
 export function UpdateOrganizationWebsite({
   organizationWebsite,
 }: UpdateOrganizationWebsiteProps) {
+  const t = useI18n();
   const updateOrganizationWebsite = useAction(updateOrganizationWebsiteAction, {
     onSuccess: () => {
-      toast.success("Organization website updated");
+      toast.success(t("settings.general.org_website_updated"));
     },
     onError: () => {
-      toast.error("Something went wrong, please try again.");
+      toast.error(t("settings.general.org_website_error"));
     },
   });
 
@@ -58,10 +60,9 @@ export function UpdateOrganizationWebsite({
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <Card>
           <CardHeader>
-            <CardTitle>Organization Website</CardTitle>
+            <CardTitle>{t("settings.general.org_website")}</CardTitle>
             <CardDescription>
-              This is your organization&apos;s official website URL. Make sure
-              to include the full URL with https://.
+              {t("settings.general.org_website_description")}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -87,7 +88,7 @@ export function UpdateOrganizationWebsite({
             />
           </CardContent>
           <CardFooter className="flex justify-between">
-            <div>Please enter a valid URL including https://</div>
+            <div>{t("settings.general.org_website_tip")}</div>
             <Button
               type="submit"
               disabled={updateOrganizationWebsite.status === "executing"}
@@ -95,7 +96,7 @@ export function UpdateOrganizationWebsite({
               {updateOrganizationWebsite.status === "executing" ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
               ) : (
-                "Save"
+                t("settings.general.save_button")
               )}
             </Button>
           </CardFooter>

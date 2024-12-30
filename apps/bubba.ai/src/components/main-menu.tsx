@@ -1,6 +1,7 @@
 "use client";
 
 import { updateMenuAction } from "@/actions/update-menu-action";
+import { useI18n } from "@/locales/client";
 import { useMenuStore } from "@/store/menu";
 import { Button } from "@bubba/ui/button";
 import { cn } from "@bubba/ui/cn";
@@ -24,21 +25,6 @@ const icons = {
   "/settings": () => <Icons.Settings size={22} />,
   "/risk": () => <Icons.Risk size={22} />,
 };
-
-const defaultItems = [
-  {
-    path: "/",
-    name: "Overview",
-  },
-  {
-    path: "/risk",
-    name: "Risk",
-  },
-  {
-    path: "/settings",
-    name: "Settings",
-  },
-];
 
 interface ItemProps {
   item: { path: string; name: string };
@@ -71,7 +57,6 @@ const Item = ({
           if (isCustomizing) {
             evt.preventDefault();
           }
-
           onSelect?.();
         }}
         onMouseDown={(evt) => {
@@ -162,6 +147,23 @@ type Props = {
 };
 
 export function MainMenu({ initialItems, onSelect }: Props) {
+  const t = useI18n();
+
+  const defaultItems = [
+    {
+      path: "/",
+      name: t("sidebar.overview"),
+    },
+    {
+      path: "/risk",
+      name: t("sidebar.risk"),
+    },
+    {
+      path: "/settings",
+      name: t("sidebar.settings"),
+    },
+  ];
+
   const [items, setItems] = useState(initialItems ?? defaultItems);
   const { isCustomizing, setCustomizing } = useMenuStore();
   const pathname = usePathname();

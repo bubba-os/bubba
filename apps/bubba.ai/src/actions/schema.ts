@@ -69,6 +69,13 @@ export const createRiskSchema = z.object({
   }),
 });
 
+export const updateRiskSchema = createRiskSchema.extend({
+  id: z.string(),
+  category: z.nativeEnum(RiskCategory),
+  department: z.nativeEnum(Departments),
+  ownerId: z.string(),
+});
+
 // Seed Data
 export const seedDataSchema = z.object({
   organizationId: z.string(),

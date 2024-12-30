@@ -14,7 +14,7 @@ export function AssignedUser({ avatarUrl, fullName }: Props) {
           <Image src={avatarUrl} alt={fullName ?? ""} width={20} height={20} />
         </Avatar>
       )}
-      <span className="truncate">{fullName?.split(" ").at(0)}</span>
+      <span className="truncate">{fullName}</span>
     </div>
   );
 }

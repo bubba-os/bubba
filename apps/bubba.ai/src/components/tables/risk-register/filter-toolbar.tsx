@@ -1,6 +1,7 @@
 "use client";
 
 import { CreateRiskSheet } from "@/components/sheets/create-risk-sheet";
+import { useI18n } from "@/locales/client";
 import { Departments, RiskCategory, RiskStatus } from "@bubba/db";
 import { Button } from "@bubba/ui/button";
 import { Input } from "@bubba/ui/input";
@@ -26,7 +27,15 @@ type Props = {
   isEmpty?: boolean;
 };
 
+const statusTranslationKeys = {
+  open: "risk.register.statuses.open",
+  pending: "risk.register.statuses.pending",
+  closed: "risk.register.statuses.closed",
+  archived: "risk.register.statuses.archived",
+} as const;
+
 export function FilterToolbar({ isEmpty }: Props) {
+  const t = useI18n();
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useQueryState("create-risk-sheet");
 
@@ -94,7 +103,7 @@ export function FilterToolbar({ isEmpty }: Props) {
       <div className="relative flex-1 sm:max-w-sm">
         <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
         <Input
-          placeholder="Search risks..."
+          placeholder={t("risk.register.filters.search")}
           className="pl-8"
           value={search || ""}
           onChange={(e) => setSearch(e.target.value || null)}
@@ -108,14 +117,16 @@ export function FilterToolbar({ isEmpty }: Props) {
             onValueChange={(value) => setStatus(value || null)}
           >
             <SelectTrigger className="w-[200px] min-w-[200px]">
-              <SelectValue placeholder="Status" />
+              <SelectValue placeholder={t("risk.register.filters.status")} />
             </SelectTrigger>
             <SelectContent>
               {riskStatuses.map((stat) => (
                 <SelectItem key={stat} value={stat}>
-                  {stat
-                    .replace(/_/g, " ")
-                    .replace(/\b\w/g, (char) => char.toUpperCase())}
+                  {t(
+                    statusTranslationKeys[
+                      stat.toLowerCase() as keyof typeof statusTranslationKeys
+                    ],
+                  )}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -126,7 +137,9 @@ export function FilterToolbar({ isEmpty }: Props) {
             onValueChange={(value) => setDepartment(value || null)}
           >
             <SelectTrigger className="w-[200px] min-w-[200px]">
-              <SelectValue placeholder="Department" />
+              <SelectValue
+                placeholder={t("risk.register.filters.department")}
+              />
             </SelectTrigger>
             <SelectContent>
               {departments.map((dept) => (
@@ -146,7 +159,7 @@ export function FilterToolbar({ isEmpty }: Props) {
             disabled={isPending}
           >
             <X className="h-4 w-4 mr-2" />
-            Clear filters
+            {t("risk.register.filters.clear")}
           </Button>
         )}
 

@@ -80,7 +80,8 @@
     "./truncate": "./src/utils/truncate.ts",
     "./hooks": "./src/hooks/index.ts",
     "./quantity-input": "./src/components/quantity-input.tsx",
-    "./use-media-query": "./src/hooks/use-media-query.tsx"
+    "./use-media-query": "./src/hooks/use-media-query.tsx",
+    "./inner-menu": "./src/components/inner-menu.tsx"
   },
   "dependencies": {
     "@mui/icons-material": "^6.1.6",
