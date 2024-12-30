@@ -18,8 +18,6 @@ export async function RisksByDepartment({ organizationId }: Props) {
 }
 
 async function getRisksByDepartment(organizationId: string) {
-  "use cache";
-
   return await db.risk.groupBy({
     by: ["department"],
     where: { organizationId },

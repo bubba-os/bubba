@@ -1,10 +1,8 @@
-import { getAppUrl } from "@bubba/utils/envs";
 import {
   Body,
   Button,
   Container,
   Font,
-  Head,
   Heading,
   Html,
   Link,
@@ -15,7 +13,6 @@ import {
 } from "@react-email/components";
 import { Footer } from "../components/footer";
 import { Logo } from "../components/logo";
-import InviteEmail from "./invite";
 
 interface Props {
   email: string;
@@ -99,4 +96,4 @@ export const MagicLinkEmail = ({ email, loginLink }: Props) => {
   );
 };
 
-export default InviteEmail;
+export default MagicLinkEmail;

@@ -1,4 +1,3 @@
-import { getEmailUrl } from "@bubba/utils/envs";
 import {
   Body,
   Container,
@@ -18,8 +17,6 @@ import { Logo } from "../components/logo";
 interface Props {
   fullName: string;
 }
-
-const baseUrl = getEmailUrl();
 
 export const WelcomeEmail = ({ fullName = "Viktor Hofte" }: Props) => {
   const firstName = fullName.split(" ").at(0);
@@ -60,20 +57,20 @@ export const WelcomeEmail = ({ fullName = "Viktor Hofte" }: Props) => {
           >
             <Logo />
             <Heading className="text-[#121212] text-[21px] font-normal text-center p-0 my-[30px] mx-0">
-              Welcome to Midday
+              Welcome to Bubba AI
             </Heading>
 
             <br />
 
             <span className="font-medium">Hi {firstName},</span>
             <Text className="text-[#121212]">
-              Welcome to Midday! I'm Pontus, one of the founders.
+              Welcome to Bubba AI! I'm Lewis, one of the founders.
               <br />
               <br />
-              We've been working on Midday for the past months, and during this
-              time, we've implemented the basic functionality to get started.
-              However, with your feedback, we can make the right decisions to
-              help run your business smarter.
+              We've been working on Bubba AI for the past months, and during
+              this time, we've implemented the basic functionality to get
+              started. However, with your feedback, we can make the right
+              decisions to help run your business smarter.
               <br />
               <br />
               During our beta phase, you may encounter some bugs, but we
@@ -94,7 +91,7 @@ export const WelcomeEmail = ({ fullName = "Viktor Hofte" }: Props) => {
             <br />
 
             <Img
-              src={`${baseUrl}/email/founders.jpeg`}
+              src={"https://app.bubba.ai/email/founders.jpeg"}
               alt="Founders"
               className="my-0 mx-auto block w-full"
             />
@@ -102,7 +99,7 @@ export const WelcomeEmail = ({ fullName = "Viktor Hofte" }: Props) => {
             <Text className="text-[#707070]">Best regards, founders</Text>
 
             <Img
-              src={`${baseUrl}/email/signature.png`}
+              src={"https://app.bubba.ai/email/signature.png"}
               alt="Signature"
               className="block w-full w-[143px] h-[20px]"
             />

@@ -3,10 +3,9 @@ import { FrameworkProgress } from "@/components/charts/framework-progress";
 import { RequirementStatus } from "@/components/charts/requirement-status";
 import { db } from "@bubba/db";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
 async function getComplianceOverview(organizationId: string) {
-  "use cache";
-
   const frameworks = await db.organizationFramework.findMany({
     where: { organizationId },
     include: {
@@ -34,11 +33,13 @@ export default async function DashboardPage() {
   );
 
   return (
-    <div className="space-y-12">
-      <div className="grid gap-4 md:grid-cols-2">
-        {frameworks && <FrameworkProgress frameworks={frameworks} />}
-        {frameworks && <RequirementStatus frameworks={frameworks} />}
+    <Suspense fallback={<div>Loading...</div>}>
+      <div className="space-y-12">
+        <div className="grid gap-4 md:grid-cols-2">
+          {frameworks && <FrameworkProgress frameworks={frameworks} />}
+          {frameworks && <RequirementStatus frameworks={frameworks} />}
+        </div>
       </div>
-    </div>
+    </Suspense>
   );
 }

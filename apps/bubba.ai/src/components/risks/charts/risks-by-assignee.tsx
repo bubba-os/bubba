@@ -171,8 +171,6 @@ export async function RisksByAssignee({ organizationId }: Props) {
 }
 
 async function userData(organizationId: string) {
-  "use cache";
-
   return await db.user.findMany({
     where: {
       organizationId,

@@ -1,4 +1,3 @@
-import { getEmailUrl } from "@bubba/utils/envs";
 import {
   Column,
   Hr,
@@ -8,8 +7,6 @@ import {
   Section,
   Text,
 } from "@react-email/components";
-
-const baseUrl = getEmailUrl();
 
 export function Footer() {
   return (
@@ -45,7 +42,7 @@ export function Footer() {
       <Row>
         <Link href="https://app.bubba.ai">
           <Img
-            src={`${baseUrl}/favicon-32x32.png`}
+            src={"https://app.bubba.ai/favicon-32x32.png"}
             width="32"
             height="32"
             alt="Bubba AI"

@@ -1,10 +1,8 @@
-import { getAppUrl } from "@bubba/utils/envs";
 import {
   Body,
   Button,
   Container,
   Font,
-  Head,
   Heading,
   Html,
   Link,
@@ -24,16 +22,8 @@ interface Props {
   inviteCode?: string;
 }
 
-const baseAppUrl = getAppUrl();
-
-export const InviteEmail = ({
-  invitedByEmail,
-  invitedByName,
-  email,
-  teamName,
-  inviteCode,
-}: Props) => {
-  const inviteLink = `${baseAppUrl}/teams/invite/${inviteCode}`;
+export const InviteEmail = ({ email, teamName, inviteCode }: Props) => {
+  const inviteLink = `https://app.bubba.ai/teams/invite/${inviteCode}`;
 
   return (
     <Html>

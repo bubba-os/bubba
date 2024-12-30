@@ -2,6 +2,7 @@ import { auth } from "@/auth";
 import { RiskOverview } from "@/components/risks/risk-overview";
 import { db } from "@bubba/db";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
 interface PageProps {
   params: Promise<{ riskId: string }>;
@@ -27,12 +28,14 @@ export default async function RiskPage({ params }: PageProps) {
 
   const users = await getUsers(session.user.organizationId);
 
-  return <RiskOverview risk={risk} users={users} />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <RiskOverview risk={risk} users={users} />
+    </Suspense>
+  );
 }
 
 async function getRisk(riskId: string, organizationId: string) {
-  "use cache";
-
   const risk = await db.risk.findUnique({
     where: {
       id: riskId,
@@ -47,8 +50,6 @@ async function getRisk(riskId: string, organizationId: string) {
 }
 
 async function getUsers(organizationId: string) {
-  "use cache";
-
   const users = await db.user.findMany({
     where: { organizationId: organizationId },
   });

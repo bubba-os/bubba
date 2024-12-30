@@ -1,4 +1,3 @@
-import type { Auth } from "@auth/core";
 import NextAuth from "next-auth";
 import { cache } from "react";
 

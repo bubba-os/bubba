@@ -1,5 +1,6 @@
 import { getI18n } from "@/locales/server";
 import { SecondaryMenu } from "@bubba/ui/secondary-menu";
+import { Suspense } from "react";
 
 export default async function Layout({
   children,
@@ -8,13 +9,15 @@ export default async function Layout({
 
   return (
     <div className="max-w-[800px]">
-      <SecondaryMenu
-        items={[
-          { path: "/settings", label: t("settings.general.title") },
-          { path: "/settings/members", label: t("settings.members.title") },
-          { path: "/settings/billing", label: t("settings.billing.title") },
-        ]}
-      />
+      <Suspense fallback={<div>Loading...</div>}>
+        <SecondaryMenu
+          items={[
+            { path: "/settings", label: t("settings.general.title") },
+            { path: "/settings/members", label: t("settings.members.title") },
+            { path: "/settings/billing", label: t("settings.billing.title") },
+          ]}
+        />
+      </Suspense>
 
       <main className="mt-8">{children}</main>
     </div>

@@ -2,10 +2,7 @@ import { Section } from "@react-email/components";
 import type React from "react";
 
 interface DualColumnProps {
-  styles?: Omit<
-    React.CSSProperties,
-    "padding" | "paddingLeft" | "paddingRight" | "paddingTop" | "paddingBottom"
-  >;
+  styles?: React.CSSProperties;
   pX?: number;
   pY?: number;
   columnOneContent: React.ReactNode;
@@ -24,12 +21,17 @@ export const DualColumn: React.FC<DualColumnProps> = ({
   styles,
 }) => {
   const colMaxWidth = pX ? (600 - 2 * pX) / 2 : 600 / 2;
+  const baseColumnStyles = {
+    display: "inline-block",
+    verticalAlign: "top",
+    boxSizing: "border-box" as const,
+  };
 
   return (
     <Section style={{ ...styles, padding: `${pY}px ${pX}px` }}>
       <Section
         style={{
-          //   ...twoColumnCol,
+          ...baseColumnStyles,
           ...columnOneStyles,
           maxWidth: colMaxWidth,
         }}
@@ -37,7 +39,11 @@ export const DualColumn: React.FC<DualColumnProps> = ({
         {columnOneContent}
       </Section>
       <Section
-      // style={{ ...twoColumnCol, ...columnTwoStyles, maxWidth: colMaxWidth }}
+        style={{
+          ...baseColumnStyles,
+          ...columnTwoStyles,
+          maxWidth: colMaxWidth,
+        }}
       >
         {columnTwoContent}
       </Section>

@@ -1,6 +1,6 @@
 {
   "extends": "@bubba/tsconfig/base.json",
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": ["emails", "components", "lib"],
   "exclude": ["node_modules"],
   "compilerOptions": {
     "baseUrl": ".",

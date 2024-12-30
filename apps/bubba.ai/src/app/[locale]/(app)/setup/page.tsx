@@ -4,6 +4,7 @@ import { Icons } from "@bubba/ui/icons";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Organization Setup | Bubba AI",

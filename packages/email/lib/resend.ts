@@ -24,21 +24,18 @@ export const sendEmail = async ({
   scheduledAt?: string;
 }) => {
   if (!resend) {
-    throw new Error("Resend not initialized");
+    throw new Error("Resend not initialized - missing API key");
   }
 
   try {
-    /*  */
-    const { error } = await resend.emails.send({
+    const { data, error } = await resend.emails.send({
       from: marketing
         ? "Bubba AI <lewis@mail.bubba.ai>"
         : system
           ? "Bubba AI <system@mail.bubba.ai>"
-          : scheduledAt
-            ? "Bubba AI <lewis@mail.bubba.ai>"
-            : "Bubba AI <lewis@mail.bubba.ai>",
+          : "Bubba AI <lewis@mail.bubba.ai>",
       to: test ? "lewis@mail.bubba.ai" : to,
-      cc: cc,
+      cc,
       replyTo: marketing ? "lewis@mail.bubba.ai" : undefined,
       subject,
       react,
@@ -46,16 +43,16 @@ export const sendEmail = async ({
     });
 
     if (error) {
-
-      throw new Error("Failed to send");
+      console.error("Resend API error:", error);
+      throw new Error(`Failed to send email: ${error.message}`);
     }
 
     return {
-      message: "Email sent",
+      message: "Email sent successfully",
+      id: data?.id,
     };
-  } catch (exception) {
-
-
-    throw new Error(exception as string);
+  } catch (error) {
+    console.error("Email sending error:", error);
+    throw error instanceof Error ? error : new Error("Failed to send email");
   }
 };

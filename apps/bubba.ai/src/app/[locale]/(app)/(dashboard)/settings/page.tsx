@@ -6,6 +6,7 @@ import { SeedDataForm } from "@/components/forms/seed-data-form";
 import { db } from "@bubba/db";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Organization Settings | Bubba AI",
@@ -27,13 +28,15 @@ export default async function OrganizationSettings() {
   }
 
   return (
-    <div className="space-y-12">
-      <UpdateOrganizationName organizationName={organization.name} />
-      <UpdateOrganizationWebsite organizationWebsite={organization.website} />
-      <DeleteOrganization organizationId={organization.id} />
-      {process.env.NODE_ENV === "development" && (
-        <SeedDataForm organizationId={organization.id} />
-      )}
-    </div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <div className="space-y-12">
+        <UpdateOrganizationName organizationName={organization.name} />
+        <UpdateOrganizationWebsite organizationWebsite={organization.website} />
+        <DeleteOrganization organizationId={organization.id} />
+        {process.env.NODE_ENV === "development" && (
+          <SeedDataForm organizationId={organization.id} />
+        )}
+      </div>
+    </Suspense>
   );
 }

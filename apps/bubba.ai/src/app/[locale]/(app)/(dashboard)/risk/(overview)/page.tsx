@@ -3,6 +3,7 @@ import { RiskOverview } from "@/components/risks/charts/risk-overview";
 import { RisksByAssignee } from "@/components/risks/charts/risks-by-assignee";
 import { db } from "@bubba/db";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
 export default async function RiskManagement() {
   const session = await auth();
@@ -18,24 +19,24 @@ export default async function RiskManagement() {
   }
 
   return (
-    <div className="space-y-4 sm:space-y-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <RiskOverview
-          data={overview}
-          organizationId={session.user.organizationId}
-        />
-      </div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <div className="space-y-4 sm:space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <RiskOverview
+            data={overview}
+            organizationId={session.user.organizationId}
+          />
+        </div>
 
-      <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
-        <RisksByAssignee organizationId={session.user.organizationId} />
+        <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
+          <RisksByAssignee organizationId={session.user.organizationId} />
+        </div>
       </div>
-    </div>
+    </Suspense>
   );
 }
 
 async function getRiskOverview(organizationId: string) {
-  "use cache";
-
   return await db.$transaction(async (tx) => {
     const [
       risks,

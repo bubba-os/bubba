@@ -1,4 +1,3 @@
-import { getAppUrl, getEmailUrl } from "@bubba/utils/envs";
 import {
   Body,
   Button,
@@ -20,15 +19,13 @@ interface Props {
   email?: string;
 }
 
-const baseAppUrl = getEmailUrl();
-
 export const WaitlistEmail = ({ email }: Props) => {
-  const confirmationUrl = `https://bubba.ai/api/waitlist?email=${encodeURIComponent(email || "")}`;
+  const confirmationUrl = `https://app.bubba.ai/api/waitlist?email=${email}`;
 
   return (
     <Html>
       <Tailwind>
-        <head>
+        <Head>
           <Font
             fontFamily="Geist"
             fallbackFontFamily="Helvetica"
@@ -39,7 +36,6 @@ export const WaitlistEmail = ({ email }: Props) => {
             fontWeight={400}
             fontStyle="normal"
           />
-
           <Font
             fontFamily="Geist"
             fallbackFontFamily="Helvetica"
@@ -50,7 +46,7 @@ export const WaitlistEmail = ({ email }: Props) => {
             fontWeight={500}
             fontStyle="normal"
           />
-        </head>
+        </Head>
 
         <Preview>Confirm your email to join the Bubba AI waitlist</Preview>
 

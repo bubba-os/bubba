@@ -1,4 +1,3 @@
-import { auth } from "@/auth";
 import { GoogleSignIn } from "@/components/google-sign-in";
 import { MagicLinkSignIn } from "@/components/magic-link";
 import { getI18n } from "@/locales/server";
@@ -11,19 +10,13 @@ import {
 } from "@bubba/ui/accordion";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Login | Bubba AI",
 };
 
 export default async function Page() {
-  const session = await auth();
   const t = await getI18n();
-
-  if (session?.user) {
-    redirect("/");
-  }
 
   const defaultSignInOptions = (
     <div className="flex flex-col space-y-2">
@@ -36,6 +29,7 @@ export default async function Page() {
       <MagicLinkSignIn />
     </>
   );
+
   return (
     <div>
       <div className="flex min-h-[calc(100vh-15rem)] items-center justify-center overflow-hidden p-6 md:p-0">

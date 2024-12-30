@@ -7,10 +7,7 @@
     "clean": "rm -rf .turbo node_modules",
     "lint": "biome check .",
     "format": "biome format --write .",
-    "typecheck": "tsc --noEmit",
-    "dev": "email dev -p 3003",
-    "build": "email build",
-    "start": "email start"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@bubba/ui": "workspace:*",
@@ -20,9 +17,13 @@
     "@react-email/tailwind": "1.0.4",
     "date-fns": "^4.1.0",
     "react-email": "3.0.4",
-    "responsive-react-email": "^0.0.5"
+    "responsive-react-email": "^0.0.5",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0"
   }
 }

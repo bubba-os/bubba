@@ -13,6 +13,7 @@ import { Loading } from "@/components/tables/risk-register/loading";
 import { getServerColumnHeaders } from "@/components/tables/risk-register/server-columns";
 import { type Departments, type RiskStatus, db } from "@bubba/db";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
 interface PageProps {
   searchParams: Promise<{
@@ -74,28 +75,32 @@ export default async function RiskRegisterPage({ searchParams }: PageProps) {
 
   if (loadedRisks.length === 0 && !hasFilters) {
     return (
-      <div className="relative overflow-hidden">
-        <FilterToolbar isEmpty={true} users={users} />
-        <NoRisks />
-        <Loading isEmpty />
-      </div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <div className="relative overflow-hidden">
+          <FilterToolbar isEmpty={true} users={users} />
+          <NoRisks />
+          <Loading isEmpty />
+        </div>
+      </Suspense>
     );
   }
 
   return (
-    <div className="relative">
-      <FilterToolbar isEmpty={hasFilters} users={users} />
-      {loadedRisks.length > 0 ? (
-        <DataTable
-          columnHeaders={columnHeaders}
-          data={loadedRisks as RiskRegisterType[]}
-          pageCount={Math.ceil(total / Number.parseInt(per_page))}
-          currentPage={Number.parseInt(page)}
-        />
-      ) : (
-        <NoResults hasFilters={hasFilters} />
-      )}
-    </div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <div className="relative">
+        <FilterToolbar isEmpty={hasFilters} users={users} />
+        {loadedRisks.length > 0 ? (
+          <DataTable
+            columnHeaders={columnHeaders}
+            data={loadedRisks as RiskRegisterType[]}
+            pageCount={Math.ceil(total / Number.parseInt(per_page))}
+            currentPage={Number.parseInt(page)}
+          />
+        ) : (
+          <NoResults hasFilters={hasFilters} />
+        )}
+      </div>
+    </Suspense>
   );
 }
 
@@ -118,8 +123,6 @@ async function risks({
   page?: number;
   per_page?: number;
 }) {
-  "use cache";
-
   const skip = (page - 1) * per_page;
 
   const [risks, total] = await Promise.all([

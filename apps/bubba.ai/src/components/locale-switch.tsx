@@ -14,7 +14,6 @@ import { Globe } from "lucide-react";
 
 const languages = {
   en: "English",
-  no: "Norsk",
 } as const;
 
 export const LocaleSwitch = () => {
