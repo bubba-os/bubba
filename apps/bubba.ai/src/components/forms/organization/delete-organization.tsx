@@ -1,6 +1,7 @@
 "use client";
 
 import { deleteOrganizationAction } from "@/actions/organization/delete-organization-action";
+import { useI18n } from "@/locales/client";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -33,25 +34,24 @@ export function DeleteOrganization({
 }: {
   organizationId: string;
 }) {
+  const t = useI18n();
   const [value, setValue] = useState("");
   const deleteOrganization = useAction(deleteOrganizationAction, {
     onSuccess: () => {
-      toast.success("Organization deleted");
+      toast.success(t("settings.general.org_delete_success"));
       redirect("/");
     },
     onError: () => {
-      toast.error("Something went wrong, please try again.");
+      toast.error(t("settings.general.org_delete_error"));
     },
   });
 
   return (
     <Card className="border-2 border-destructive">
       <CardHeader>
-        <CardTitle>Delete organization</CardTitle>
+        <CardTitle>{t("settings.general.org_delete")}</CardTitle>
         <CardDescription>
-          Permanently remove your organization and all of its contents from the
-          Bubba AI platform. This action is not reversible — please continue
-          with caution.
+          {t("settings.general.org_delete_description")}
         </CardDescription>
       </CardHeader>
       <CardFooter className="flex justify-between">
@@ -60,21 +60,22 @@ export function DeleteOrganization({
         <AlertDialog>
           <AlertDialogTrigger asChild>
             <Button variant="destructive" className="hover:bg-destructive">
-              Delete
+              {t("settings.general.delete_button")}
             </Button>
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogTitle>
+                {t("settings.general.org_delete_alert_title")}
+              </AlertDialogTitle>
               <AlertDialogDescription>
-                This action cannot be undone. This will permanently delete your
-                organization and remove your data from our servers.
+                {t("settings.general.org_delete_alert_description")}
               </AlertDialogDescription>
             </AlertDialogHeader>
 
             <div className="mt-2 flex flex-col gap-2">
               <Label htmlFor="confirm-delete">
-                Type <span className="font-medium">DELETE</span> to confirm.
+                {t("settings.general.delete_confirm_tip")}
               </Label>
               <Input
                 id="confirm-delete"
@@ -84,7 +85,9 @@ export function DeleteOrganization({
             </div>
 
             <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogCancel>
+                {t("settings.general.cancel_button")}
+              </AlertDialogCancel>
               <AlertDialogAction
                 onClick={() =>
                   deleteOrganization.execute({
@@ -92,12 +95,12 @@ export function DeleteOrganization({
                     organizationId,
                   })
                 }
-                disabled={value !== "DELETE"}
+                disabled={value !== t("settings.general.delete_confirm")}
               >
                 {deleteOrganization.status === "executing" ? (
                   <Loader2 className="h-4 w-4 animate-spin" />
                 ) : (
-                  "Confirm"
+                  t("settings.general.delete_confirm")
                 )}
               </AlertDialogAction>
             </AlertDialogFooter>

@@ -1,5 +1,7 @@
 "use client";
 
+import { useI18n } from "@/locales/client";
+
 import { Button } from "@bubba/ui/button";
 import { TableHead, TableHeader, TableRow } from "@bubba/ui/table";
 import { ArrowDown, ArrowUp } from "lucide-react";
@@ -24,6 +26,7 @@ export function DataTableHeader({ table, loading }: Props) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
+  const t = useI18n();
 
   const sortParam = searchParams.get("sort");
   const [column, value] = sortParam ? sortParam.split(":") : [];
@@ -63,7 +66,7 @@ export function DataTableHeader({ table, loading }: Props) {
               variant="ghost"
               onClick={() => createSortQuery("title")}
             >
-              <span>Risk</span>
+              <span>{t("risk.register.table.risk")}</span>
               {"title" === column && value === "asc" && <ArrowDown size={16} />}
               {"title" === column && value === "desc" && <ArrowUp size={16} />}
             </Button>
@@ -77,7 +80,7 @@ export function DataTableHeader({ table, loading }: Props) {
               variant="ghost"
               onClick={() => createSortQuery("status")}
             >
-              <span>Status</span>
+              <span>{t("risk.register.table.status")}</span>
               {"status" === column && value === "asc" && (
                 <ArrowDown size={16} />
               )}
@@ -93,7 +96,7 @@ export function DataTableHeader({ table, loading }: Props) {
               variant="ghost"
               onClick={() => createSortQuery("department")}
             >
-              <span>Department</span>
+              <span>{t("risk.register.table.department")}</span>
               {"department" === column && value === "asc" && (
                 <ArrowDown size={16} />
               )}
@@ -111,7 +114,7 @@ export function DataTableHeader({ table, loading }: Props) {
               variant="ghost"
               onClick={() => createSortQuery("ownerId")}
             >
-              <span>Assigned To</span>
+              <span>{t("risk.register.table.assigned_to")}</span>
               {"ownerId" === column && value === "asc" && (
                 <ArrowDown size={16} />
               )}

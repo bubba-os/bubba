@@ -1,8 +1,8 @@
 "use client";
 
-import { cn } from "@bubba/ui/cn";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { cn } from "../utils";
 
 interface SecondaryMenuProps {
   items: { path: string; label: string; query?: Record<string, string> }[];
@@ -20,7 +20,7 @@ export function SecondaryMenu({ items, isChild }: SecondaryMenuProps) {
     const currentSegments = getPathSegments(pathname);
     const itemSegments = getPathSegments(itemPath);
 
-    const segmentsToCompare = currentSegments.slice(0, 2);
+    const segmentsToCompare = currentSegments.slice(0, 3);
 
     return (
       segmentsToCompare.length === itemSegments.length &&

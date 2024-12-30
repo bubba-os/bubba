@@ -2,6 +2,7 @@
 
 import { updateOrganizationNameAction } from "@/actions/organization/update-organization-name-action";
 import { organizationNameSchema } from "@/actions/schema";
+import { useI18n } from "@/locales/client";
 import { Button } from "@bubba/ui/button";
 import {
   Card,
@@ -31,12 +32,13 @@ export function UpdateOrganizationName({
 }: {
   organizationName: string;
 }) {
+  const t = useI18n();
   const updateOrganizationName = useAction(updateOrganizationNameAction, {
     onSuccess: () => {
-      toast.success("Organization name updated");
+      toast.success(t("settings.general.org_name_updated"));
     },
     onError: () => {
-      toast.error("Something went wrong, please try again.");
+      toast.error(t("settings.general.org_name_error"));
     },
   });
 
@@ -56,10 +58,9 @@ export function UpdateOrganizationName({
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <Card>
           <CardHeader>
-            <CardTitle>Organization Name</CardTitle>
+            <CardTitle>{t("settings.general.org_name")}</CardTitle>
             <CardDescription>
-              This is your organizations visible name. You should use the legal
-              name of your organization.
+              {t("settings.general.org_name_description")}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -85,7 +86,7 @@ export function UpdateOrganizationName({
             />
           </CardContent>{" "}
           <CardFooter className="flex justify-between">
-            <div>Please use 32 characters at maximum.</div>
+            <div>{t("settings.general.org_name_tip")}</div>
             <Button
               type="submit"
               disabled={updateOrganizationName.status === "executing"}
@@ -93,7 +94,7 @@ export function UpdateOrganizationName({
               {updateOrganizationName.status === "executing" ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
               ) : (
-                "Save"
+                t("settings.general.save_button")
               )}
             </Button>
           </CardFooter>

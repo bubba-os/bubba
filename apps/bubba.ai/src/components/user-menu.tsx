@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import { getI18n } from "@/locales/server";
 import { Avatar, AvatarFallback, AvatarImageNext } from "@bubba/ui/avatar";
 import {
   DropdownMenu,
@@ -11,12 +12,13 @@ import {
   DropdownMenuTrigger,
 } from "@bubba/ui/dropdown-menu";
 import Link from "next/link";
+import { LocaleSwitch } from "./locale-switch";
 import { SignOut } from "./sign-out";
 import { ThemeSwitch } from "./theme-switch";
 
 export async function UserMenu({ onlySignOut }: { onlySignOut?: boolean }) {
   const session = await auth();
-
+  const t = await getI18n();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -55,34 +57,36 @@ export async function UserMenu({ onlySignOut }: { onlySignOut?: boolean }) {
                 </div>
               </div>
             </DropdownMenuLabel>
-
             <DropdownMenuSeparator />
-
             <DropdownMenuGroup>
               <Link prefetch href="/account">
                 <DropdownMenuItem>
-                  Account
+                  {t("user_menu.account")}
                   <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
                 </DropdownMenuItem>
               </Link>
 
               <Link prefetch href="/account/support">
-                <DropdownMenuItem>Support</DropdownMenuItem>
+                <DropdownMenuItem>{t("user_menu.support")}</DropdownMenuItem>
               </Link>
 
               <Link prefetch href="/account/teams">
                 <DropdownMenuItem>
-                  Teams
+                  {t("user_menu.teams")}
                   <DropdownMenuShortcut>⌘E</DropdownMenuShortcut>
                 </DropdownMenuItem>
               </Link>
             </DropdownMenuGroup>
-
             <DropdownMenuSeparator />
             <div className="flex flex-row justify-between items-center p-2">
-              <p className="text-sm">Theme</p>
+              <p className="text-sm">{t("user_menu.theme")}</p>
               <ThemeSwitch />
-            </div>
+            </div>{" "}
+            <DropdownMenuSeparator />{" "}
+            <div className="flex flex-row justify-between items-center p-2">
+              <p className="text-sm">{t("user_menu.language")}</p>
+              <LocaleSwitch />
+            </div>{" "}
             <DropdownMenuSeparator />
           </>
         )}

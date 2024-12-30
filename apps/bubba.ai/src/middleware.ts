@@ -1,34 +1,26 @@
 import { auth as authMiddleware } from "@/auth";
-import { type NextRequest, NextResponse } from "next/server";
+import { createI18nMiddleware } from "next-international/middleware";
+import type { NextRequest } from "next/server";
+
+const I18nMiddleware = createI18nMiddleware({
+  locales: ["en", "no"],
+  defaultLocale: "en",
+  urlMappingStrategy: "rewrite",
+});
 
 export async function middleware(request: NextRequest) {
   const session = await authMiddleware();
-  const url = new URL(request.url);
+  const nextUrl = request.nextUrl;
 
-  if (session && url.pathname === "/auth") {
-    return NextResponse.redirect(request.url);
-  }
+  const pathnameLocale = nextUrl.pathname.split("/", 2)?.[1];
 
-  if (!session && url.pathname !== "/auth") {
-    const encodedSearchParams = `${url.pathname.substring(1)}${url.search}`;
-    const newUrl = new URL("/auth", request.url);
+  const pathnameWithoutLocale = pathnameLocale
+    ? nextUrl.pathname.slice(pathnameLocale.length + 1)
+    : nextUrl.pathname;
 
-    if (encodedSearchParams) {
-      newUrl.searchParams.append("return_to", encodedSearchParams);
-    }
+  const newUrl = new URL(pathnameWithoutLocale || "/", request.url);
 
-    return NextResponse.redirect(newUrl);
-  }
-
-  if (
-    session &&
-    (!session.user.onboarded || !session.user.organizationId) &&
-    url.pathname !== "/setup"
-  ) {
-    return NextResponse.redirect(new URL("/setup", request.url));
-  }
-
-  return NextResponse.next();
+  return I18nMiddleware(request);
 }
 
 export const config = {
