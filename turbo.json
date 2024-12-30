@@ -26,7 +26,7 @@
         "RESEND_AUDIENCE_ID"
       ],
       "inputs": ["$TURBO_DEFAULT$", ".env"],
-      "dependsOn": ["^build", "clean-react"],
+      "dependsOn": ["^build", "^db:generate", "clean-react"],
       "outputs": [".next/**", "!.next/cache/**", "next-env.d.ts"]
     },
     "db:generate": {
@@ -40,6 +40,7 @@
     },
     "dev": {
       "inputs": ["$TURBO_DEFAULT$", ".env"],
+      "dependsOn": ["^db:generate"],
       "persistent": true,
       "cache": false
     },
