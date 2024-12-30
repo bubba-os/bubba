@@ -1,28 +1,25 @@
-// update-risk-action.ts
-
 "use server";
 
-import { type Departments, type RiskCategory, db } from "@bubba/db";
+import { db } from "@bubba/db";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { authActionClient } from "../safe-action";
-import { updateRiskSchema } from "../schema";
+import { updateInherentRiskSchema } from "../schema";
 
-export const updateRiskAction = authActionClient
-  .schema(updateRiskSchema)
+export const updateInherentRiskAction = authActionClient
+  .schema(updateInherentRiskSchema)
   .metadata({
-    name: "update-risk",
+    name: "update-inherent-risk",
     track: {
-      event: "update-risk",
+      event: "update-inherent-risk",
       channel: "server",
     },
   })
   .action(async ({ parsedInput, ctx }) => {
-    const { id, title, description, category, department, ownerId, status } =
-      parsedInput;
+    const { id, probability, impact } = parsedInput;
     const { user } = ctx;
 
-    if (!user.id || !user.organizationId) {
-      throw new Error("Invalid user input");
+    if (!user.organizationId) {
+      throw new Error("Invalid organization");
     }
 
     try {
@@ -32,12 +29,8 @@ export const updateRiskAction = authActionClient
           organizationId: user.organizationId,
         },
         data: {
-          title: title,
-          description: description,
-          ownerId: ownerId,
-          category: category,
-          department: department,
-          status: status,
+          probability,
+          impact,
         },
       });
 
@@ -50,8 +43,7 @@ export const updateRiskAction = authActionClient
         success: true,
       };
     } catch (error) {
-      console.error("Error updating risk:", error);
-
+      console.error("Error updating inherent risk:", error);
       return {
         success: false,
       };

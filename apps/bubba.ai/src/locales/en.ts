@@ -31,6 +31,10 @@ export default {
     risk: "Risk",
     settings: "Settings",
   },
+  common: {
+    save: "Save",
+    edit: "Edit",
+  },
   auth: {
     title: "Automate SOC 2, ISO 27001 and GDPR compliance with AI.",
     description:
@@ -75,6 +79,11 @@ export default {
         closed: "Closed",
         archived: "Archived",
       },
+      inherent_risk_description:
+        "Inherent risk is calculated as likelihood * impact. This is the risk level before any controls are applied.",
+      residual_risk_description:
+        "Residual risk is calculated as likelihood * impact. This is the risk level after controls are applied.",
+      risk_assessment_description: "Compare inherent and residual risk levels",
     },
     register: {
       title: "Risk Register",
@@ -93,6 +102,8 @@ export default {
         department: "Department",
         clear: "Clear filters",
         create: "Create risk",
+        owner: "Filter by owner",
+        owner_placeholder: "Filter by owner",
       },
       empty: {
         no_results: {
@@ -116,6 +127,37 @@ export default {
         closed: "Closed",
         archived: "Archived",
       },
+    },
+    metrics: {
+      probability: "Probability",
+      impact: "Impact",
+      inherentRisk: "Inherent Risk",
+      residualRisk: "Residual Risk",
+    },
+    chart: {
+      riskScore: "Risk Score",
+      inherentRisk: "Inherent Risk",
+      residualRisk: "Residual Risk",
+    },
+    form: {
+      update_inherent_risk: "Save Inherent Risk",
+      update_inherent_risk_description:
+        "Update the inherent risk of the risk. This is the risk level before any controls are applied.",
+      update_inherent_risk_success: "Inherent risk updated successfully",
+      update_inherent_risk_error: "Failed to update inherent risk",
+      update_residual_risk: "Save Residual Risk",
+      update_residual_risk_description:
+        "Update the residual risk of the risk. This is the risk level after controls are applied.",
+      update_residual_risk_success: "Residual risk updated successfully",
+      update_residual_risk_error: "Failed to update residual risk",
+      update_risk: "Update Risk",
+      update_risk_description: "Update the risk title or description.",
+      update_risk_success: "Risk updated successfully",
+      update_risk_error: "Failed to update risk",
+    },
+    actions: {
+      edit_inherent_risk: "Edit Inherent Risk",
+      edit_residual_risk: "Edit Residual Risk",
     },
   },
   settings: {

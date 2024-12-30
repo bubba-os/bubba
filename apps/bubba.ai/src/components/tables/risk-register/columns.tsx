@@ -1,8 +1,8 @@
 "use client";
 import { AssignedUser } from "@/components/assigned-user";
-import { RISK_COLORS } from "@/constants/colors";
+import { Status, type StatusType } from "@/components/status";
 import { useI18n } from "@/locales/client";
-import type { Departments, RiskCategory, RiskStatus } from "@bubba/db";
+import type { Departments, RiskStatus } from "@bubba/db";
 import { Badge } from "@bubba/ui/badge";
 import { Button } from "@bubba/ui/button";
 import { cn } from "@bubba/ui/cn";
@@ -50,23 +50,7 @@ export function columns(): ColumnDef<RiskRegisterType>[] {
 
         return (
           <div className="flex items-center gap-2">
-            <div
-              className={cn(
-                "size-2.5 rounded-full ring-1",
-                status === "open"
-                  ? "bg-[#ffc107]"
-                  : status === "pending"
-                    ? "bg-[#0ea5e9]"
-                    : status === "closed"
-                      ? "bg-[#22c55e]"
-                      : "bg-[#6b7280]",
-              )}
-            />
-            {status
-              .toLowerCase()
-              .split("_")
-              .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-              .join(" ")}
+            <Status status={status.toLowerCase() as StatusType} />
           </div>
         );
       },

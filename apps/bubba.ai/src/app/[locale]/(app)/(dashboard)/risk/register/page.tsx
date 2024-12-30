@@ -59,10 +59,23 @@ export default async function RiskRegisterPage({ searchParams }: PageProps) {
     per_page: Number.parseInt(per_page),
   });
 
+  const users = await db.user.findMany({
+    where: {
+      organizationId,
+      Risk: {
+        some: {},
+      },
+    },
+    select: {
+      id: true,
+      name: true,
+    },
+  });
+
   if (loadedRisks.length === 0 && !hasFilters) {
     return (
       <div className="relative overflow-hidden">
-        <FilterToolbar isEmpty />
+        <FilterToolbar isEmpty={true} users={users} />
         <NoRisks />
         <Loading isEmpty />
       </div>
@@ -71,7 +84,7 @@ export default async function RiskRegisterPage({ searchParams }: PageProps) {
 
   return (
     <div className="relative">
-      <FilterToolbar />
+      <FilterToolbar isEmpty={hasFilters} users={users} />
       {loadedRisks.length > 0 ? (
         <DataTable
           columnHeaders={columnHeaders}

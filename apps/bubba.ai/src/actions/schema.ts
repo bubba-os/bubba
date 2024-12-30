@@ -1,10 +1,4 @@
-import {
-  Departments,
-  RiskCategory,
-  RiskImpact,
-  RiskProbability,
-  RiskStatus,
-} from "@bubba/db";
+import { Departments, RiskCategory, RiskStatus } from "@bubba/db";
 import { z } from "zod";
 
 export const organizationSchema = z.object({
@@ -69,14 +63,47 @@ export const createRiskSchema = z.object({
   }),
 });
 
-export const updateRiskSchema = createRiskSchema.extend({
-  id: z.string(),
-  category: z.nativeEnum(RiskCategory),
-  department: z.nativeEnum(Departments),
-  ownerId: z.string(),
+export const updateRiskSchema = z.object({
+  id: z.string().min(1, {
+    message: "Risk ID is required",
+  }),
+  title: z.string().min(1, {
+    message: "Risk title is required",
+  }),
+  description: z.string().min(1, {
+    message: "Risk description is required",
+  }),
+  category: z.nativeEnum(RiskCategory, {
+    required_error: "Risk category is required",
+  }),
+  department: z.nativeEnum(Departments, {
+    required_error: "Risk department is required",
+  }),
+  ownerId: z.string({
+    required_error: "You must assign an owner to the risk",
+  }),
+  status: z.nativeEnum(RiskStatus, {
+    required_error: "Risk status is required",
+  }),
 });
 
 // Seed Data
 export const seedDataSchema = z.object({
   organizationId: z.string(),
+});
+
+export const updateInherentRiskSchema = z.object({
+  id: z.string().min(1, {
+    message: "Risk ID is required",
+  }),
+  probability: z.number().min(1).max(10),
+  impact: z.number().min(1).max(10),
+});
+
+export const updateResidualRiskSchema = z.object({
+  id: z.string().min(1, {
+    message: "Risk ID is required",
+  }),
+  probability: z.number().min(1).max(10),
+  impact: z.number().min(1).max(10),
 });

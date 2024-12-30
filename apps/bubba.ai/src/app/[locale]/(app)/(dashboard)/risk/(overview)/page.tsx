@@ -52,14 +52,6 @@ async function getRiskOverview(organizationId: string) {
       tx.risk.count({
         where: {
           organizationId,
-          AND: [
-            {
-              OR: [{ probability: "very_high" }, { probability: "high" }],
-            },
-            {
-              OR: [{ impact: "very_high" }, { impact: "high" }],
-            },
-          ],
         },
       }),
 

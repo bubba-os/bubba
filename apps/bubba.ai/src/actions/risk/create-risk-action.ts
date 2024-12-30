@@ -3,7 +3,6 @@
 "use server";
 
 import { db } from "@bubba/db";
-import { RiskImpact, RiskProbability } from "@bubba/db";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { authActionClient } from "../safe-action";
 import { createRiskSchema } from "../schema";
@@ -32,8 +31,8 @@ export const createRiskAction = authActionClient
           description,
           category,
           department,
-          probability: RiskProbability.low,
-          impact: RiskImpact.low,
+          probability: 1,
+          impact: 1,
           ownerId: user.id,
           organizationId: user.organizationId,
         },

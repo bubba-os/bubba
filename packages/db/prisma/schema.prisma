@@ -397,33 +397,19 @@ enum RiskStatus {
   archived
 }
 
-enum RiskProbability {
-  very_low
-  low
-  medium
-  high
-  very_high
-}
-
-enum RiskImpact {
-  very_low
-  low
-  medium
-  high
-  very_high
-}
-
 model Risk {
-  id          String          @id @default(cuid())
-  title       String
-  description String
-  category    RiskCategory
-  department  Departments?
-  status      RiskStatus      @default(open)
-  probability RiskProbability
-  impact      RiskImpact
-  createdAt   DateTime        @default(now())
-  updatedAt   DateTime        @updatedAt
+  id                   String       @id @default(cuid())
+  title                String
+  description          String
+  category             RiskCategory
+  department           Departments?
+  status               RiskStatus   @default(open)
+  probability          Int          @default(0)
+  impact               Int          @default(0)
+  residual_probability Int          @default(0)
+  residual_impact      Int          @default(0)
+  createdAt            DateTime     @default(now())
+  updatedAt            DateTime     @updatedAt
 
   organizationId String
   organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)

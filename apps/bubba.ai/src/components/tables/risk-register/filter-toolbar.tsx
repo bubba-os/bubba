@@ -2,7 +2,7 @@
 
 import { CreateRiskSheet } from "@/components/sheets/create-risk-sheet";
 import { useI18n } from "@/locales/client";
-import { Departments, RiskCategory, RiskStatus } from "@bubba/db";
+import { Departments, RiskCategory, RiskStatus, type User } from "@bubba/db";
 import { Button } from "@bubba/ui/button";
 import { Input } from "@bubba/ui/input";
 import {
@@ -25,6 +25,10 @@ const departments = Object.values(Departments).filter((d) => d !== "none");
 
 type Props = {
   isEmpty?: boolean;
+  users: {
+    id: string;
+    name: string | null;
+  }[];
 };
 
 const statusTranslationKeys = {
@@ -34,7 +38,7 @@ const statusTranslationKeys = {
   archived: "risk.register.statuses.archived",
 } as const;
 
-export function FilterToolbar({ isEmpty }: Props) {
+export function FilterToolbar({ isEmpty, users }: Props) {
   const t = useI18n();
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useQueryState("create-risk-sheet");
@@ -63,6 +67,12 @@ export function FilterToolbar({ isEmpty }: Props) {
     parse: (value) => value || null,
   });
 
+  const [ownerId, setOwnerId] = useQueryState("ownerId", {
+    shallow: false,
+    history: "push",
+    parse: (value) => value || null,
+  });
+
   const handleReset = useCallback(() => {
     startTransition(() => {
       Promise.all([
@@ -70,11 +80,12 @@ export function FilterToolbar({ isEmpty }: Props) {
         setCategory(null),
         setStatus(null),
         setDepartment(null),
+        setOwnerId(null),
       ]);
     });
-  }, [setSearch, setCategory, setStatus, setDepartment]);
+  }, [setSearch, setCategory, setStatus, setDepartment, setOwnerId]);
 
-  const hasFilters = search || category || status || department;
+  const hasFilters = search || category || status || department || ownerId;
 
   if (isEmpty) {
     return (
@@ -145,6 +156,22 @@ export function FilterToolbar({ isEmpty }: Props) {
               {departments.map((dept) => (
                 <SelectItem key={dept} value={dept}>
                   {dept.replace(/_/g, " ").toUpperCase()}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <Select
+            value={ownerId || ""}
+            onValueChange={(value) => setOwnerId(value || null)}
+          >
+            <SelectTrigger className="w-[200px] min-w-[200px]">
+              <SelectValue placeholder={t("risk.register.filters.owner")} />
+            </SelectTrigger>
+            <SelectContent>
+              {users.map((user) => (
+                <SelectItem key={user.id} value={user.id}>
+                  {user.name}
                 </SelectItem>
               ))}
             </SelectContent>
