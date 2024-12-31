@@ -68,6 +68,9 @@ export default {
   },
   risk: {
     risks: "risks",
+    vendor: {
+      title: "Vendor Management",
+    },
     dashboard: {
       title: "Dashboard",
       risk_status: "Risk Status",
@@ -158,6 +161,39 @@ export default {
     actions: {
       edit_inherent_risk: "Edit Inherent Risk",
       edit_residual_risk: "Edit Residual Risk",
+    },
+    tasks: {
+      title: "Tasks",
+      table: {
+        title: "Task",
+        status: "Status",
+        assigned_to: "Assigned To",
+      },
+      filters: {
+        search: "Search tasks...",
+        status: "Status",
+        clear: "Clear filters",
+        create: "Create task",
+        owner: "Filter by owner",
+        owner_placeholder: "Filter by owner",
+      },
+      empty: {
+        title: "No results",
+        description_filtered: "Try another search, or adjusting the filters",
+        description_no_tasks: "There are no tasks created yet",
+        create: "Create Task",
+        description_create:
+          "Create a mitigation task for this risk, add a treatment plan, and assign it to a team member.",
+      },
+      sheet: {
+        title: "Create Task",
+      },
+      statuses: {
+        open: "Open",
+        pending: "Pending",
+        closed: "Closed",
+        archived: "Archived",
+      },
     },
   },
   settings: {

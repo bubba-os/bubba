@@ -87,6 +87,22 @@ export const updateRiskSchema = z.object({
   }),
 });
 
+export const createTaskSchema = z.object({
+  riskId: z.string().min(1, {
+    message: "Risk ID is required",
+  }),
+  title: z.string().min(1, {
+    message: "Task title is required",
+  }),
+  description: z.string().min(1, {
+    message: "Task description is required",
+  }),
+  dueDate: z.date().optional(),
+  ownerId: z.string({
+    required_error: "You must assign an owner to the task",
+  }),
+});
+
 // Seed Data
 export const seedDataSchema = z.object({
   organizationId: z.string(),

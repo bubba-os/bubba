@@ -2,7 +2,7 @@
 
 import { useI18n } from "@/locales/client";
 import type { Risk, User } from "@bubba/db";
-import { Alert, AlertDescription } from "@bubba/ui/alert";
+import { Alert, AlertDescription, AlertTitle } from "@bubba/ui/alert";
 import { Button } from "@bubba/ui/button";
 import {
   Card,
@@ -30,27 +30,31 @@ export function RiskOverview({
 
   return (
     <div className="space-y-4">
+      <Alert>
+        <ShieldAlert className="h-4 w-4" />
+        <AlertTitle>
+          <div className="flex items-center justify-between gap-2">
+            {risk.title}
+            <Button
+              size="icon"
+              variant="ghost"
+              className="p-0 m-0 size-auto"
+              onClick={() => setOpen("true")}
+            >
+              <PencilIcon className="h-3 w-3" />
+            </Button>
+          </div>
+        </AlertTitle>
+        <AlertDescription className="mt-4">{risk.description}</AlertDescription>
+      </Alert>
+
       <Card>
         <CardHeader>
           <CardTitle>
             <div className="flex items-center justify-between gap-2">
-              {risk.title}
-              <Button
-                onClick={() => setOpen("true")}
-                size="icon"
-                variant="ghost"
-                className="p-0 m-0 size-auto"
-              >
-                <PencilIcon className="h-3 w-3" />
-              </Button>
+              Overview
             </div>
           </CardTitle>
-          <CardDescription>
-            <Alert>
-              <ShieldAlert className="h-4 w-4" />
-              <AlertDescription>{risk.description}</AlertDescription>
-            </Alert>
-          </CardDescription>
         </CardHeader>
         <CardContent>
           <UpdateRiskOverview risk={risk} users={users} />

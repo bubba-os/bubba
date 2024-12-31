@@ -28,15 +28,13 @@ export default async function OrganizationSettings() {
   }
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <div className="space-y-12">
-        <UpdateOrganizationName organizationName={organization.name} />
-        <UpdateOrganizationWebsite organizationWebsite={organization.website} />
-        <DeleteOrganization organizationId={organization.id} />
-        {process.env.NODE_ENV === "development" && (
-          <SeedDataForm organizationId={organization.id} />
-        )}
-      </div>
-    </Suspense>
+    <div className="space-y-12">
+      <UpdateOrganizationName organizationName={organization.name} />
+      <UpdateOrganizationWebsite organizationWebsite={organization.website} />
+      <DeleteOrganization organizationId={organization.id} />
+      {process.env.NODE_ENV === "development" && (
+        <SeedDataForm organizationId={organization.id} />
+      )}
+    </div>
   );
 }

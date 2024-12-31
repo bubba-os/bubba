@@ -14,6 +14,7 @@ export default async function Layout({
           items={[
             { path: "/risk", label: t("risk.dashboard.title") },
             { path: "/risk/register", label: t("risk.register.title") },
+            { path: "/risk/vendor", label: t("risk.vendor.title") },
           ]}
         />
       </Suspense>

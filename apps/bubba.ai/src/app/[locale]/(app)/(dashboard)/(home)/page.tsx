@@ -1,6 +1,7 @@
 import { auth } from "@/auth";
 import { FrameworkProgress } from "@/components/charts/framework-progress";
 import { RequirementStatus } from "@/components/charts/requirement-status";
+import { SkeletonLoader } from "@/components/skeleton-loader";
 import { db } from "@bubba/db";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
@@ -13,10 +14,13 @@ async function getComplianceOverview(organizationId: string) {
       organizationRequirements: {
         include: {
           requirement: true,
+          _count: true,
         },
       },
     },
   });
+
+  console.log(frameworks);
 
   return { frameworks };
 }
@@ -33,7 +37,7 @@ export default async function DashboardPage() {
   );
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<SkeletonLoader amount={2} />}>
       <div className="space-y-12">
         <div className="grid gap-4 md:grid-cols-2">
           {frameworks && <FrameworkProgress frameworks={frameworks} />}

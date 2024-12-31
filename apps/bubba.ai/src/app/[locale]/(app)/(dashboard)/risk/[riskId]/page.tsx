@@ -1,6 +1,10 @@
 import { auth } from "@/auth";
 import { RiskOverview } from "@/components/risks/risk-overview";
+import { SkeletonLoader } from "@/components/skeleton-loader";
 import { db } from "@bubba/db";
+import { SecondaryMenu } from "@bubba/ui/secondary-menu";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@bubba/ui/tabs";
+import { unstable_cache } from "next/cache";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
@@ -29,30 +33,38 @@ export default async function RiskPage({ params }: PageProps) {
   const users = await getUsers(session.user.organizationId);
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <RiskOverview risk={risk} users={users} />
-    </Suspense>
+    <div className="flex flex-col gap-4">
+      <Suspense fallback={<SkeletonLoader amount={4} />}>
+        <RiskOverview risk={risk} users={users} />
+      </Suspense>
+    </div>
   );
 }
 
-async function getRisk(riskId: string, organizationId: string) {
-  const risk = await db.risk.findUnique({
-    where: {
-      id: riskId,
-      organizationId: organizationId,
-    },
-    include: {
-      owner: true,
-    },
-  });
+const getRisk = unstable_cache(
+  async (riskId: string, organizationId: string) => {
+    const risk = await db.risk.findUnique({
+      where: {
+        id: riskId,
+        organizationId: organizationId,
+      },
+      include: {
+        owner: true,
+      },
+    });
 
-  return risk;
-}
+    return risk;
+  },
+  ["risk-cache"],
+);
 
-async function getUsers(organizationId: string) {
-  const users = await db.user.findMany({
-    where: { organizationId: organizationId },
-  });
+const getUsers = unstable_cache(
+  async (organizationId: string) => {
+    const users = await db.user.findMany({
+      where: { organizationId: organizationId },
+    });
 
-  return users;
-}
+    return users;
+  },
+  ["users-cache"],
+);

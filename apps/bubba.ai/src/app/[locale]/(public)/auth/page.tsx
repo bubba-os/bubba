@@ -25,13 +25,13 @@ export default async function Page() {
   );
 
   const moreSignInOptions = (
-    <>
+    <div className="flex flex-col space-y-2">
       <MagicLinkSignIn />
-    </>
+    </div>
   );
 
   return (
-    <div>
+    <>
       <div className="flex min-h-[calc(100vh-15rem)] items-center justify-center overflow-hidden p-6 md:p-0">
         <div className="relative z-20 m-auto flex w-full max-w-[380px] flex-col py-8">
           <div className="relative flex w-full flex-col">
@@ -73,6 +73,6 @@ export default async function Page() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

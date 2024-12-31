@@ -1,10 +1,9 @@
 "use client";
 
 import { getOrganizationUsersAction } from "@/actions/organization/get-organization-users-action";
-import { createRiskAction } from "@/actions/risk/create-risk-action";
-import { createRiskSchema } from "@/actions/schema";
+import { createTaskAction } from "@/actions/risk/task/create-task-action";
+import { createTaskSchema } from "@/actions/schema";
 import { SelectUser } from "@/components/select-user";
-import { Departments, RiskCategory } from "@bubba/db";
 import {
   Accordion,
   AccordionContent,
@@ -12,26 +11,32 @@ import {
   AccordionTrigger,
 } from "@bubba/ui/accordion";
 import { Button } from "@bubba/ui/button";
+import { Calendar } from "@bubba/ui/calendar";
+import { cn } from "@bubba/ui/cn";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@bubba/ui/form";
 import { Input } from "@bubba/ui/input";
+import { Popover, PopoverContent, PopoverTrigger } from "@bubba/ui/popover";
 import {
   Select,
   SelectContent,
-  SelectItem,
   SelectTrigger,
   SelectValue,
 } from "@bubba/ui/select";
 import { Textarea } from "@bubba/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
 import { ArrowRightIcon } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
+import { useParams } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -44,10 +49,11 @@ interface User {
   name: string | null;
 }
 
-export function CreateRisk() {
+export function CreateTaskForm() {
   const [users, setUsers] = useState<User[]>([]);
   const [isLoadingUsers, setIsLoadingUsers] = useState(true);
-  const [_, setCreateRiskSheet] = useQueryState("create-risk-sheet");
+  const [_, setCreateTaskSheet] = useQueryState("create-task-sheet");
+  const params = useParams<{ riskId: string }>();
 
   useEffect(() => {
     async function loadUsers() {
@@ -61,28 +67,29 @@ export function CreateRisk() {
     loadUsers();
   }, []);
 
-  const createRisk = useAction(createRiskAction, {
+  const createTask = useAction(createTaskAction, {
     onSuccess: () => {
-      toast.success("Risk created successfully");
-      setCreateRiskSheet(null);
+      toast.success("Task created successfully");
+      setCreateTaskSheet(null);
     },
     onError: () => {
       toast.error("Something went wrong, please try again.");
     },
   });
 
-  const form = useForm<z.infer<typeof createRiskSchema>>({
-    resolver: zodResolver(createRiskSchema),
+  const form = useForm<z.infer<typeof createTaskSchema>>({
+    resolver: zodResolver(createTaskSchema),
     defaultValues: {
       title: "",
       description: "",
-      category: RiskCategory.operations,
-      department: Departments.admin,
+      dueDate: new Date(),
+      ownerId: "",
+      riskId: params.riskId,
     },
   });
 
-  const onSubmit = (data: z.infer<typeof createRiskSchema>) => {
-    createRisk.execute(data);
+  const onSubmit = (data: z.infer<typeof createTaskSchema>) => {
+    createTask.execute(data);
   };
 
   return (
@@ -90,9 +97,9 @@ export function CreateRisk() {
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <div className="h-[calc(100vh-250px)] scrollbar-hide overflow-auto">
           <div>
-            <Accordion type="multiple" defaultValue={["risk"]}>
-              <AccordionItem value="risk">
-                <AccordionTrigger>Risk Details</AccordionTrigger>
+            <Accordion type="multiple" defaultValue={["task"]}>
+              <AccordionItem value="task">
+                <AccordionTrigger>Task Details</AccordionTrigger>
                 <AccordionContent>
                   <div className="space-y-4">
                     <FormField
@@ -100,13 +107,13 @@ export function CreateRisk() {
                       name="title"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Risk Title</FormLabel>
+                          <FormLabel>Task Title</FormLabel>
                           <FormControl>
                             <Input
                               {...field}
                               autoFocus
                               className="mt-3"
-                              placeholder="Enter a name for the risk"
+                              placeholder="Enter a name for the task"
                               autoCorrect="off"
                             />
                           </FormControl>
@@ -114,6 +121,7 @@ export function CreateRisk() {
                         </FormItem>
                       )}
                     />
+
                     <FormField
                       control={form.control}
                       name="description"
@@ -124,90 +132,57 @@ export function CreateRisk() {
                             <Textarea
                               {...field}
                               className="mt-3 min-h-[80px]"
-                              placeholder="Enter a description for the risk"
+                              placeholder="Enter a description for the task"
                             />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
-                    <FormField
-                      control={form.control}
-                      name="category"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Category</FormLabel>
-                          <FormControl>
-                            <Select
-                              {...field}
-                              value={field.value}
-                              onValueChange={field.onChange}
-                            >
-                              <SelectTrigger>
-                                <SelectValue placeholder="Select a category" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                {Object.values(RiskCategory).map((category) => {
-                                  const formattedCategory = category
-                                    .toLowerCase()
-                                    .split("_")
-                                    .map(
-                                      (word) =>
-                                        word.charAt(0).toUpperCase() +
-                                        word.slice(1),
-                                    )
-                                    .join(" ");
-                                  return (
-                                    <SelectItem key={category} value={category}>
-                                      {formattedCategory}
-                                    </SelectItem>
-                                  );
-                                })}
-                              </SelectContent>
-                            </Select>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="department"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Department</FormLabel>
-                          <FormControl>
-                            <Select
-                              {...field}
-                              value={field.value}
-                              onValueChange={field.onChange}
-                            >
-                              <SelectTrigger>
-                                <SelectValue placeholder="Select a department" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                {Object.values(Departments).map(
-                                  (department) => {
-                                    const formattedDepartment =
-                                      department.toUpperCase();
 
-                                    return (
-                                      <SelectItem
-                                        key={department}
-                                        value={department}
-                                      >
-                                        {formattedDepartment}
-                                      </SelectItem>
-                                    );
-                                  },
-                                )}
-                              </SelectContent>
-                            </Select>
-                          </FormControl>
+                    <FormField
+                      control={form.control}
+                      name="dueDate"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-col">
+                          <FormLabel>Due Date</FormLabel>
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <FormControl>
+                                <Button
+                                  variant={"outline"}
+                                  className={cn(
+                                    "w-[240px] pl-3 text-left font-normal",
+                                    !field.value && "text-muted-foreground",
+                                  )}
+                                >
+                                  {field.value ? (
+                                    format(field.value, "PPP")
+                                  ) : (
+                                    <span>Pick a date</span>
+                                  )}
+                                  <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                </Button>
+                              </FormControl>
+                            </PopoverTrigger>
+                            <PopoverContent
+                              className="w-auto p-0"
+                              align="start"
+                            >
+                              <Calendar
+                                mode="single"
+                                selected={field.value}
+                                onSelect={field.onChange}
+                                disabled={(date) => date <= new Date()}
+                                initialFocus
+                              />
+                            </PopoverContent>
+                          </Popover>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
+
                     <FormField
                       control={form.control}
                       name="ownerId"
@@ -243,9 +218,9 @@ export function CreateRisk() {
           </div>
 
           <div className="flex justify-end mt-4">
-            <Button type="submit" disabled={createRisk.status === "executing"}>
+            <Button type="submit" disabled={createTask.status === "executing"}>
               <div className="flex items-center justify-center">
-                Create Risk
+                Create Task
                 <ArrowRightIcon className="ml-2 h-4 w-4" />
               </div>
             </Button>

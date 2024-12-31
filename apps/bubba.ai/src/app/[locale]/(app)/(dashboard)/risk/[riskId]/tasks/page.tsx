@@ -1,33 +1,33 @@
 import { auth } from "@/auth";
-import {
-  type RiskRegisterType,
-  columns,
-} from "@/components/tables/risk-register/columns";
-import { DataTable } from "@/components/tables/risk-register/data-table";
-import {
-  NoResults,
-  NoRisks,
-} from "@/components/tables/risk-register/empty-states";
-import { FilterToolbar } from "@/components/tables/risk-register/filter-toolbar";
-import { Loading } from "@/components/tables/risk-register/loading";
-import { getServerColumnHeaders } from "@/components/tables/risk-register/server-columns";
-import { type Departments, type RiskStatus, db } from "@bubba/db";
+
+import type { RiskTaskType } from "@/components/tables/risk-tasks/columns";
+import { DataTable } from "@/components/tables/risk-tasks/data-table";
+import { NoTasks } from "@/components/tables/risk-tasks/empty-states";
+import { NoResults } from "@/components/tables/risk-tasks/empty-states";
+import { FilterToolbar } from "@/components/tables/risk-tasks/filter-toolbar";
+import { Loading } from "@/components/tables/risk-tasks/loading";
+import { getServerColumnHeaders } from "@/components/tables/risk-tasks/server-columns";
+import { type RiskTaskStatus, db } from "@bubba/db";
+import { SecondaryMenu } from "@bubba/ui/secondary-menu";
 import { redirect } from "next/navigation";
-import { Suspense } from "react";
 
 interface PageProps {
   searchParams: Promise<{
     search?: string;
-    category?: string;
     status?: string;
-    department?: string;
     sort?: string;
     page?: string;
     per_page?: string;
   }>;
+  params: Promise<{
+    riskId: string;
+  }>;
 }
 
-export default async function RiskRegisterPage({ searchParams }: PageProps) {
+export default async function RiskTaskPage({
+  searchParams,
+  params,
+}: PageProps) {
   const session = await auth();
   const organizationId = session?.user.organizationId;
   const columnHeaders = await getServerColumnHeaders();
@@ -39,21 +39,21 @@ export default async function RiskRegisterPage({ searchParams }: PageProps) {
   const {
     search,
     status,
-    department,
     sort,
     page = "1",
     per_page = "10",
   } = await searchParams;
 
+  const { riskId } = await params;
+
   const [column, order] = sort?.split(":") ?? [];
 
-  const hasFilters = !!(search || status || department);
+  const hasFilters = !!(search || status);
 
-  const { risks: loadedRisks, total } = await risks({
-    organizationId,
+  const { tasks: loadedTasks, total } = await tasks({
+    riskId,
     search,
-    status: status as RiskStatus,
-    department: department as Departments,
+    status: status as RiskTaskStatus,
     column,
     order,
     page: Number.parseInt(page),
@@ -63,9 +63,6 @@ export default async function RiskRegisterPage({ searchParams }: PageProps) {
   const users = await db.user.findMany({
     where: {
       organizationId,
-      Risk: {
-        some: {},
-      },
     },
     select: {
       id: true,
@@ -73,23 +70,25 @@ export default async function RiskRegisterPage({ searchParams }: PageProps) {
     },
   });
 
-  if (loadedRisks.length === 0 && !hasFilters) {
+  if (loadedTasks.length === 0 && !hasFilters) {
     return (
-      <div className="relative overflow-hidden">
-        <FilterToolbar isEmpty={true} users={users} />
-        <NoRisks />
-        <Loading isEmpty />
+      <div className="flex flex-col gap-4">
+        <div className="relative overflow-hidden">
+          <FilterToolbar isEmpty={true} users={users} />
+          <NoTasks />
+          <Loading isEmpty />
+        </div>
       </div>
     );
   }
 
   return (
     <div className="relative">
-      <FilterToolbar isEmpty={loadedRisks.length === 0} users={users} />
-      {loadedRisks.length > 0 ? (
+      <FilterToolbar isEmpty={loadedTasks.length === 0} users={users} />
+      {loadedTasks.length > 0 ? (
         <DataTable
           columnHeaders={columnHeaders}
-          data={loadedRisks as RiskRegisterType[]}
+          data={loadedTasks as RiskTaskType[]}
           pageCount={Math.ceil(total / Number.parseInt(per_page))}
           currentPage={Number.parseInt(page)}
         />
@@ -100,20 +99,18 @@ export default async function RiskRegisterPage({ searchParams }: PageProps) {
   );
 }
 
-async function risks({
-  organizationId,
+async function tasks({
+  riskId,
   search,
   status,
-  department,
   column,
   order,
   page = 1,
   per_page = 10,
 }: {
-  organizationId: string;
+  riskId: string;
   search?: string;
-  status?: RiskStatus;
-  department?: Departments;
+  status?: RiskTaskStatus;
   column?: string;
   order?: string;
   page?: number;
@@ -121,10 +118,10 @@ async function risks({
 }) {
   const skip = (page - 1) * per_page;
 
-  const [risks, total] = await Promise.all([
-    db.risk.findMany({
+  const [tasks, total] = await Promise.all([
+    db.riskMitigationTask.findMany({
       where: {
-        organizationId,
+        riskId,
         AND: [
           search
             ? {
@@ -135,7 +132,6 @@ async function risks({
               }
             : {},
           status ? { status } : {},
-          department ? { department } : {},
         ],
       },
       orderBy: column
@@ -154,9 +150,9 @@ async function risks({
         },
       },
     }),
-    db.risk.count({
+    db.riskMitigationTask.count({
       where: {
-        organizationId,
+        riskId,
         AND: [
           search
             ? {
@@ -167,11 +163,10 @@ async function risks({
               }
             : {},
           status ? { status } : {},
-          department ? { department } : {},
         ],
       },
     }),
   ]);
 
-  return { risks, total };
+  return { tasks, total };
 }
