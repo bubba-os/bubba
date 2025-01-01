@@ -1,4 +1,5 @@
 import { WaitlistForm } from "@/app/components/waitlist-form";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -46,7 +47,13 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           Contribute →
-        </a>
+        </a>{" "}
+        <Link
+          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+          href="/pitch"
+        >
+          Pitch Deck →
+        </Link>
       </footer>
     </div>
   );

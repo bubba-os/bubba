@@ -1,12 +1,14 @@
 import "@/styles/globals.css";
 import { cn } from "@bubba/ui/cn";
 import "@bubba/ui/globals.css";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
-import { Suspense } from "react";
 import { Toaster } from "sonner";
+import { extractRouterConfig } from "uploadthing/server";
+import { fileUploader } from "../api/uploadthing/core";
 import { Providers } from "./providers";
 
 export const metadata: Metadata = {
@@ -85,6 +87,7 @@ export default async function Layout(props: {
       >
         <NuqsAdapter>
           <Providers locale={locale}>
+            <NextSSRPlugin routerConfig={extractRouterConfig(fileUploader)} />
             <main>{children}</main>
           </Providers>
         </NuqsAdapter>

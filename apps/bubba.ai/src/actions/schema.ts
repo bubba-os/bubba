@@ -10,6 +10,11 @@ export const organizationNameSchema = z.object({
   name: z.string().min(1).max(255),
 });
 
+export const uploadSchema = z.object({
+  file: z.instanceof(File),
+  organizationId: z.string().uuid(),
+});
+
 export const deleteOrganizationSchema = z.object({
   id: z.string().uuid(),
   organizationId: z.string().uuid(),

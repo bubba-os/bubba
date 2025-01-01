@@ -1,11 +1,12 @@
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["driverAdapters"]
+  previewFeatures = ["driverAdapters", "postgresqlExtensions"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [vector]
 }
 
 // -------------------------------------------------------
@@ -128,6 +129,7 @@ model Organization {
   OrganizationFramework OrganizationFramework[]
   Assessment            Assessment[]
   Risk                  Risk[]
+  Artifact              Artifact[]
 
   @@index([stripeCustomerId])
 }
@@ -262,22 +264,21 @@ model EvidenceDefinition {
   @@index([requirementId])
 }
 
-// 7) Actual artifacts (files or integration data)
 model Artifact {
   id         String       @id @default(cuid())
   name       String
-  fileUrl    String? // If it's a file
+  fileUrl    String?
   type       ArtifactType @default(file)
   uploadedAt DateTime     @default(now())
 
-  // If it's an integration-based evidence, you might store extra data:
-  // integrationData  Json?
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 
-  // Many-to-many pivot to link to OrganizationRequirement (and optionally EvidenceDefinition)
+  embedding Unsupported("vector(1536)")
+
   artifactRequirements ArtifactRequirementPivot[]
 
-  // Indexes
-  @@index([name])
+  @@index([id, organizationId])
   @@index([type])
 }
 

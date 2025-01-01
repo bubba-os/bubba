@@ -9,6 +9,7 @@ import Link from "next/link";
 
 export type RiskTaskType = {
   id: string;
+  riskId: string;
   title: string;
   status: RiskTaskStatus;
   dueDate: Date;
@@ -31,7 +32,9 @@ export function columns(): ColumnDef<RiskTaskType>[] {
         return (
           <span className="truncate">
             <Button variant="link" className="p-0" asChild>
-              <Link href={`/risk/${row.original.id}`}>
+              <Link
+                href={`/risk/${row.original.riskId}/tasks/${row.original.id}`}
+              >
                 {row.original.title}
               </Link>
             </Button>
