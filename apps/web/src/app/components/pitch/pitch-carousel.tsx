@@ -5,8 +5,6 @@ import {
   type CarouselApi,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@bubba/ui/carousel";
 import * as React from "react";
 import { SectionMarket } from "./pitch-market";
@@ -45,26 +43,37 @@ export function PitchCarousel() {
   }, [api]);
 
   return (
-    <Carousel
-      setApi={setApi}
-      className="w-full h-full relative"
-      opts={{
-        align: "start",
-        loop: true,
-      }}
-    >
-      <CarouselContent className="-ml-0">
-        {slides.map(({ component: SlideComponent }, index) => (
-          <CarouselItem key={`slide-${index + 1}`} className="pl-0 basis-full">
-            <SlideComponent />
-          </CarouselItem>
-        ))}
-      </CarouselContent>
-      <PitchNavigation
-        totalSlides={slides.length}
-        currentSlide={current}
-        onNavigate={(index) => api?.scrollTo(index)}
-      />
-    </Carousel>
+    <div className="relative w-full h-full">
+      <Carousel
+        setApi={setApi}
+        className="w-full h-full"
+        opts={{
+          align: "start",
+          loop: true,
+        }}
+      >
+        <CarouselContent className="-ml-0">
+          {slides.map(({ component: SlideComponent }, index) => (
+            <CarouselItem
+              key={`slide-${index + 1}`}
+              className="pl-0 basis-full"
+            >
+              <SlideComponent />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
+
+      {/* Navigation Overlay */}
+      <div className="fixed bottom-0 left-0 right-0 pb-4 sm:pb-8 bg-gradient-to-t from-background to-transparent pointer-events-none">
+        <div className="pointer-events-auto">
+          <PitchNavigation
+            totalSlides={slides.length}
+            currentSlide={current}
+            onNavigate={(index) => api?.scrollTo(index)}
+          />
+        </div>
+      </div>
+    </div>
   );
 }
