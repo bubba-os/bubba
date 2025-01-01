@@ -36,11 +36,13 @@ export function FeatureCard({
     >
       <Card>
         <CardHeader>
-          <Icon className="h-8 w-8 text-primary mb-4 flex-shrink-0" />
-          <CardTitle>{title}</CardTitle>
+          <Icon className="h-6 w-6 sm:h-8 sm:w-8 text-primary mb-3 sm:mb-4 flex-shrink-0" />
+          <CardTitle className="text-lg sm:text-xl">{title}</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-muted-foreground">{description}</p>
+          <p className="text-sm sm:text-base text-muted-foreground">
+            {description}
+          </p>
         </CardContent>
       </Card>
     </motion.div>
