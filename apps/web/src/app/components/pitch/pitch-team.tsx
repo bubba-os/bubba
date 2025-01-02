@@ -1,6 +1,6 @@
 import { Button } from "@bubba/ui/button";
 import { motion } from "framer-motion";
-import { Github, Linkedin } from "lucide-react";
+import { Github, Linkedin, TwitterIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -8,6 +8,7 @@ const team = [
   {
     name: "Lewis Carhart",
     role: "Founder",
+    x: "https://x.com/lewisbuildsai",
     linkedin: "https://www.linkedin.com/in/lewis-carhart-4292b5325/",
     github: "https://github.com/carhartlewis",
     image: "https://avatars.githubusercontent.com/u/78215809?v=4",
@@ -90,6 +91,9 @@ export function SectionTeam() {
             <h3 className="text-xl font-bold">{member.name}</h3>
             <p className="text-muted-foreground">{member.role}</p>
             <div className="flex items-center gap-2 mt-2">
+              <Link href={member.x} target="_blank">
+                <TwitterIcon className="w-4 h-4 text-muted-foreground hover:text-primary transition-colors" />
+              </Link>
               <Link href={member.linkedin} target="_blank">
                 <Linkedin className="w-4 h-4 text-muted-foreground hover:text-primary transition-colors" />
               </Link>
@@ -108,8 +112,7 @@ export function SectionTeam() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          To invest in our early friends pre-seed round, email
-          founders@bubba.ai.
+          To invest, reach out to founders@bubba.ai.
         </motion.p>
 
         <div className="flex justify-center">

@@ -89,6 +89,24 @@ export function DataTableHeader({ table, loading }: Props) {
           </TableHead>
         )}
 
+        {isVisible("dueDate") && (
+          <TableHead className="min-w-[120px] px-3 md:px-4 py-2">
+            <Button
+              className="p-0 hover:bg-transparent space-x-2"
+              variant="ghost"
+              onClick={() => createSortQuery("dueDate")}
+            >
+              <span>{t("risk.tasks.table.due_date")}</span>
+              {"dueDate" === column && value === "asc" && (
+                <ArrowDown size={16} />
+              )}
+              {"dueDate" === column && value === "desc" && (
+                <ArrowUp size={16} />
+              )}
+            </Button>
+          </TableHead>
+        )}
+
         {isVisible("ownerId") && (
           <TableHead className="min-w-[120px] px-3 md:px-4 py-2 hidden sm:table-cell">
             <Button

@@ -26,9 +26,9 @@ export function SectionProblem() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        AI has changed how startups launch and develop B2B software, but 65% of
-        companies report increasing demands to be compliant with compliance
-        frameworks.
+        AI has changed how fast startups launch and develop B2B software, we
+        haven't solved how to sell that same B2B software to companies that
+        require compliance with cyber security frameworks.
       </motion.p>
 
       {/* Mobile View */}

@@ -165,6 +165,7 @@ export const seedDataAction = authActionClient
           name: "Acme_Infosec_Policy_v1.pdf",
           fileUrl: "s3://my-bucket/acme-infosec-policy.pdf",
           type: ArtifactType.file,
+          organizationId: organizationId,
         },
       });
 
@@ -173,6 +174,7 @@ export const seedDataAction = authActionClient
           name: "Board_Minutes_Jan2024.pdf",
           fileUrl: "s3://my-bucket/board-minutes-jan2024.pdf",
           type: ArtifactType.file,
+          organizationId: organizationId,
         },
       });
 

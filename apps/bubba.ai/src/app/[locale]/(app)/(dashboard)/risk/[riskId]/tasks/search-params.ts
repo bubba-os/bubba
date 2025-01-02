@@ -10,6 +10,5 @@ export const searchParamsCache = createSearchParamsCache({
   start: parseAsString,
   end: parseAsString,
   status: parseAsString,
-  department: parseAsString,
   ownerId: parseAsString,
 });

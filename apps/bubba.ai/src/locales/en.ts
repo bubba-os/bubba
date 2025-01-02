@@ -168,6 +168,7 @@ export default {
         title: "Task",
         status: "Status",
         assigned_to: "Assigned To",
+        due_date: "Due Date",
       },
       filters: {
         search: "Search tasks...",
@@ -187,6 +188,8 @@ export default {
       },
       sheet: {
         title: "Create Task",
+        update: "Update Task",
+        update_description: "Update the task title or description.",
       },
       statuses: {
         open: "Open",

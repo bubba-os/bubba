@@ -18,19 +18,19 @@ const features = [
   {
     title: "AI First",
     description:
-      "Built with AI at the core, automating the largest pain points, and reducing the cost of compliance.",
+      "Bubba AI automates huge pain points and reduces the cost of compliance.",
     icon: "SquareSlash" as const,
   },
   {
     title: "Deep Integrations",
     description:
-      "Seamlessly integrate with the leading HR, Cloud, and Device Management systems.",
+      "Integrations with the leading HR, Cloud, and Device Management systems.",
     icon: "Link" as const,
   },
   {
     title: "Automated Evidence",
     description:
-      "Automate the collection of required continuous evidence for compliance frameworks.",
+      "Evidence collection is automated, so users can focus on more important areas.",
     icon: "Workflow" as const,
   },
   {
@@ -75,8 +75,8 @@ export function SectionSolution() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        Bubba AI, the first commercial open-source platform that automates
-        achieving compliance with SOC 2, ISO 27001 and GDPR.
+        Bubba AI, the first commercial open-source platform that automates SOC
+        2, ISO 27001 and GDPR compliance.
       </motion.p>
 
       {/* Mobile View */}

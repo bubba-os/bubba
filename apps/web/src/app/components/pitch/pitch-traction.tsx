@@ -46,10 +46,11 @@ export function SectionTraction() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        Bubba AI is a commercial open source company. We offer a cloud-hosted
-        SaaS version, and an in-app marketplace which acts as an affiliate
-        marketplace for our partners. Additionally, some features require an
-        enterprise license.
+        Bubba AI is a commercial open source company. We sell a cloud-hosted
+        version of Bubba AI, with additional features and support. Our plan is
+        to create an in-app marketplace where users can find compliance
+        software, training and auditors and we will take a small percentage of
+        the sale.
       </motion.p>
 
       {/* Mobile View */}
@@ -77,8 +78,13 @@ export function SectionTraction() {
       >
         <ul className="space-y-4">
           {businessModels.map((model) => (
-            <li key={model.title} className="flex items-start gap-2">
-              <span className="text-lg sm:text-xl">✅ {model.description}</span>
+            <li key={model.title} className="flex flex-col items-center">
+              <h3 className="font-semibold text-base text-primary">
+                {model.title}
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                {model.description}
+              </p>
             </li>
           ))}
         </ul>

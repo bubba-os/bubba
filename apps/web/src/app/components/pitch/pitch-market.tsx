@@ -124,7 +124,7 @@ export function SectionMarket() {
                     {competitor.price}
                   </span>{" "}
                   <span className="text-muted-foreground">
-                    median annual price
+                    median annual spend per customer
                   </span>
                 </div>
               </div>

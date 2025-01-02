@@ -2,7 +2,7 @@
 
 "use server";
 
-import { type Departments, type RiskCategory, db } from "@bubba/db";
+import { db } from "@bubba/db";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { authActionClient } from "../safe-action";
 import { updateRiskSchema } from "../schema";

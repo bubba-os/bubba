@@ -1,4 +1,9 @@
-import { Departments, RiskCategory, RiskStatus } from "@bubba/db";
+import {
+  Departments,
+  RiskCategory,
+  RiskStatus,
+  RiskTaskStatus,
+} from "@bubba/db";
 import { z } from "zod";
 
 export const organizationSchema = z.object({
@@ -103,6 +108,19 @@ export const createTaskSchema = z.object({
     message: "Task description is required",
   }),
   dueDate: z.date().optional(),
+  ownerId: z.string({
+    required_error: "You must assign an owner to the task",
+  }),
+});
+
+export const updateTaskSchema = z.object({
+  id: z.string().min(1, {
+    message: "Task ID is required",
+  }),
+  dueDate: z.date().optional(),
+  status: z.nativeEnum(RiskTaskStatus, {
+    required_error: "Task status is required",
+  }),
   ownerId: z.string({
     required_error: "You must assign an owner to the task",
   }),

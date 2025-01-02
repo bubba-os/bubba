@@ -21,8 +21,6 @@ async function getComplianceOverview(organizationId: string) {
     },
   });
 
-  console.log(frameworks);
-
   return { frameworks };
 }
 

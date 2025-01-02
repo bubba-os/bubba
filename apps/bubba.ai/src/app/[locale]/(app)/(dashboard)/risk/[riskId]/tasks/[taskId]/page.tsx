@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import { RiskOverview } from "@/components/risks/risk-overview";
+import { TaskOverview } from "@/components/risks/tasks/task-overview";
 import { SkeletonLoader } from "@/components/skeleton-loader";
 import { db } from "@bubba/db";
 import { SecondaryMenu } from "@bubba/ui/secondary-menu";
@@ -35,7 +36,7 @@ export default async function RiskPage({ params }: PageProps) {
   return (
     <div className="flex flex-col gap-4">
       <Suspense fallback={<SkeletonLoader amount={4} />}>
-        {JSON.stringify(task)}
+        <TaskOverview task={task} users={users} />
       </Suspense>
     </div>
   );

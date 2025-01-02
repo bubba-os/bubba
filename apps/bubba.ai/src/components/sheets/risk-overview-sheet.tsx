@@ -65,7 +65,9 @@ export function RiskOverviewSheet({
   return (
     <Drawer open={isOpen} onOpenChange={handleOpenChange}>
       <DrawerTitle hidden>{t("risk.form.update_risk")}</DrawerTitle>
-      <DrawerContent className="p-6">Test</DrawerContent>
+      <DrawerContent className="p-6">
+        <UpdateRiskForm risk={risk} />
+      </DrawerContent>
     </Drawer>
   );
 }

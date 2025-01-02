@@ -1,6 +1,7 @@
 "use client";
 import { AssignedUser } from "@/components/assigned-user";
 import { Status, type StatusType } from "@/components/status";
+import { StatusDate } from "@/components/status-date";
 import { useI18n } from "@/locales/client";
 import type { RiskTaskStatus } from "@bubba/db";
 import { Button } from "@bubba/ui/button";
@@ -54,6 +55,14 @@ export function columns(): ColumnDef<RiskTaskType>[] {
             <Status status={status.toLowerCase() as StatusType} />
           </div>
         );
+      },
+    },
+    {
+      id: "dueDate",
+      accessorKey: "dueDate",
+      header: t("risk.tasks.table.due_date"),
+      cell: ({ row }) => {
+        return <StatusDate date={row.original.dueDate} />;
       },
     },
     {

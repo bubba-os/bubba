@@ -32,6 +32,7 @@ export const createTaskAction = authActionClient
           description,
           dueDate,
           ownerId,
+          organizationId: user.organizationId,
         },
       });
 

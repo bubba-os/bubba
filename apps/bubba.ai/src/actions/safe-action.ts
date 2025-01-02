@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import { logger } from "@/utils/logger";
+import { db } from "@bubba/db";
 import { client } from "@bubba/kv";
 import { Ratelimit } from "@upstash/ratelimit";
 import {
@@ -37,6 +38,12 @@ export const actionClientWithMeta = createSafeActionClient({
 
 export const authActionClient = actionClientWithMeta
   .use(async ({ next, clientInput }) => {
+    const session = await auth();
+
+    if (!session) {
+      throw new Error("Unauthorized");
+    }
+
     const result = await next({ ctx: {} });
 
     if (process.env.NODE_ENV === "development") {
@@ -68,11 +75,39 @@ export const authActionClient = actionClientWithMeta
       },
     });
   })
-  .use(async ({ next, metadata }) => {
+  .use(async ({ next, metadata, clientInput }) => {
+    const headersList = await headers();
     const session = await auth();
 
     if (!session) {
       throw new Error("Unauthorized");
+    }
+
+    if (!session.user.organizationId) {
+      throw new Error("Organization not found");
+    }
+
+    const data = {
+      userId: session.user.id,
+      email: session.user.email,
+      name: session.user.name,
+      organizationId: session.user.organizationId,
+      action: metadata.name,
+      input: clientInput,
+      ipAddress: headersList.get("x-forwarded-for") || null,
+      userAgent: headersList.get("user-agent") || null,
+    };
+
+    try {
+      await db.auditLog.create({
+        data: {
+          data: JSON.stringify(data),
+          userId: session.user.id,
+          organizationId: session.user.organizationId,
+        },
+      });
+    } catch (error) {
+      logger("Audit log error:", error);
     }
 
     return next({
