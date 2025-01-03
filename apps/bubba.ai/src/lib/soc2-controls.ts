@@ -341,46 +341,37 @@ export const soc2RequiredArtifacts = [
     name: "Information Security Policy",
     description:
       "Master policy that outlines the organization's approach to information security management",
-    controls: [
-      "CC1.1",
-      "CC1.2",
-      "CC1.3",
-      "CC1.4",
-      "CC1.5",
-      "CC2.1",
-      "CC2.2",
-      "CC2.3",
-      "CC3.1",
-      "CC3.2",
-      "CC3.3",
-      "CC3.4",
-      "CC4.1",
-      "CC4.2",
-      "CC5.1",
-      "CC5.2",
-      "CC5.3",
-      "CC6.1",
-      "CC6.2",
-      "CC6.3",
-      "CC6.4",
-      "CC6.5",
-      "CC6.6",
-      "CC6.7",
-      "CC6.8",
-      "CC7.1",
-      "CC7.2",
-      "CC7.3",
-      "CC7.4",
-      "CC8.1",
-      "CC9.1",
-      "CC9.2",
-    ],
+    controls: ["CC1.1", "CC1.2", "CC1.3", "CC1.4", "CC1.5"],
+    department: "it",
     subPolicies: [
-      "Access Control Policy",
-      "Data Classification Policy",
-      "Security Awareness and Training Policy",
-      "Incident Response Policy",
-      "Change Management Policy",
+      {
+        name: "Access Control Policy",
+        department: "it",
+        description:
+          "Defines standards for logical and physical access management",
+      },
+      {
+        name: "Data Classification Policy",
+        department: "it",
+        description: "Defines data classification and handling requirements",
+      },
+      {
+        name: "Security Awareness and Training Policy",
+        department: "it",
+        description: "Defines requirements for security awareness and training",
+      },
+      {
+        name: "Incident Response Policy",
+        department: "it",
+        description:
+          "Defines procedures for detecting, responding to, and recovering from security incidents",
+      },
+      {
+        name: "Change Management Policy",
+        department: "it",
+        description:
+          "Establishes requirements for managing changes to systems and infrastructure",
+      },
     ],
   },
   {
@@ -388,30 +379,60 @@ export const soc2RequiredArtifacts = [
     description:
       "Defines requirements for internal and external communications",
     controls: ["CC2.1", "CC2.2", "CC2.3"],
+    department: "admin",
     subPolicies: [
-      "Internal Communications Policy",
-      "External Communications Policy",
-      "Crisis Communications Policy",
+      {
+        name: "Internal Communications Policy",
+        department: "admin",
+        description: "Defines requirements for internal communications",
+      },
+      {
+        name: "External Communications Policy",
+        department: "admin",
+        description: "Defines requirements for external communications",
+      },
     ],
   },
   {
     name: "Access Control Policy",
     description: "Defines standards for logical and physical access management",
     controls: ["CC6.1", "CC6.2", "CC6.3", "CC6.4", "CC6.5", "CC6.6"],
+    department: "it",
     subPolicies: [
-      "Password Policy",
-      "Remote Access Policy",
-      "Mobile Device Policy",
+      {
+        name: "Password Policy",
+        department: "it",
+        description: "Defines password requirements and management",
+      },
+      {
+        name: "Remote Access Policy",
+        department: "it",
+        description: "Defines requirements for remote access to systems",
+      },
+      {
+        name: "Mobile Device Policy",
+        department: "it",
+        description: "Defines requirements for mobile devices",
+      },
     ],
   },
   {
     name: "Data Protection Policy",
     description:
       "Outlines requirements for data handling, encryption, and protection",
+    department: "it",
     controls: ["CC6.1", "CC6.7", "CC6.11"],
     subPolicies: [
-      "Data Retention Policy",
-      "Data Backup Policy",
+      {
+        name: "Data Retention Policy",
+        department: "it",
+        description: "Defines data retention requirements",
+      },
+      {
+        name: "Data Backup Policy",
+        department: "it",
+        description: "Defines data backup requirements",
+      },
       "Encryption Policy",
     ],
   },
@@ -419,11 +440,24 @@ export const soc2RequiredArtifacts = [
     name: "Risk Management Policy",
     description:
       "Defines processes for risk assessment, monitoring, and mitigation",
+    department: "it",
     controls: ["CC3.1", "CC3.2", "CC3.3", "CC3.4", "CC9.1", "CC9.2"],
     subPolicies: [
-      "Vendor Risk Management Policy",
-      "Business Continuity Policy",
-      "Disaster Recovery Policy",
+      {
+        name: "Vendor Risk Management Policy",
+        department: "it",
+        description: "Defines requirements for managing third-party vendors",
+      },
+      {
+        name: "Business Continuity Policy",
+        department: "admin",
+        description: "Defines requirements for maintaining business operations",
+      },
+      {
+        name: "Disaster Recovery Policy",
+        department: "it",
+        description: "Defines requirements for disaster recovery",
+      },
     ],
   },
   {
@@ -431,9 +465,18 @@ export const soc2RequiredArtifacts = [
     description:
       "Establishes requirements for managing changes to systems and infrastructure",
     controls: ["CC6.7", "CC8.1", "CC8.2", "CC8.3"],
+    department: "it",
     subPolicies: [
-      "Software Development Lifecycle Policy",
-      "Configuration Management Policy",
+      {
+        name: "Software Development Lifecycle Policy",
+        department: "it",
+        description: "Defines requirements for software development",
+      },
+      {
+        name: "Configuration Management Policy",
+        department: "it",
+        description: "Defines requirements for configuration management",
+      },
     ],
   },
   {
@@ -442,19 +485,44 @@ export const soc2RequiredArtifacts = [
       "Defines procedures for detecting, responding to, and recovering from security incidents",
     controls: ["CC7.1", "CC7.2", "CC7.3", "CC7.4"],
     subPolicies: [
-      "Security Event Management Policy",
-      "Business Continuity Policy",
-      "Disaster Recovery Policy",
+      {
+        name: "Security Event Management Policy",
+        department: "it",
+        description: "Defines procedures for managing security events",
+      },
+      {
+        name: "Business Continuity Policy",
+        department: "admin",
+        description: "Defines requirements for maintaining business operations",
+      },
+      {
+        name: "Disaster Recovery Policy",
+        department: "it",
+        description: "Defines requirements for disaster recovery",
+      },
     ],
   },
   {
     name: "Acceptable Use Policy",
     description: "Defines acceptable use of information systems and assets",
     controls: ["CC1.4", "CC1.5", "CC5.3"],
+    department: "hr",
     subPolicies: [
-      "Email Usage Policy",
-      "Internet Usage Policy",
-      "Social Media Policy",
+      {
+        name: "Email Usage Policy",
+        department: "hr",
+        description: "Defines requirements for email usage",
+      },
+      {
+        name: "Internet Usage Policy",
+        department: "hr",
+        description: "Defines requirements for internet usage",
+      },
+      {
+        name: "Social Media Policy",
+        department: "hr",
+        description: "Defines requirements for social media usage",
+      },
     ],
   },
   {
@@ -462,6 +530,7 @@ export const soc2RequiredArtifacts = [
     description:
       "Defines security requirements related to employees and contractors",
     controls: ["CC1.1", "CC1.3", "CC1.4", "CC1.5"],
+    department: "hr",
     subPolicies: [
       "Background Check Policy",
       "Employee Onboarding Policy",
@@ -472,6 +541,7 @@ export const soc2RequiredArtifacts = [
     name: "Asset Management Policy",
     description: "Defines requirements for managing information assets",
     controls: ["CC6.4", "CC6.5", "CC6.7"],
+    department: "it",
     subPolicies: [
       "Asset Inventory Policy",
       "Asset Classification Policy",
@@ -482,6 +552,7 @@ export const soc2RequiredArtifacts = [
     name: "Security Architecture Policy",
     description: "Defines security requirements for systems and infrastructure",
     controls: ["CC6.1", "CC6.6", "CC6.8", "CC6.9", "CC6.10", "CC6.11"],
+    department: "it",
     subPolicies: [
       "Network Security Policy",
       "Cloud Security Policy",

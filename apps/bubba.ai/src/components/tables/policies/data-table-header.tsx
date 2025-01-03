@@ -90,6 +90,23 @@ export function DataTableHeader({ table, loading }: Props) {
           </TableHead>
         )}
 
+        {isVisible("ownerId") && (
+          <TableHead className="min-w-[120px] px-3 md:px-4 py-2 hidden md:table-cell">
+            <Button
+              className="p-0 hover:bg-transparent space-x-2"
+              variant="ghost"
+              onClick={() => createSortQuery("ownerId")}
+            >
+              <span>{t("policies.table.assigned_to")}</span>
+              {"ownerId" === column && value === "asc" && (
+                <ArrowDown size={16} />
+              )}
+              {"ownerId" === column && value === "desc" && (
+                <ArrowUp size={16} />
+              )}
+            </Button>
+          </TableHead>
+        )}
         {isVisible("lastUpdated") && (
           <TableHead className="min-w-[60px] px-3 md:px-4 py-2 hidden md:table-cell">
             <Button

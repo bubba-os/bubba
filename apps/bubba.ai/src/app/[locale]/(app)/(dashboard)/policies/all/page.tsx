@@ -40,11 +40,24 @@ export default async function PoliciesPage({ searchParams }: PageProps) {
     }),
   ]);
 
+  const users = await db.user.findMany({
+    where: {
+      organizationId: session.user.organizationId,
+      Artifact: {
+        some: {},
+      },
+    },
+    select: {
+      id: true,
+      name: true,
+    },
+  });
+
   const pageCount = Math.ceil(total / perPage);
 
   return (
     <div className="space-y-4">
-      <FilterToolbar />
+      <FilterToolbar users={users} />
 
       <DataTable
         data={items}
@@ -101,6 +114,13 @@ const getPolicies = unstable_cache(
           lastUpdated: true,
           type: true,
           needsReview: true,
+          ownerId: true,
+          owner: {
+            select: {
+              name: true,
+              image: true,
+            },
+          },
         },
       }),
       db.artifact.count({ where }),

@@ -7,11 +7,11 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { Suspense } from "react";
+import { cn } from "../../../../../../packages/ui/src/utils";
 import { type PolicyType, columns as getColumns } from "./columns";
 import { DataTableHeader } from "./data-table-header";
 import { DataTablePagination } from "./data-table-pagination";
 import { Loading } from "./loading";
-import { cn } from "../../../../../../packages/ui/src/utils";
 
 interface DataTableProps<TData, TValue> {
   columnHeaders: {
@@ -63,6 +63,7 @@ export function DataTable<TData, TValue>({
                       className={cn(
                         cell.column.id === "lastUpdated" &&
                           "hidden md:table-cell",
+                        cell.column.id === "ownerId" && "hidden md:table-cell",
                       )}
                     >
                       {flexRender(

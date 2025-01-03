@@ -12,15 +12,20 @@ import {
 } from "@bubba/ui/form";
 import { Input } from "@bubba/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ArrowRight, Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import type { z } from "zod";
 
 export function WaitlistForm() {
+  const [isSent, setSent] = useState(false);
+
   const waitlistAction = useAction(joinWaitlist, {
     onSuccess: () => {
-      toast.success("Successfully joined the waitlist!");
+      setSent(true);
+      toast.success("Please check your email for a confirmation link.");
       form.reset();
     },
     onError: () => {
@@ -40,6 +45,21 @@ export function WaitlistForm() {
       email: data.email,
     });
   };
+
+  if (isSent) {
+    return (
+      <div className="flex flex-col space-y-4">
+        <span>Check your email for a confirmation link to continue.</span>
+        <Button
+          variant="outline"
+          className="text-sm font-medium text-primary underline"
+          onClick={() => setSent(false)}
+        >
+          Try again
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <Form {...form}>
@@ -71,9 +91,16 @@ export function WaitlistForm() {
             type="submit"
             disabled={waitlistAction.isExecuting || !form.formState.isValid}
           >
-            <div className="flex items-center justify-center">
-              Join Waitlist
-            </div>
+            {waitlistAction.isExecuting ? (
+              <span className="flex items-center gap-2">
+                <Loader2 className="h-4 w-4 animate-spin" />
+                Get Started <ArrowRight className="w-4 h-4" />
+              </span>
+            ) : (
+              <span className="flex items-center gap-2">
+                Get Started <ArrowRight className="w-4 h-4" />
+              </span>
+            )}
           </Button>
         </div>
       </form>

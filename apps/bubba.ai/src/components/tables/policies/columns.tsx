@@ -1,5 +1,6 @@
 "use client";
 
+import { AssignedUser } from "@/components/assigned-user";
 import {
   PolicyStatus,
   type StatusType,
@@ -16,6 +17,11 @@ export type PolicyType = {
   published: boolean;
   needsReview: boolean;
   lastUpdated: Date | null;
+  ownerId: string;
+  owner: {
+    image: string;
+    name: string;
+  };
 };
 
 export function columns(): ColumnDef<PolicyType>[] {
@@ -50,6 +56,25 @@ export function columns(): ColumnDef<PolicyType>[] {
         return (
           <div className="flex items-center gap-2">
             <PolicyStatus status={status.toLowerCase() as StatusType} />
+          </div>
+        );
+      },
+    },
+    {
+      id: "ownerId",
+      accessorKey: "ownerId",
+      header: () => (
+        <span className="hidden sm:table-cell">
+          {t("risk.register.table.assigned_to")}
+        </span>
+      ),
+      cell: ({ row }) => {
+        return (
+          <div className="hidden sm:table-cell">
+            <AssignedUser
+              fullName={row.original.owner?.name}
+              avatarUrl={row.original.owner?.image}
+            />
           </div>
         );
       },

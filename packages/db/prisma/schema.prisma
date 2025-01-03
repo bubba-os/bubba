@@ -19,6 +19,16 @@ enum Role {
   admin
 }
 
+enum Departments {
+  none
+  admin
+  gov
+  hr
+  it
+  itsm
+  qms
+}
+
 // Authentication and Organization
 
 model Account {
@@ -75,6 +85,7 @@ model User {
   AuditLog           AuditLog[]
   TaskAttachment     TaskAttachment[]
   TaskComments       TaskComments[]
+  Artifact           Artifact[]
 
   @@index([organizationId])
 }
@@ -234,6 +245,8 @@ model Artifact {
   published   Boolean @default(false)
   needsReview Boolean @default(true)
 
+  department Departments @default(none)
+
   type        ArtifactType
   content     String?
   fileUrl     String?
@@ -242,6 +255,9 @@ model Artifact {
 
   organizationId String
   organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  ownerId String?
+  owner   User?   @relation(fields: [ownerId], references: [id], onDelete: SetNull)
 
   controls ControlArtifact[]
 
@@ -278,16 +294,6 @@ enum RiskCategory {
   resilience
   technology
   vendor_management
-}
-
-enum Departments {
-  none
-  admin
-  gov
-  hr
-  it
-  itsm
-  qms
 }
 
 enum TreatmentType {

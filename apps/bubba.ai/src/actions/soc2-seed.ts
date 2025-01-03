@@ -11,8 +11,10 @@ import {
 
 export const soc2Seed = async ({
   organizationId,
+  userId,
 }: {
   organizationId: string;
+  userId: string;
 }) => {
   const soc2Framework = await db.framework.findFirst({
     where: {
@@ -93,6 +95,7 @@ export const soc2Seed = async ({
         name: artifactDef.name,
         type: "policy", // Default to policy since these are all policies
         organizationId: organizationId,
+        ownerId: userId,
       },
     });
     artifactMap.set(artifactDef.name, artifact.id);

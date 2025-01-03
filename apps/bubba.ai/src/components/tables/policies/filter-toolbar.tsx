@@ -19,9 +19,13 @@ import { useCallback } from "react";
 
 type Props = {
   isEmpty?: boolean;
+  users: {
+    id: string;
+    name: string | null;
+  }[];
 };
 
-export function FilterToolbar({ isEmpty }: Props) {
+export function FilterToolbar({ isEmpty, users }: Props) {
   const t = useI18n();
   const [isPending, startTransition] = useTransition();
 
@@ -37,14 +41,21 @@ export function FilterToolbar({ isEmpty }: Props) {
     parse: (value) => value || null,
   });
 
+  const [ownerId, setOwnerId] = useQueryState("ownerId", {
+    shallow: false,
+    history: "push",
+    parse: (value) => value || null,
+  });
+
   const handleReset = useCallback(() => {
     startTransition(() => {
       setSearch(null);
       setStatus(null);
+      setOwnerId(null);
     });
-  }, [setSearch, setStatus]);
+  }, [setSearch, setStatus, setOwnerId]);
 
-  const hasFilters = search || status;
+  const hasFilters = search || status || ownerId;
 
   if (isEmpty) {
     return (
@@ -77,7 +88,7 @@ export function FilterToolbar({ isEmpty }: Props) {
           />
         </div>
 
-        <div className="hidden md:flex">
+        <div className="hidden md:flex gap-2">
           <Select
             value={status || "all"}
             onValueChange={(value) => setStatus(value === "all" ? null : value)}
@@ -94,6 +105,21 @@ export function FilterToolbar({ isEmpty }: Props) {
                 {t("policies.table.needs_review")}
               </SelectItem>
               <SelectItem value="draft">{t("policies.table.draft")}</SelectItem>
+            </SelectContent>
+          </Select>{" "}
+          <Select
+            value={ownerId || ""}
+            onValueChange={(value) => setOwnerId(value || null)}
+          >
+            <SelectTrigger className="w-[200px] min-w-[200px]">
+              <SelectValue placeholder={t("risk.register.filters.owner")} />
+            </SelectTrigger>
+            <SelectContent>
+              {users.map((user) => (
+                <SelectItem key={user.id} value={user.id}>
+                  {user.name}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>

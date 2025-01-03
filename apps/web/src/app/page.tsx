@@ -11,27 +11,25 @@ export default function Home() {
           </h1>
 
           <h2 className="mt-10 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 font-mono">
-            Security and compliance, open.
+            Compliance automation made easy.
           </h2>
 
           <div className="max-w-[650px]">
             <p className="leading-7 mt-6">
-              We're building the first open source compliance automation
-              platform that helps companies of any size work towards, manage and
-              achieve compliance with common standards like SOC 2, ISO 27001 and
-              GDPR.
+              We want to get 1,000,000 companies SOC 2, ISO 27001, and GDPR
+              compliant by 2030. To do this, we're building the first ever open
+              source compliance automation platform.
             </p>
 
             <p className="leading-7 [&:not(:first-child)]:mt-6">
-              We transform compliance from a vendor checkbox into an engineering
-              problem solved through code. Our platform automates evidence
-              collection, policy management, and control implementation while
-              keeping you in control of your data and infrastructure.
+              Integrate with your existing systems to automatically track
+              compliance progress, collect evidence, assess risks, and manage
+              vendors from a single, open source platform.
             </p>
 
             <div className="mt-8 max-w-md flex flex-col gap-2">
               <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight font-mono">
-                Interested in early access?
+                Secure your spot:
               </h3>
               <WaitlistForm />
             </div>

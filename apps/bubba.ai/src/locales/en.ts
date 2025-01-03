@@ -80,6 +80,7 @@ export default {
       published: "Published",
       needs_review: "Needs Review",
       draft: "Draft",
+      assigned_to: "Assigned To",
     },
     filters: {
       search: "Search policies...",

@@ -71,6 +71,7 @@ export async function createOrganizationAndConnectUser(input: {
 
   await soc2Seed({
     organizationId: organization.id,
+    userId: input.userId,
   });
 
   return organization.id;

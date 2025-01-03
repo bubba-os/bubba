@@ -7,5 +7,6 @@ export async function getServerColumnHeaders() {
     name: t("policies.table.name"),
     lastUpdated: t("policies.table.last_updated"),
     status: t("policies.table.status"),
+    ownerId: t("policies.table.assigned_to"),
   };
 }
