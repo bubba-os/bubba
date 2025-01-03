@@ -16,8 +16,8 @@ export default function Home() {
 
           <div className="max-w-[650px]">
             <p className="leading-7 mt-6">
-              We want to get 50,000 companies SOC 2, ISO 27001, and GDPR
-              compliant by 2030. To do this, we're building the first ever open
+              We want to get 100,000 companies SOC 2, ISO 27001, and GDPR
+              compliant by 2032. To do this, we're building the first ever open
               source compliance automation platform.
             </p>
 

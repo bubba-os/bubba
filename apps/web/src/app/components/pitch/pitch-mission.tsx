@@ -26,8 +26,9 @@ export function SectionMission() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        Get 50,000 companies SOC 2, ISO 27001, and GDPR compliant by 2030 by
-        building the first open source compliance automation platform.
+        Get 100,000 companies SOC 2, ISO 27001, and GDPR compliant by 2032 -
+        achieved by building the first open source compliance automation
+        platform.
       </motion.p>
     </div>
   );
