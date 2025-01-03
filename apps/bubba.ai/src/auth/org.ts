@@ -1,3 +1,4 @@
+import { soc2Seed } from "@/actions/soc2-seed";
 import { db } from "@bubba/db";
 import { stripe } from "./stripe";
 
@@ -66,6 +67,10 @@ export async function createOrganizationAndConnectUser(input: {
   await db.organization.update({
     where: { id: organization.id },
     data: { stripeCustomerId },
+  });
+
+  await soc2Seed({
+    organizationId: organization.id,
   });
 
   return organization.id;

@@ -9,7 +9,7 @@ interface Props {
 
 export const SkeletonLoader = ({ amount, prefix = "item" }: Props) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 py-4 gap-2">
       {Array.from({ length: amount }, (_, i) => (
         <Card key={`${prefix}-skeleton-${i + 1}`}>
           <CardHeader>

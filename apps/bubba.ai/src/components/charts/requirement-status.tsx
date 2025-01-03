@@ -4,8 +4,8 @@ import { PieChart } from "@/components/ui/pie-chart";
 import { useI18n } from "@/locales/client";
 import type {
   Framework,
+  OrganizationControl,
   OrganizationFramework,
-  OrganizationRequirement,
 } from "@bubba/db";
 import { Card, CardContent, CardHeader, CardTitle } from "@bubba/ui/card";
 import { cn } from "@bubba/ui/cn";
@@ -13,17 +13,17 @@ import { cn } from "@bubba/ui/cn";
 interface Props {
   frameworks: (OrganizationFramework & {
     framework: Framework;
-    organizationRequirements: OrganizationRequirement[];
+    organizationControl: OrganizationControl[];
   })[];
 }
 
 export function RequirementStatus({ frameworks }: Props) {
   const t = useI18n();
 
-  const allRequirements = frameworks.flatMap((f) => f.organizationRequirements);
+  const allRequirements = frameworks.flatMap((f) => f.organizationControl);
 
   const statusCounts = {
-    not_started: allRequirements.filter((r) => r.status === "not_started")
+    non_compliant: allRequirements.filter((r) => r.status === "not_started")
       .length,
     in_progress: allRequirements.filter((r) => r.status === "in_progress")
       .length,
@@ -32,8 +32,8 @@ export function RequirementStatus({ frameworks }: Props) {
 
   const data = [
     {
-      name: t("overview.requirement_chart.not_started"),
-      value: statusCounts.not_started,
+      name: t("overview.requirement_chart.non_compliant"),
+      value: statusCounts.non_compliant,
       color: "hsl(var(--destructive))",
       colorClass: "bg-[hsl(var(--destructive))]",
     },

@@ -97,6 +97,20 @@ export const updateRiskSchema = z.object({
   }),
 });
 
+export const createRiskCommentSchema = z.object({
+  riskId: z.string().min(1, {
+    message: "Risk ID is required",
+  }),
+  content: z
+    .string()
+    .min(1, {
+      message: "Comment content is required",
+    })
+    .max(1000, {
+      message: "Comment content should be at most 1000 characters",
+    }),
+});
+
 export const createTaskSchema = z.object({
   riskId: z.string().min(1, {
     message: "Risk ID is required",
@@ -108,21 +122,53 @@ export const createTaskSchema = z.object({
     message: "Task description is required",
   }),
   dueDate: z.date().optional(),
-  ownerId: z.string({
-    required_error: "You must assign an owner to the task",
-  }),
+  ownerId: z
+    .string({
+      required_error: "You must assign an owner to the task",
+    })
+    .min(1, {
+      message: "You must assign an owner to the task",
+    }),
 });
 
 export const updateTaskSchema = z.object({
   id: z.string().min(1, {
     message: "Task ID is required",
   }),
+  title: z.string().optional(),
+  description: z.string().optional(),
   dueDate: z.date().optional(),
   status: z.nativeEnum(RiskTaskStatus, {
     required_error: "Task status is required",
   }),
   ownerId: z.string({
     required_error: "You must assign an owner to the task",
+  }),
+});
+
+export const createTaskCommentSchema = z.object({
+  riskId: z.string().min(1, {
+    message: "Risk ID is required",
+  }),
+  taskId: z.string().min(1, {
+    message: "Task ID is required",
+  }),
+  content: z
+    .string()
+    .min(1, {
+      message: "Comment content is required",
+    })
+    .max(1000, {
+      message: "Comment content should be at most 1000 characters",
+    }),
+});
+
+export const uploadTaskFileSchema = z.object({
+  riskId: z.string().min(1, {
+    message: "Risk ID is required",
+  }),
+  taskId: z.string().min(1, {
+    message: "Task ID is required",
   }),
 });
 

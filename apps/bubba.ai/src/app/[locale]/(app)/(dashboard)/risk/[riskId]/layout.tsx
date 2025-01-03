@@ -35,7 +35,6 @@ export default async function Layout({ children, params }: LayoutProps) {
         items={[
           { path: `/risk/${riskId.riskId}`, label: "Overview" },
           { path: `/risk/${riskId.riskId}/tasks`, label: "Tasks" },
-          { path: `/risk/${riskId.riskId}/comments`, label: "Comments" },
         ]}
       />
 

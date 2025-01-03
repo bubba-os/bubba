@@ -62,7 +62,14 @@ export function columns(): ColumnDef<RiskTaskType>[] {
       accessorKey: "dueDate",
       header: t("risk.tasks.table.due_date"),
       cell: ({ row }) => {
-        return <StatusDate date={row.original.dueDate} />;
+        const status = row.original.status;
+
+        return (
+          <StatusDate
+            date={row.original.dueDate}
+            isClosed={status === "closed"}
+          />
+        );
       },
     },
     {

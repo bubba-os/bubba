@@ -28,6 +28,7 @@ export default {
   },
   sidebar: {
     overview: "Overview",
+    policies: "Policies",
     risk: "Risk",
     settings: "Settings",
   },
@@ -60,10 +61,30 @@ export default {
       title: "Framework Progress",
     },
     requirement_chart: {
-      title: "Requirement Status",
+      title: "Compliance Status",
+      non_compliant: "Non Compliant",
       not_started: "Not Started",
       in_progress: "In Progress",
       compliant: "Compliant",
+    },
+  },
+  policies: {
+    dashboard: {
+      title: "Dashboard",
+      all: "All Policies",
+    },
+    table: {
+      name: "Policy Name",
+      status: "Status",
+      last_updated: "Last Updated",
+      published: "Published",
+      needs_review: "Needs Review",
+      draft: "Draft",
+    },
+    filters: {
+      search: "Search policies...",
+      clear: "Clear filters",
+      all: "All Policies",
     },
   },
   risk: {
@@ -77,6 +98,10 @@ export default {
       risks_by_department: "Risks by Department",
       risks_by_assignee: "Risks by Assignee",
       risk_status_chart: {
+        not_started: "Not Compliant",
+        in_progress: "In Progress",
+        compliant: "Compliant",
+        non_compliant: "Non Compliant",
         open: "Open",
         pending: "Pending",
         closed: "Closed",
@@ -105,8 +130,8 @@ export default {
         department: "Department",
         clear: "Clear filters",
         create: "Create risk",
-        owner: "Filter by owner",
-        owner_placeholder: "Filter by owner",
+        owner: "Assignee",
+        owner_placeholder: "Filter by assignee",
       },
       empty: {
         no_results: {
@@ -129,6 +154,20 @@ export default {
         pending: "Pending",
         closed: "Closed",
         archived: "Archived",
+      },
+    },
+    comments: {
+      title: "Comments",
+      description: "Add a comment to the risk using the form below.",
+      add: "Add Comment",
+      new: "New Comment",
+      save: "Save Comment",
+      success: "Comment added to the risk successfully",
+      error: "Something went wrong, please try again.",
+      placeholder: "Write a comment and add it to the risk.",
+      empty: {
+        title: "No comments",
+        description: "Add a comment by clicking 'Add Comment'.",
       },
     },
     metrics: {
@@ -197,6 +236,20 @@ export default {
         closed: "Closed",
         archived: "Archived",
       },
+      comments: {
+        title: "Comments",
+        description: "Add a comment to the task using the form below.",
+        add: "Add Comment",
+        new: "New Comment",
+        save: "Save Comment",
+        empty: {
+          title: "No comments",
+          description: "Add a comment to the task using the form below.",
+        },
+        placeholder: "Write a comment and add it to the task.",
+        success: "Comment added to the task successfully",
+        error: "Something went wrong, please try again.",
+      },
     },
   },
   settings: {
@@ -243,5 +296,24 @@ export default {
     support: "Support",
     settings: "Settings",
     teams: "Teams",
+  },
+  frameworks: {
+    title: "Frameworks",
+    controls: {
+      title: "Controls",
+      description: "Review and manage compliance controls",
+      table: {
+        control: "Control",
+        status: "Status",
+        artifacts: "Artifacts",
+        actions: "Actions",
+        no_results: "No controls found",
+      },
+      statuses: {
+        compliant: "Compliant",
+        non_compliant: "Not Compliant",
+        not_started: "Not Compliant",
+      },
+    },
   },
 } as const;

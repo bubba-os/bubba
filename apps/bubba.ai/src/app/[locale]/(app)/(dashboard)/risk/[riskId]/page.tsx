@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import { RiskComments } from "@/components/risks/risk-comments";
 import { RiskOverview } from "@/components/risks/risk-overview";
 import { SkeletonLoader } from "@/components/skeleton-loader";
 import { db } from "@bubba/db";
@@ -34,9 +35,8 @@ export default async function RiskPage({ params }: PageProps) {
 
   return (
     <div className="flex flex-col gap-4">
-      <Suspense fallback={<SkeletonLoader amount={4} />}>
-        <RiskOverview risk={risk} users={users} />
-      </Suspense>
+      <RiskOverview risk={risk} users={users} />
+      <RiskComments risk={risk} users={users} />
     </div>
   );
 }
@@ -50,6 +50,7 @@ const getRisk = unstable_cache(
       },
       include: {
         owner: true,
+        comments: true,
       },
     });
 

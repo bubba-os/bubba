@@ -1,13 +1,11 @@
 import { auth } from "@/auth";
-import { RiskOverview } from "@/components/risks/risk-overview";
+import { TaskAttachments } from "@/components/risks/tasks/task-attachment";
+import { TaskComment } from "@/components/risks/tasks/task-comments";
 import { TaskOverview } from "@/components/risks/tasks/task-overview";
-import { SkeletonLoader } from "@/components/skeleton-loader";
+
 import { db } from "@bubba/db";
-import { SecondaryMenu } from "@bubba/ui/secondary-menu";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@bubba/ui/tabs";
 import { unstable_cache } from "next/cache";
 import { redirect } from "next/navigation";
-import { Suspense } from "react";
 
 interface PageProps {
   params: Promise<{ riskId: string; taskId: string }>;
@@ -35,9 +33,9 @@ export default async function RiskPage({ params }: PageProps) {
 
   return (
     <div className="flex flex-col gap-4">
-      <Suspense fallback={<SkeletonLoader amount={4} />}>
-        <TaskOverview task={task} users={users} />
-      </Suspense>
+      <TaskOverview task={task} users={users} />
+      <TaskAttachments task={task} users={users} />
+      <TaskComment task={task} users={users} />
     </div>
   );
 }
@@ -51,6 +49,8 @@ const getTask = unstable_cache(
       },
       include: {
         owner: true,
+        TaskAttachment: true,
+        TaskComments: true,
       },
     });
 

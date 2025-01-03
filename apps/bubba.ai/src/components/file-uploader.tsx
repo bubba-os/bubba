@@ -9,11 +9,11 @@ import Dropzone, {
 } from "react-dropzone";
 import { toast } from "sonner";
 
+import { useControllableState } from "@/hooks/use-controllable-state";
 import { Button } from "@bubba/ui/button";
 import { cn, formatBytes } from "@bubba/ui/cn";
 import { Progress } from "@bubba/ui/progress";
 import { ScrollArea } from "@bubba/ui/scroll-area";
-import { useControllableState } from "../../../../packages/ui/src/hooks/use-controllable-state";
 
 interface FileUploaderProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -126,6 +126,11 @@ export function FileUploader(props: FileUploaderProps) {
         return;
       }
 
+      if (acceptedFiles.length === 0) {
+        toast.error("No files selected");
+        return;
+      }
+
       const newFiles = acceptedFiles.map((file) =>
         Object.assign(file, {
           preview: URL.createObjectURL(file),
@@ -148,7 +153,7 @@ export function FileUploader(props: FileUploaderProps) {
         updatedFiles.length <= maxFileCount
       ) {
         const target =
-          updatedFiles.length > 0 ? `${updatedFiles.length} files` : "file";
+          updatedFiles.length > 0 ? `${updatedFiles.length} files` : "a file";
 
         toast.promise(onUpload(updatedFiles), {
           loading: `Uploading ${target}...`,
@@ -181,13 +186,12 @@ export function FileUploader(props: FileUploaderProps) {
         }
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const isDisabled = disabled || (files?.length ?? 0) >= maxFileCount;
 
   return (
-    <div className="relative flex flex-col gap-6 overflow-hidden">
+    <div className="relative flex flex-col gap-6 overflow-hidden p-4">
       <Dropzone
         onDrop={onDrop}
         accept={accept}
@@ -231,14 +235,10 @@ export function FileUploader(props: FileUploaderProps) {
                 </div>
                 <div className="flex flex-col gap-px">
                   <p className="font-medium text-muted-foreground">
-                    Drag {`'n'`} drop files here, or click to select files
+                    Drop files here or click to choose files from your device.
                   </p>
                   <p className="text-sm text-muted-foreground/70">
-                    You can upload
-                    {maxFileCount > 1
-                      ? ` ${maxFileCount === Number.POSITIVE_INFINITY ? "multiple" : maxFileCount}
-                      files`
-                      : " a file"}
+                    Files can be up to {formatBytes(maxSize)} each.
                   </p>
                 </div>
               </div>
